@@ -1,0 +1,493 @@
+<0>
+1:::You decide to search for Carlos by yourself.
+2:::You feel that Carlos is OK and want to meet with a Mountain Expedition expert.
+<1>
+3:::You and Runal want to search below the base camp in the valley.
+19:::You and Runal want to search above the base camp.
+<2>
+41:::You decide to go ahead with the expedition for the Yeti.
+42:::You decide to postpoe the expedition to let the Yeti calm down and go on to the Terai region in search for tigers.
+<3>
+4:::You decide to ignore the message and go to look for Carlos.
+7:::You obey the message and climb back up to the base camp to wait for Carlos.
+<4>
+5:::Continue.
+<5>
+6:::Continue.
+<7>
+8:::You decide to follow the Yeti.
+9:::You want to have a plan.
+15:::You decide to return to the base camp and the helicopter.
+<8>
+12:::You decide to retreat but want something more.
+13:::You decide to retreat and go for more help.
+14:::You give the special bird call whistle that you and Carlos use as your emergency code.
+<9>
+10:::You hesitate.
+11:::You decide to go inside.
+<15>
+16:::You want to go back.
+17:::You are not sure what to do.
+18:::You decide to follow the prints.
+<19>
+20:::You wait and decide to talk it over with Carlos.
+24:::You stay there and look around.
+27:::You want to know more about Sangee.
+30:::You ask Sangee to come along in your expedition.
+<20>
+21:::Continue.
+<21>
+22:::You make up a fantastic story.
+23:::You insist that you know nothing.
+<24>
+25:::Continue.
+<25>
+26:::Continue.
+<27>
+28:::Continue.
+<28>
+29:::Continue.
+<30>
+31:::You talk with Sangee to kown more about the Yeti. 
+32:::You decide to go to the Annapurna region.
+38:::You decide to go to the Everest region.
+<31>
+33:::You do not know what to do.
+34:::You want to take a picture of the creature.
+35:::You decide to grab an ice axe and try to frighten the creature.
+<32>
+36:::You want to response to their help.
+37:::You decide to let Sangee return to Pokhara for help.
+<38>
+39:::You decide to take the risk.
+40:::You can't decide. 
+<41>
+43:::You accept Runal's offer to join you.
+44:::You decline Runal's offer to join you.
+<42>
+55:::Continue.
+<43>
+49:::You are ready for the secret knowledge of the Yeti.
+53:::You reject the offer of secret knowledge.
+<44>
+45:::You try to make amends and end up inviting him to accompany you.
+47:::You stick to your decision.
+<45>
+46:::Continue.
+<47>
+48:::Continue.
+<49>
+50:::You are not prepared to change your life forever.
+51:::You agree to take the journey.
+52:::You do not know what to do.
+<53>
+54:::Continue.
+<55>
+56:::Continue.
+<56>
+57:::You split up.
+58:::You stay together.
+<100>
+101:::You agree to go on tomorrow's plane for Paris.
+152:::You hesitate, while demanding more time, information, and extra help.
+157:::You want to help them but need more information.
+<101>
+102:::You accept his offer and believe you make the right choice.
+123:::You are not sure but still accept his offer.
+130:::You make excuses and refuse his help.
+<102>
+103:::You take a seat on the left near the door.
+117:::You sit with your back to the wall. 
+<103>
+104:::You grab a chair to defend yourself. 
+106:::You race for the nearest exit and believe you can get out of it.
+111:::You race for the nearest exit and think someone will come to help you.
+<104>
+105:::Continue;
+<106>
+107:::You decide to go to Morocco.
+108:::You want to be back to talk with Molotawa and are willing to take any risk.
+109:::You want to be back to talk with Molotawa and are still interested in finding the jewels.
+110:::You hesitate going back to talk with Molotawa.
+<111>
+112:::You hesitate and then go peacefully.
+113:::You hesitate and want to work out a plan.
+114:::You hesitate and not sure what to do.
+115:::You hesitate and would like to fight.
+116:::Fight it out.
+<117>
+118:::Continue.
+<118>
+119:::You try to contact the Nabooti at all cost.
+120:::You think about it and decide to contact the Nabooti.
+121:::You hesitate then decide to search in Dakar.
+122:::You decide to search in Dakar on your own.
+<123>
+124:::Continue.
+<124>
+125:::You go to the Mountains of the Moon.
+128:::You travel o the headwaters of the Zaire River.
+<125>
+126:::You ignore the warning and go into the hut.
+127:::You heed Ouobessa and refuse to enter.
+<128>
+129:::Continue.
+<130>
+131:::Yo go to the jet.
+137:::They seems friendly to you but you tell them that there must be some mistake.
+140:::You tell them that there must be some mistake and try to drift off into the crowd.
+<131>
+132:::You give the ivory piece to the blind woman.
+135:::You decide to keep it for now and use it later.
+<132>
+133:::You decide to obey him.
+134:::You decide to run for the door.
+<135>
+136:::Continue.
+<137>
+138:::Continue.
+<138>
+139:::Continue.
+<140>
+141:::You accept the offer of police protection and would like to find the jewels at all cost.
+142:::You accept the offer of police protection and believe in peace.
+149:::You travel to Morocco alone, but accept the special phone number.
+<141>
+143:::You go to meet the African People's Federation.
+144:::You skip the proposed meeting and push on for Morocco although it might be dangerous.
+145:::You skip the proposed meeting and push on for Morocco in the hope of finding the jewels.
+<142>
+146:::You follow the instructions in the note and want to play it safe.
+147:::You follow the instructions in the note at all cost.
+148:::You wait for Raoul to return.
+<149>
+150:::You go on in.
+151:::You ring the bell again and wait.
+<152>
+153:::Continue.
+<153>
+154:::Continue.
+<154>
+155:::Continue.
+<155>
+156:::Continue.
+<157>
+158:::Continue.
+<158>
+159:::You decide to leave without getting the aid of the police.
+162:::You work out your own plan and leave without getting the aid of the police.
+163:::You get in touch with the police.
+<159>
+160:::Continue.
+<160>
+161:::Continue.
+<162>
+167:::You decide to skip Paris and head directly for Morocco.
+169:::You go up to Paris according to Peter and Lucy's plan and try to be brave.
+171:::You go up to Paris according to Peter and Lucy's plan and play it safe.
+<163>
+164:::Continue.
+<164>
+165:::You agree to meet him in Morocco.
+166:::You pressure him to meet you in Paris.
+<167>
+168:::Continue.
+<169>
+170:::Continue.
+<171>
+172:::You keep on going up the steps of the plane.
+173:::You run for it and stay in Greece for a rest.
+174:::You run for it then try to go back home.
+<200>
+201:::You dash off to Croyd.
+206:::You delay departure to study at the Space Academy.
+<201>
+202:::Continue.
+<202>
+203:::Continue.
+<203>
+204:::Continue.
+<204>
+205:::Continue.
+<206>
+207:::You decide to attend the Space Academy.
+219:::You choose to explore the knowledge within yourself.
+<207>
+208:::You choose to join the research program.
+216:::You choose Command School.
+<208>
+209:::You choose B.
+211:::You choose A.
+<209>
+210:::Continue.
+<211>
+212:::You and Mermah join the forces that will fight on land.
+213:::You and Mermah join the forces although you hesitate to fight or not.
+214:::You and Mermah join the forces but you don't want to fight.
+215:::You sign up with the rocket ship crew.
+<216>
+217:::Continue.
+<217>
+218:::Continue.
+<219>
+220:::Continue.
+<220>
+221:::You choose to go back in time 125 million years to the age of the dinosaurs.
+223:::You are willing to chance it, and go back to an unknown past.
+<221>
+222:::You hit the "Time Return button".
+225:::You hit the "Erase button".
+<223>
+224:::Continue.
+<226>
+227:::You try to return to the mother ship then wait for help.
+229:::You try to return to the mother ship then start from there.
+228:::You rely on and trust your instinct to go ahead.
+<227>
+230:::You decide to go with them and be prepared.
+231:::You decide to go willingly.
+233:::You decide to go with them since you believe they are harmless.
+<228>
+275:::You wait and hope to get through the shower.
+285:::You decide to radio for help.
+<229>
+260:::You choose the light/island with hesitation.
+264:::You trust your instinct and follow the light/island.
+<230>
+237:::Continue.
+<231>
+244:::You decide to join them in their search for help.
+245:::You refuse to go with them.
+<232>
+235:::You continue to destroy the hostile creatures.
+236:::You just want to disable them and take command.
+<233>
+234:::Continue.
+<234>
+232:::Continue.
+<237>
+238:::You think the sound is friendly.
+239:::You think the sound is not friendly.
+<238>
+240:::You try to break the light vehicle's hold on you and return to your craft.
+241:::You go on. 
+<239>
+242:::You choose room 99.
+243:::You flip and choose 100.
+<244>
+246:::You are attracted to the risks of investigating a small star.
+248:::You choose the mission to an Earth-type planet since it seems easier to escape.
+249:::You choose the mission to an Earth-type planet but do not intend to escape.
+<245>
+254:::You pay no attention to their words.
+256:::You seek revenge to destroy the cause of the curse.
+<246>
+247:::Continue.
+<248>
+250:::You choose to stay and find out what's going on.
+251:::You have one secret weapon left that you have not used. If you choose to use it.
+<249>
+252:::You question the student.
+253:::You question the politician.
+<254>
+255:::Continue.
+<256>
+257:::You form a battle group with them and search for the ship and its creatures that caused you trouble.
+258:::You forget the past, and forge ahead with them as space adventurers (read 'pirates' if you wish).
+259:::You forget the past, and feel exicited to go ahead with them as space adventurers.
+<260>
+261:::Continue.
+<261>
+262:::Continue.
+<262>
+263:::Continue.
+<264>
+265:::You will risk going into the future.
+269:::You want the comfort of the past.
+<265>
+266:::Continue.
+<266>
+267:::You believe in the future.
+268:::You doubt what's going on.
+<269>
+270:::You choose to see the universe two billion years ago.
+272:::You want to see the past one hundred years.
+<270>
+271:::Continue.
+<272>
+273:::You choose to watch the future.
+274:::You want to go elsewhere.
+<275>
+276:::You decide to join the space circus entertainers.
+279:::You decide to throw your luck with the caravan.
+<276>
+277:::Continue.
+<277>
+278:::Continue.
+<279>
+280:::You decide to stay on Earth.
+283:::You decide to leave.
+<280>
+281:::You stay.
+282:::You leave.
+<283>
+284:::Continue.
+<285>
+286:::You continue your journey to Kenda.
+290:::You decide to go on to Axle with them and you think you are immune to the disease.
+291:::You decide to go on to Axle with them while you do not think you are immune to the disease.
+<286>
+287:::Continue.
+<287>
+288:::You make a run for it.
+289:::You stay on as negotiator.
+<290>
+292:::You go in search of the delegates.
+295:::You search for the sources of pollution.
+<291>
+298:::You conduct a computer search for the cause of the disease.
+300:::You devise a plan for escape before you are captured.
+<292>
+293:::You choose to conduct a cleansing operation.
+294:::You decide to search the past to find cause of the plague or whatever is ruining this civilization.
+<295>
+296:::You try to get the remaining Axlians to make changes to stop pollution.
+297:::You feel that this is a problem for the Galactic Court.
+<298>
+299:::Continue.
+<300>
+301:::You really believe that you can find the cure.
+302:::You don't really think that anything can be done.
+<400>
+401:::You decide to explore the ledge where the Seeker has come to rest.
+421:::You decide to cut loose from the Maray and dive with the Seeker into the canyon in the ocean floor.
+<401>
+402:::Continue.
+<402>
+403:::You decide to signal Maray to pull you up at top speed.
+409:::You decide to fight the squid with your spear gun.
+412:::You decide to fight the squid with your spear gun, regreting taking the trip.
+<403>
+404:::You try to get help from the dolphin.
+405:::You decide to carry on alone swimming to the surface.
+<404>
+407:::You decide to give up the expedition.
+408:::You decide to dive again the next day.
+<405>
+406:::Continue.
+<409>
+410:::Continue.
+<410>
+411:::Continue.
+<412>
+413:::You hesitate, but still go abroad the Greek ship.
+415:::You cannot resist going abroad the Greek ship.
+419:::You return to the surface and report your findings.
+<413>
+414:::Continue.
+<415>
+416:::You try to turn back.
+417:::You hesitate but continue on this trip to the center of the earth.
+418:::You continue on this trip to the center of the earth.
+<419>
+420:::Continue.
+<421>
+422:::You investigate the bubbles and believe they will lead you to something.
+429:::You investigate the bubbles and you realize something happens around you.
+469:::You investigate the bubbles.
+437:::You cautiously investigate the grotto with the round entrance.
+441:::You investigate the grotto with the round entrance at all cost.
+445:::You investigate the grotto with the round entrance and believe in peace.
+<422>
+423:::You decide to take the depth readings.
+466:::You decide to analyze the bubbles.
+<423>
+424:::You decide to descend into the hole.
+427:::You decide to return to the surface.
+<424>
+425:::Continue.
+<427>
+428:::Continue.
+<429>
+430:::Continue.
+<430>
+431:::You decide to join the Nodoors.
+432:::You decide to remain with the Atlanteans and perhaps get a chance to escape.
+<431>
+433:::You decide to escape.
+434:::You decide to accept their offer.
+<432>
+435:::You decide to stay and spend your life researching the history and secrets of Atlantis.
+436:::You deciede to excape.
+<437>
+438:::You decide to use the laser light.
+442:::You decide to cruise further into the grotto.
+<438>
+439:::Continue.
+<439>
+440:::Continue.
+<441>
+453:::Continue.
+<442>
+443:::Continue.
+<443>
+444:::Continue.
+<445>
+446:::Continue.
+<446>
+447:::You decide to go on and investigate what might be Atlantis.
+450:::You decide to retreat.
+<447>
+448:::You agree to the operation
+449:::You go to the zoo.
+<450>
+451:::Continue.
+<453>
+454:::You rush back to the Seeker trying to escape danger.
+458:::You hurry in, trying to reach the secret passageway.
+459:::You hesitate and try to keep alert and be prepared.
+<454>
+455:::You try to escape from the Seeker and go to the surface on your own.
+456:::You decide to wait on board the Seeker for help from the Maray and believe you will be saved.
+457:::You are terrified and wait on board the Seeker for help from the Maray.
+<458>
+460:::You accept the King's offer and work for him.
+461:::You refuse and try to overthrow the King.
+462:::You refuse and would like to go back to your own world.
+<459>
+463:::You accept their wish to become their leader and believe you will succeed.
+464:::You accept their wish to become their leader although you are not sure if you can succeed.
+465:::You decide to help them in the planning, but also to escape from this sad world.
+<466>
+467:::Continue.
+<467>
+468:::Continue.
+<469>
+470:::You try to surface.
+480:::You explore.
+<470>
+471:::You keep struggling towards the surface.
+474:::You cut the kelp.
+475:::You rest quietly, gain strength, and work out a plan.
+<471>
+472:::Continue.
+<474>
+476:::You use the laser pistol to blast a hole in the whirlpool wall.
+477:::You continue to struggle.
+<475>
+478:::You try to return to the surface.
+479:::You set out to explore this strange area.
+<480>
+481:::You decide to return to the surface.
+482:::You follow them into the city of Atlantis.
+<481>
+483:::You wish to prove yourself and use your money for another expedition.
+484:::You are attracted by the deepsea and want to use your money for another expedition.
+485:::You use your money for another expedition, still hoping to find the lost city.
+491:::You decide to retire and lead a life of ease.
+<482>
+486:::You submit to the injection and want to become a farmer in Atlantis.
+487:::You submit to the injection and want to become a musician in Atlantis.
+488:::You submit to the injection and want to journey with them through time and space to their planet in your own body.
+489:::You submit to the injection and want to journey with them through time and space to their planet in an energy form.
+490:::You decline.
