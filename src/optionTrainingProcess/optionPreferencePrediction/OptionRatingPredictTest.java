@@ -5,15 +5,14 @@
 package optionTrainingProcess.optionPreferencePrediction;
 
 import java.util.ArrayList;
-import optionTrainingProcess.DataCreator;
-import optionTrainingProcess.DataProcess;
-import optionTrainingProcess.GenerateStoryOptionRatingData;
-import optionTrainingProcess.optionPreferencePrediction.kmean.KMean;
-import tools.PrefixUtil;
-import prefix.*;
+import nmf.NMF;
+import nmf.NMFModel;
+import no.uib.cipr.matrix.DenseMatrix;
 import optionTrainingProcess.*;
 import optionTrainingProcess.optionPreferencePrediction.kmean.MatrixTools;
 import optionTrainingProcess.selectionPrediction.NearestNeighbor;
+import prefix.*;
+import tools.PrefixUtil;
 
 /**
  *
@@ -81,6 +80,36 @@ public class OptionRatingPredictTest {
         return all;
     }
     
+    private double[] getNMFPredict(NMFModel nmfm, double[] player){
+        double[][] td = new double[player.length][1];
+        for(int i = 0; i < td.length; i++){
+            td[i][0] = player[i];
+        }
+        DenseMatrix test = new DenseMatrix(td);
+        DenseMatrix predict = NMF.nmf_test(nmfm, test);
+        double[] p = predict.getData();
+        return p;
+    }
+    
+    public Results NMFTest(NMFModel nmfm){
+        Results all = new Results();
+        for(int j = 0; j < testData.size(); j++){
+            System.out.println("Process player: " + j);
+            ArrayList<Prefix> player = testData.get(j);
+            for(int k = startPredictNum; k < player.size()-1; k++){
+                
+                if(player.get(k).options == null){
+                    continue;
+                }
+                double[] cPlayerOption;
+                cPlayerOption = GenerateStoryOptionRatingData.generateOptionRatings(player, k);
+                Results r = getAccuracy(player.get(k), getNMFPredict(nmfm, cPlayerOption));
+                all.add(r);
+            }
+        }        
+        return all;        
+        
+    }
     
     private Results getAccuracy(Prefix p, double[] predict){
         PPOptions ppo = p.options;
@@ -131,8 +160,13 @@ public class OptionRatingPredictTest {
 //            double[][] centers = orpt.KMeanClusterTrain();
 //            Results r = opt.KMeanTest(centers);
 // Nearest neighbor test
-            double[][] data = orpt.NearestNeighborTrain();
-            Results r = opt.NearestNeighborTest(data);
+//            double[][] data = orpt.NearestNeighborTrain();
+//            Results r = opt.NearestNeighborTest(data);
+//            all.add(r);
+            
+// NMF test
+            NMFModel nmfm = orpt.NMFTrain();
+            Results r = opt.NMFTest(nmfm);
             all.add(r);
         }
         float accuracy = all.numCorrect / (all.numCorrect + all.numWrong);
