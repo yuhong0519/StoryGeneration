@@ -44,11 +44,11 @@ public class OptionRatingPredictTrain {
         return MatrixTools.transpose(getOptionRatings());
     }
     
-    public NMFModel NMFTrain(){
+    public NMFModel NMFTrain(int nmfDim){
         double[][] data = getOptionRatings();
 //        percent of training vs. validation data
         double splitP = 0.8;
-        int nmfDim = 5;
+//        int nmfDim = 5;
         NMFModel nmfm = new NMFModel();
         nmfm.dim = nmfDim;
         double[][] NMFtrainData = new double[data.length][data[0].length];

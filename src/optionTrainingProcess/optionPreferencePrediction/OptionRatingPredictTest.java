@@ -59,6 +59,9 @@ public class OptionRatingPredictTest {
         }
         for(int i = 0; i < ret.length; i++){
             ret[i] /= n.length;
+            if(player[i] != 0){
+                ret[i] = player[i];
+            }
         }
         return ret;
     }
@@ -140,7 +143,9 @@ public class OptionRatingPredictTest {
                 else{
                     r.numWrong++;
                 }
+                
             }
+            r.addMSE((player[i]-predict[i])*(player[i]-predict[i]));
         }
         return r;
     }
@@ -156,21 +161,23 @@ public class OptionRatingPredictTest {
             DataCreator.splitData(allprefix, train, test, splitD[i]);
             OptionRatingPredictTrain orpt = new OptionRatingPredictTrain(train);
             OptionRatingPredictTest opt = new OptionRatingPredictTest(test);
+            System.out.println("***********Iteration: " + i + " **************************");
 //Kmean test
 //            double[][] centers = orpt.KMeanClusterTrain();
 //            Results r = opt.KMeanTest(centers);
 // Nearest neighbor test
-//            double[][] data = orpt.NearestNeighborTrain();
-//            Results r = opt.NearestNeighborTest(data);
-//            all.add(r);
+            double[][] data = orpt.NearestNeighborTrain();
+            Results r = opt.NearestNeighborTest(data);
+            all.add(r);
             
 // NMF test
-            NMFModel nmfm = orpt.NMFTrain();
-            Results r = opt.NMFTest(nmfm);
-            all.add(r);
+//            NMFModel nmfm = orpt.NMFTrain(5);
+//            Results r = opt.NMFTest(nmfm);
+//            all.add(r);
         }
         float accuracy = all.numCorrect / (all.numCorrect + all.numWrong);
         System.out.println("Right: " + all.numCorrect + ", Wrong: " + all.numWrong + ", Accuracy: " + accuracy);
+        System.out.println("RMSE: " + all.getRMSE());
     }
     
 }
