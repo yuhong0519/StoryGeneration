@@ -2,18 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess.selectionPrediction;
+package optionTraining.selectionPrediction;
 
 /**
  *
  * @author Hong Yu
  */
+import optionTraining.DataCreator;
+import optionTraining.Results;
+import optionTraining.DataProcess;
 import java.util.*;
 import nmf.*;
 import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.*;
-import optionTrainingProcess.*;
-import optionTrainingProcess.optionPreferencePrediction.kmean.MatrixTools;
+import optionTraining.kmean.MatrixTools;
 import prefix.*;
 import tools.*;
 

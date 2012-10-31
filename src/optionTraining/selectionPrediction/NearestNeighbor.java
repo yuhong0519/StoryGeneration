@@ -2,17 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess.selectionPrediction;
+package optionTraining.selectionPrediction;
 
 /**
  *
  * @author Hong Yu
  */
-import optionTrainingProcess.selectionPrediction.ProbabilityModel;
+import optionTraining.selectionPrediction.ProbabilityModel;
 import java.util.*;
-import optionTrainingProcess.DataCreator;
-import optionTrainingProcess.DataProcess;
-import optionTrainingProcess.Results;
+import optionTraining.DataCreator;
+import optionTraining.DataProcess;
+import optionTraining.Results;
 import prefix.*;
 
 public class NearestNeighbor {
@@ -20,7 +20,7 @@ public class NearestNeighbor {
     int numReadStories = 0;
     final int numPlotPoints = 6;
     
-    float computeDistance(float[] d1, float[] d2){
+    public float computeDistance(float[] d1, float[] d2){
         float dist = 0;
         for(int i = 0; i < d1.length; i++){
             if(d1[i] != 0 && d2[i] != 0){
@@ -32,7 +32,7 @@ public class NearestNeighbor {
         
     }
     
-    void addNeibor(ArrayList<float[]> list, float[] data, float[] newNeibor){
+    private void addNeibor(ArrayList<float[]> list, float[] data, float[] newNeibor){
         float dist = computeDistance(data, newNeibor);
         
         if(list.size() == 0){
@@ -102,7 +102,7 @@ public class NearestNeighbor {
         return ret;
     }
     
-    int predict(ArrayList<float[]> neibors, int numOptions, int numBefore, int numPositions){
+    private int predict(ArrayList<float[]> neibors, int numOptions, int numBefore, int numPositions){
         if(neibors.isEmpty()){
             return -1;
         }
@@ -124,7 +124,7 @@ public class NearestNeighbor {
         return predict;
     }
     
-    int predict(ArrayList<float[]> neibors, int numOptions, int numBefore, int numPositions, float[] player){
+    private int predict(ArrayList<float[]> neibors, int numOptions, int numBefore, int numPositions, float[] player){
         if(neibors.isEmpty()){
             return -1;
         }
@@ -168,7 +168,7 @@ public class NearestNeighbor {
             return predict;
     }
         
-    Results playerPrediction(ArrayList<float[]> trainData, ArrayList<Prefix> player){
+    private Results playerPrediction(ArrayList<float[]> trainData, ArrayList<Prefix> player){
         Results r = new Results();
 //        int unknown = 0, numCorrect = 0, numWrong = 0;
         int startnum = numPlotPoints*numReadStories-1;
@@ -207,7 +207,7 @@ public class NearestNeighbor {
     }
     
     
-    void startProcess(){
+    private void startProcess(){
         ArrayList<ArrayList> alltrain = new ArrayList<ArrayList>();
         ArrayList<ArrayList> alltest = new ArrayList<ArrayList>();
         ArrayList<ArrayList> alltestData = DataCreator.createProbVectorData(alltrain, alltest);

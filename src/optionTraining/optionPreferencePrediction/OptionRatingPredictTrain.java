@@ -2,21 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess.optionPreferencePrediction;
+package optionTraining.optionPreferencePrediction;
 
 /**
  *
  * @author Bunnih
  */
 
+import optionTraining.GenerateStoryOptionRatingData;
 import java.io.FileReader;
 import java.util.*;
 import nmf.*;
 import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.sparse.CompColMatrix;
-import optionTrainingProcess.*;
-import optionTrainingProcess.optionPreferencePrediction.kmean.KMean;
-import optionTrainingProcess.optionPreferencePrediction.kmean.MatrixTools;
+import optionTraining.kmean.KMean;
+import optionTraining.kmean.MatrixTools;
 import x.na.SparseMatrixBuilder;
 
 public class OptionRatingPredictTrain {

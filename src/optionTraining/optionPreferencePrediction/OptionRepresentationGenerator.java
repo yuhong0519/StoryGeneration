@@ -2,14 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess.optionPreferencePrediction;
+package optionTraining.optionPreferencePrediction;
 
 /**
  *
  * @author Bunnih
  */
 import java.util.*;
-import optionTrainingProcess.GenerateStoryOptionRatingData;
+import optionTraining.GenerateStoryOptionRatingData;
 
 public class OptionRepresentationGenerator {
     private static OptionRepresentationGenerator org = null;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess.selectionPrediction;
+package optionTraining.selectionPrediction;
 
 /**
  *
@@ -11,9 +11,9 @@ package optionTrainingProcess.selectionPrediction;
 import java.util.*;
 import prefix.*;
 import java.io.*;
-import optionTrainingProcess.DataCreator;
-import optionTrainingProcess.DataProcess;
-import optionTrainingProcess.Results;
+import optionTraining.DataCreator;
+import optionTraining.DataProcess;
+import optionTraining.Results;
 import tools.*;
 
 public class SVMPrediction {
@@ -25,13 +25,11 @@ public class SVMPrediction {
         
         for(int i = 0; i < data.size(); i++){
             ArrayList<Prefix> player = data.get(i);
-           
             for(int j = 0; j < player.size() - 1; j++){
                 PPOptions ppo = player.get(j).options;
                 if(ppo == null || ppo.getAllOptions().size() < 2){
                     continue;
-                }
-                
+                }                
                 int numOptions = ppo.getAllOptions().size();
                 int numBefore = DataProcess.getExistNum(player, player.get(j), j);
 
@@ -50,9 +48,6 @@ public class SVMPrediction {
                         svmd[0] = 1;
                     }
                     svmd[1] = qid;
-                    
-
-
                     svmd[2] = numBefore;
                     svmd[3] = numPosition;
 
@@ -71,8 +66,6 @@ public class SVMPrediction {
                 qid++;
                 
             }
-            
-            
             
         }
         return SVMData;

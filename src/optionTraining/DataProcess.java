@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess;
+package optionTraining;
 import tools.CommonUtil;
 import tools.PrefixUtil;
 import java.io.*;

@@ -2,15 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess.optionPreferencePrediction;
+package optionTraining.optionPreferencePrediction;
 
+import optionTraining.DataCreator;
+import optionTraining.Results;
+import optionTraining.GenerateStoryOptionRatingData;
+import optionTraining.DataProcess;
 import java.util.ArrayList;
 import nmf.NMF;
 import nmf.NMFModel;
 import no.uib.cipr.matrix.DenseMatrix;
-import optionTrainingProcess.*;
-import optionTrainingProcess.optionPreferencePrediction.kmean.MatrixTools;
-import optionTrainingProcess.selectionPrediction.NearestNeighbor;
+import optionTraining.kmean.MatrixTools;
+import optionTraining.selectionPrediction.NearestNeighbor;
 import prefix.*;
 import tools.PrefixUtil;
 

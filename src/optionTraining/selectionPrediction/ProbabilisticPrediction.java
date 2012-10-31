@@ -2,25 +2,25 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess.selectionPrediction;
+package optionTraining.selectionPrediction;
 
 /**
  *
  * @author Hong Yu
  */
-import optionTrainingProcess.selectionPrediction.ProbabilityModel;
+import optionTraining.selectionPrediction.ProbabilityModel;
 import java.util.*;
 import PPCA.*;
-import optionTrainingProcess.DataCreator;
-import optionTrainingProcess.DataProcess;
-import optionTrainingProcess.Results;
+import optionTraining.DataCreator;
+import optionTraining.DataProcess;
+import optionTraining.Results;
 import prefix.*;
 import tools.*;
 
 public class ProbabilisticPrediction {
 
     
-    static void probModelTest(ArrayList<ArrayList> test, ProbabilityModel pm, Results r){
+    private static void probModelTest(ArrayList<ArrayList> test, ProbabilityModel pm, Results r){
         int numCorrect = 0;
         int numWrong = 0;
         int unknown = 0;
@@ -94,7 +94,7 @@ public class ProbabilisticPrediction {
    
    }
     
-   static void modelOptionProbabilityModel(){
+   private static void modelOptionProbabilityModel(){
         ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
         int numIter = 50;
         Results r = new Results();

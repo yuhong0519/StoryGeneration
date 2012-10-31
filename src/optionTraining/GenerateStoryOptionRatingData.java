@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess;
+package optionTraining;
+import optionTraining.optionPreferencePrediction.OptionList;
+import optionTraining.optionPreferencePrediction.OptionListOperation;
 import java.io.*;
 import java.util.*;
-import optionTrainingProcess.optionPreferencePrediction.*;
 import prefix.*;
 import tools.CommonUtil;
 import tools.PrefixUtil;

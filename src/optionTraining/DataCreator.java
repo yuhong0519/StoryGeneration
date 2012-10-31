@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTrainingProcess;
+package optionTraining;
 
 /**
  *
  * @author Hong Yu
  */
-import optionTrainingProcess.selectionPrediction.ProbabilityModel;
+import optionTraining.selectionPrediction.ProbabilityModel;
 import java.util.*;
 import prefix.*;
 import tools.*;
