@@ -39,6 +39,13 @@ public class OptionRatingPredictTrain {
         
     }
     
+    public double[][] KMeanClusterTrain(int numC){
+        KmeanClass = numC;
+        double[][] data = getOptionRatings();
+        return KMean.kmean(data, KmeanClass);
+        
+    }
+    
 //    return number of players * number of option items
     public double[][] NearestNeighborTrain(){
         return MatrixTools.transpose(getOptionRatings());
@@ -47,7 +54,7 @@ public class OptionRatingPredictTrain {
     public NMFModel NMFTrain(int nmfDim){
         double[][] data = getOptionRatings();
 //        percent of training vs. validation data
-        double splitP = 0.8;
+        double splitP = 0.9;
 //        int nmfDim = 5;
         NMFModel nmfm = new NMFModel();
         nmfm.dim = nmfDim;

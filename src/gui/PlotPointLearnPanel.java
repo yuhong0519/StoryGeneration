@@ -8,7 +8,7 @@
  *
  * Created on Nov 18, 2011, 5:01:42 PM
  */
-package GUI;
+package gui;
 import javax.swing.JSlider;
 /**
  *
@@ -65,7 +65,7 @@ public class PlotPointLearnPanel extends javax.swing.JPanel {
         StoryTextArea.setBackground(new java.awt.Color(204, 204, 204));
         StoryTextArea.setColumns(1000);
         StoryTextArea.setEditable(false);
-        StoryTextArea.setFont(new java.awt.Font("Times New Roman", 0, 18));
+        StoryTextArea.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         StoryTextArea.setLineWrap(true);
         StoryTextArea.setRows(7);
         StoryTextArea.setText(story.showStory());

@@ -28,7 +28,18 @@ public class OptionRatingPredictTest {
     
     private double[] getKMeanPredict(double[][] centers, double[] player){
         int nearest = MatrixTools.getNearest(centers, player);
-        return centers[nearest];
+        double[] ret = new double[player.length];
+        
+        for(int i = 0; i < ret.length; i++){
+            if(player[i]  != 0){
+                ret[i] = player[i];
+            }
+            else {
+                ret[i]  = centers[nearest][i];
+            }
+        }
+        
+        return ret;
     }
     
     public Results KMeanTest(double[][] centers){
@@ -65,8 +76,9 @@ public class OptionRatingPredictTest {
         }
         return ret;
     }
-    public Results NearestNeighborTest(double[][] data){
-        int numNeibors = 11;
+    
+    public Results NearestNeighborTest(double[][] data, int numNeibors){
+//        int numNeibors = 11;
         Results all = new Results();
         for(int j = 0; j < testData.size(); j++){
             ArrayList<Prefix> player = testData.get(j);
@@ -96,6 +108,7 @@ public class OptionRatingPredictTest {
     
     public Results NMFTest(NMFModel nmfm){
         Results all = new Results();
+        diff = 0;
         for(int j = 0; j < testData.size(); j++){
             System.out.println("Process player: " + j);
             ArrayList<Prefix> player = testData.get(j);
@@ -128,7 +141,9 @@ public class OptionRatingPredictTest {
         return computeCorrectNum(playerPref, predictPref);
     }
     
-    double diff = 0.5;
+
+    
+    
     private Results computeCorrectNum(double[] player, double[] predict){
         Results r = new Results();
         
@@ -143,12 +158,31 @@ public class OptionRatingPredictTest {
                 else{
                     r.numWrong++;
                 }
+                if(player[i] == player[j] && Math.abs(predict[i] - predict[j]) > diff){
+                    diff += diffAdd;
+                }
+                else if(player[i] != player[j] && Math.abs(predict[i] - predict[j]) <= diff){
+                    diff -= diffAdd;
+                    if(diff < 0){
+                        diff = 0;
+                    }
+                }
                 
             }
+            
             r.addMSE((player[i]-predict[i])*(player[i]-predict[i]));
         }
         return r;
     }
+//     0: kmean. 1: Nearest neighbor. 2: NMF
+    static int algorithm = 0;
+    static int KmeanCluster = 2;
+    static int NNnum = 20;
+    static int NMFdim = 2;
+    
+    double diffAdd = 0.12;
+    double diff = 0.15;
+    
     
     public static void main(String[] args){
 
@@ -162,18 +196,28 @@ public class OptionRatingPredictTest {
             OptionRatingPredictTrain orpt = new OptionRatingPredictTrain(train);
             OptionRatingPredictTest opt = new OptionRatingPredictTest(test);
             System.out.println("***********Iteration: " + i + " **************************");
+            Results r = null;
 //Kmean test
-//            double[][] centers = orpt.KMeanClusterTrain();
-//            Results r = opt.KMeanTest(centers);
+            if(algorithm == 0){
+                double[][] centers = orpt.KMeanClusterTrain(KmeanCluster);
+                r = opt.KMeanTest(centers);
+            }
 // Nearest neighbor test
-            double[][] data = orpt.NearestNeighborTrain();
-            Results r = opt.NearestNeighborTest(data);
-            all.add(r);
+            else if(algorithm == 1){
+                double[][] data = orpt.NearestNeighborTrain();
+                r = opt.NearestNeighborTest(data, NNnum);
+            }
             
 // NMF test
-//            NMFModel nmfm = orpt.NMFTrain(5);
-//            Results r = opt.NMFTest(nmfm);
-//            all.add(r);
+            else if(algorithm == 2){
+                NMFModel nmfm = orpt.NMFTrain(NMFdim);
+                r = opt.NMFTest(nmfm);
+            }
+            all.add(r);            
+            float accuracy = all.numCorrect / (all.numCorrect + all.numWrong);
+            System.out.println("Right: " + all.numCorrect + ", Wrong: " + all.numWrong + ", Accuracy: " + accuracy);
+            System.out.println("RMSE: " + all.getRMSE());
+        
         }
         float accuracy = all.numCorrect / (all.numCorrect + all.numWrong);
         System.out.println("Right: " + all.numCorrect + ", Wrong: " + all.numWrong + ", Accuracy: " + accuracy);

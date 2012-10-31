@@ -14,10 +14,9 @@ import prefix.*;
 import tools.*;
 
 public class DataCreator {
+    
     public static ProbabilityModel computeProbModel(ArrayList<ArrayList> train){
         ProbabilityModel pm = new ProbabilityModel();
-        
-        
         for(int i = 0; i < train.size(); i++){
             ArrayList<Prefix> player = train.get(i);
            
@@ -36,9 +35,6 @@ public class DataCreator {
 //                pm.model[numBefore][numPosition][numOptions][selectedPreference-1] += 1;
                 pm.addOne(numBefore, numPosition, numOptions, selectedPreference-1);
             }
-            
-            
-            
         }
         pm.normalizeProb();
         return pm;
@@ -116,6 +112,8 @@ public class DataCreator {
     
     public static int numIter = 50;
     
+//    create training and testing data for option selection predicition. 
+//    Output: alltrain, alltest, allTestData
     public static ArrayList<ArrayList> createProbVectorData( ArrayList<ArrayList> alltrain, ArrayList<ArrayList> alltest){
         ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
         

@@ -60,22 +60,39 @@ public class ProbabilisticPrediction {
         r.numUnknown += unknown;
     }
     
-    static void splitData(ArrayList<ArrayList> allPrefix, ArrayList<ArrayList> train, ArrayList<ArrayList> test){
-        Random r = new Random();
-        double splitProb = 0.7;
-        for(int i = 0; i < allPrefix.size(); i++){
-            if(r.nextDouble() < splitProb){
-                train.add(allPrefix.get(i));
-            }
-            else{
-                test.add(allPrefix.get(i));
-            }
-        }
-                       
-    }
+//    static void splitData(ArrayList<ArrayList> allPrefix, ArrayList<ArrayList> train, ArrayList<ArrayList> test){
+//        Random r = new Random();
+//        double splitProb = 0.7;
+//        for(int i = 0; i < allPrefix.size(); i++){
+//            if(r.nextDouble() < splitProb){
+//                train.add(allPrefix.get(i));
+//            }
+//            else{
+//                test.add(allPrefix.get(i));
+//            }
+//        }
+//                       
+//    }
     
 
-        
+   public static int probPredict(ArrayList<ArrayList> train, ArrayList<Prefix> player){     
+                  
+       ProbabilityModel pm = DataCreator.computeProbModel(train);
+       int j = player.size() - 1;
+        PPOptions ppo = player.get(j).options;
+        if(ppo == null || ppo.getAllOptions().size() < 2){
+            return 0;
+        }
+
+        int numOptions = ppo.getAllOptions().size()-2;
+        int numBefore = DataProcess.getExistNum(player, player.get(j), j);
+        int numPosition = player.get(j).itemList.size()-1;
+
+
+        int predict = pm.getPrediction(numBefore, numPosition, numOptions);
+        return predict;
+   
+   }
     
    static void modelOptionProbabilityModel(){
         ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
@@ -98,7 +115,7 @@ public class ProbabilisticPrediction {
         
     }
    
-       public static void main(String[] args){
+     public static void main(String[] args){
 
             modelOptionProbabilityModel();
 

@@ -148,6 +148,25 @@ public class NearestNeighbor {
         int predict = pm.getPrediction(numBefore, numPositions, numOptions);
         return predict;
     }
+    
+//    return the predicted position of the selected. 0: select the highest rated, 1: select the second highest rated option...
+    public int NNPredict(ArrayList<ArrayList> train, ArrayList<Prefix> player){
+            ProbabilityModel pm = DataCreator.computePlayerProbModel(player);
+            float[] pmv = pm.modelVector();
+            ArrayList<float[]> trainData = DataCreator.computeProbVectorModel(train);
+            ArrayList<float[]> neibors = computeNeighbor(trainData, pmv);
+            
+            PPOptions ppo = player.get(player.size()-1).options;
+            
+            if(ppo == null || ppo.getAllOptions().size() < 2){
+                return 0;
+            }                
+            int numOptions = ppo.getAllOptions().size()-2;
+            int numBefore = DataProcess.getExistNum(player, player.get(player.size()-1), player.size()-1);
+            int numPosition = player.get(player.size()-1).itemList.size()-1;
+            int predict = predict(neibors, numOptions, numBefore, numPosition);
+            return predict;
+    }
         
     Results playerPrediction(ArrayList<float[]> trainData, ArrayList<Prefix> player){
         Results r = new Results();

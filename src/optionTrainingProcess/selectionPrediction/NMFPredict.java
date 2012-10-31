@@ -26,11 +26,24 @@ public class NMFPredict {
     static final int minRating = 0;
     
     boolean trainNMF = true;
+    private NMFModel nmfModel = null;
+    private ArrayList<ArrayList> trainData = null;
     
-
+    public NMFPredict(ArrayList<ArrayList> trainData){
+        this.trainData = trainData;
+    }
     
-    NMFModel trainNMF(ArrayList<float[]> train){
-//       int numPlayers = train.size();
+    
+    private NMFModel trainNMF(){
+        if(trainData == null){
+            System.err.println("Need to initialize trainData before training NMF");
+            return null;
+        }
+        ArrayList<float[]> train = DataCreator.computeProbVectorModel(trainData);
+       return trainNMF(train);
+    } 
+    
+    private NMFModel trainNMF(ArrayList<float[]> train){
        double splitP = 0.8;
        double[][] allData = new double[train.get(0).length][train.size()];
        double[][] trainData = new double[allData.length][allData[0].length];
@@ -50,11 +63,12 @@ public class NMFPredict {
        nmfm.dim = NMFdim;
        
        NMF.nmf_train(new CompColMatrix(new DenseMatrix(trainData)), new CompColMatrix(new DenseMatrix(validateData)), nmfm);
-
+       this.nmfModel = nmfm;
        return nmfm;
     } 
     
-    float[] testNMF(NMFModel nmfModel, float[] testPlayer){
+    
+    private float[] testNMF(NMFModel nmfModel, float[] testPlayer){
         float[] ret = new float[testPlayer.length];
         double[][] data = new double[testPlayer.length][1];
         for(int i = 0; i < testPlayer.length; i++){
@@ -74,7 +88,31 @@ public class NMFPredict {
         return ret;
     }
     
-    Results playerPrediction(NMFModel nmfModel, ArrayList<Prefix> player){
+    public int NMFPredict(ArrayList<Prefix> player){
+        if(nmfModel == null){
+            trainNMF();
+        }
+                    
+        int i = player.size() - 1;
+        PPOptions ppo = player.get(i).options;
+        if(ppo == null || ppo.getAllOptions().size() < 2){
+            return 0;
+        }
+
+        ProbabilityModel pm = DataCreator.computePlayerProbModel(player, i);
+        float[] pmv = pm.modelVector();
+        float[] predictPlayer = testNMF(nmfModel, pmv);
+        ProbabilityModel newPM = new ProbabilityModel(predictPlayer);
+
+        int numOptions = ppo.getAllOptions().size()-2;
+        int numBefore = DataProcess.getExistNum(player, player.get(i), i);
+        int numPositions = player.get(i).itemList.size()-1;
+        int predict = newPM.getPrediction(numBefore, numPositions, numOptions);
+        return predict;
+        
+    }
+    
+    private Results playerPrediction(NMFModel nmfm, ArrayList<Prefix> player){
         Results r = new Results();
 //        int unknown = 0, numCorrect = 0, numWrong = 0;
         int startnum = numPlotPoints*numReadStories-1;
@@ -89,7 +127,7 @@ public class NMFPredict {
             
             ProbabilityModel pm = DataCreator.computePlayerProbModel(player, i);
             float[] pmv = pm.modelVector();
-            float[] predictPlayer = testNMF(nmfModel, pmv);
+            float[] predictPlayer = testNMF(nmfm, pmv);
             ProbabilityModel newPM = new ProbabilityModel(predictPlayer);
                 
             int numOptions = ppo.getAllOptions().size()-2;
@@ -116,7 +154,7 @@ public class NMFPredict {
         return r;
     }
    
-    void startProcess(){
+    private void startProcess(){
         ArrayList<ArrayList> alltrain = new ArrayList<ArrayList>();
         ArrayList<ArrayList> alltest = new ArrayList<ArrayList>();
         ArrayList<ArrayList> alltestData = DataCreator.createProbVectorData(alltrain, alltest);
@@ -162,7 +200,7 @@ public class NMFPredict {
     
         
     public static void main(String[] args){
-        NMFPredict nmfp = new NMFPredict();
+        NMFPredict nmfp = new NMFPredict(null);
         nmfp.startProcess();
     }
     

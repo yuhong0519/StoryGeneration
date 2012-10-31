@@ -8,21 +8,26 @@
  *
  * Created on May 1, 2011, 3:25:11 PM
  */
-package GUI;
+package gui;
 
 import javax.swing.JSlider;
+import cfcontrol.*;
 
 /**
  *
  * @author Peng
  */
-public class StoryLearnPanel extends javax.swing.JPanel {
+public class StoryTestPanel extends javax.swing.JPanel {
     /** Story controller */
-    StoryControl story;
-    
+    StoryTestControl story;
+
     /** Creates new form StoryLearnPanel */
-    public StoryLearnPanel() {
-        story = new StoryControl();
+    public StoryTestPanel() {
+        story = new StoryTestControl();
+        
+        /* Data initialization goes here */
+        /* End initialization */
+        
         initComponents();
     }
 
@@ -43,18 +48,16 @@ public class StoryLearnPanel extends javax.swing.JPanel {
         RatingDescription = new javax.swing.JLabel();
         StoryPanelDescription = new javax.swing.JLabel();
 
-        StoryPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        StoryPanel.setMaximumSize(new java.awt.Dimension(62767, 62767));
+        StoryPanel.setAutoscrolls(true);
 
         StoryTextArea.setBackground(new java.awt.Color(204, 204, 204));
-        StoryTextArea.setColumns(1000);
+        StoryTextArea.setColumns(100);
         StoryTextArea.setEditable(false);
-        StoryTextArea.setFont(new java.awt.Font("Times New Roman", 0, 18));
+        StoryTextArea.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         StoryTextArea.setLineWrap(true);
         StoryTextArea.setRows(7);
         StoryTextArea.setText(story.showStory());
         StoryTextArea.setWrapStyleWord(true);
-        StoryTextArea.setBorder(null);
         StoryPanel.setViewportView(StoryTextArea);
 
         NextButton.setText("Next");
@@ -77,7 +80,7 @@ public class StoryLearnPanel extends javax.swing.JPanel {
         StoryRating.setPaintLabels(true);
         StoryRating.setPaintTicks(true);
         StoryRating.setSnapToTicks(true);
-        StoryRating.setToolTipText("Rate the story from1-5");
+        StoryRating.setToolTipText("Rate the story from 1-5");
         StoryRating.setValue(story.getRating());
         StoryRating.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -95,34 +98,34 @@ public class StoryLearnPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(PrevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(StoryRating, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(NextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(StoryPanelDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(205, 205, 205)
-                        .addComponent(PrevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(StoryRating, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(NextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(384, 384, 384)
-                        .addComponent(RatingDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(StoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)))
+                        .addComponent(StoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1061, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(403, 403, 403)
+                        .addComponent(RatingDescription)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(StoryPanelDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(StoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-                .addGap(11, 11, 11)
-                .addComponent(RatingDescription)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(StoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
+                .addComponent(RatingDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PrevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PrevButton)
+                    .addComponent(NextButton)
                     .addComponent(StoryRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
