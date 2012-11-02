@@ -22,24 +22,6 @@ public class GenerateStoryOptionRatingData {
         ArrayList<OptionItem> optionItemList = OptionListOperation.getOptionList().getOptionListArray();
         ArrayList<ArrayList> storyWOptions = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder );
         double data[][] = generateOptionRatings(storyWOptions);
-//                new double[optionItemList.size()][storyWOptions.size()];
-        
-//        for(int i = 0; i < storyWOptions.size(); i++){
-//            ArrayList<Prefix> people = storyWOptions.get(i);
-//            for(int j = 0; j < people.size(); j++){
-//                Prefix p = people.get(j);
-//                PPOptions ppo = p.options;
-//                if(ppo == null){
-//                    continue;
-//                }
-//                for(int k = 0; k < ppo.getAllOptions().size(); k++){
-//                    OptionItem oi = ppo.getAllOptions().get(k);
-//                    int index = Collections.binarySearch(optionItemList, oi);
-//                    data[index][i] = oi.getPreference();
-//                }
-//            }
-//            
-//        }
         CommonUtil.printObject(data, PrefixUtil.optionRatingFile);
     }
     
@@ -69,7 +51,7 @@ public class GenerateStoryOptionRatingData {
         return data;
     }
     
-    public static double[]  generateOptionRatings(ArrayList<Prefix> trainData, int num){
+    public static double[]  generatePlayerOptionRatings(ArrayList<Prefix> trainData, int num){
         ArrayList<OptionItem> optionItemList = OptionListOperation.getOptionList().getOptionListArray();
         double data[] = new double[optionItemList.size()];
                    
@@ -90,6 +72,10 @@ public class GenerateStoryOptionRatingData {
         return data;
     }
 
+        public static double[]  generatePlayerOptionRatings(ArrayList<Prefix> trainData){
+            return generatePlayerOptionRatings(trainData, trainData.size());
+        }
+        
     
 //    Generate rating file, number of prefixes * number of players
     static void generatePrefixRatingData(String path){

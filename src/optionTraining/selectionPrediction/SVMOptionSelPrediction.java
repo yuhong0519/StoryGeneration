@@ -16,7 +16,7 @@ import optionTraining.DataProcess;
 import optionTraining.Results;
 import tools.*;
 
-public class SVMPrediction {
+public class SVMOptionSelPrediction {
     int qid = 1;
     int numFeature = 9;
     ArrayList<float[]> computeSVMData(ArrayList<ArrayList> data){
@@ -313,7 +313,7 @@ public class SVMPrediction {
     }
     
     public static void main(String[] args){
-        SVMPrediction svmp = new SVMPrediction();
+        SVMOptionSelPrediction svmp = new SVMOptionSelPrediction();
 //        svmp.createSVMData();
         svmp.process();
     }

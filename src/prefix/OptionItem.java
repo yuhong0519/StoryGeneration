@@ -12,25 +12,9 @@ public class OptionItem implements Comparable<OptionItem>{
     private int optionID = -1;
     private int PPID = -1;
     private String option = null;
-    private int preference = 0;
+    private double preference = 0;
     private int prefixID;
-    
-    public void setPrefixID(int pID){
-        prefixID = pID;
-    }
-    
-    public int getPrefixID(){
-        return prefixID;
-    }
-    
-    public void setPreference(int p){
-        preference = p;
-    }
-    
-    public int getPreference(){
-        return preference;
-    }
-    
+
     public OptionItem(int oi, int pi, String o){
         optionID = oi;
         PPID = pi;
@@ -46,7 +30,7 @@ public class OptionItem implements Comparable<OptionItem>{
         optionID = oi.optionID;
         PPID = oi.PPID;
         option = oi.option;
-        preference = oi.getPreference();
+        preference = oi.getAccuratePreference();
         prefixID = oi.prefixID;
     }
     
@@ -54,6 +38,32 @@ public class OptionItem implements Comparable<OptionItem>{
         optionID = oi;
         option = o;
     }
+
+    
+    public void setPrefixID(int pID){
+        prefixID = pID;
+    }
+    
+    public int getPrefixID(){
+        return prefixID;
+    }
+    
+    public void setPreference(int p){
+        preference = p;
+    }
+    
+    public void setPreference(double p){
+        preference = p;
+    }
+    
+    public int getPreference(){
+        return (int)(Math.round(preference));
+    }
+    
+    public double getAccuratePreference(){
+        return preference;
+    }
+    
     
     public void setPPID(int id){
         PPID = id;

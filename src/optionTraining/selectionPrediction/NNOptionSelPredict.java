@@ -15,7 +15,7 @@ import optionTraining.DataProcess;
 import optionTraining.Results;
 import prefix.*;
 
-public class NearestNeighbor {
+public class NNOptionSelPredict {
     int numNeighbors = 16;
     int numReadStories = 0;
     final int numPlotPoints = 6;
@@ -233,7 +233,7 @@ public class NearestNeighbor {
     }
     
     public static void main(String[] args){
-        NearestNeighbor nn = new NearestNeighbor();
+        NNOptionSelPredict nn = new NNOptionSelPredict();
         nn.startProcess();
     }
     

@@ -13,7 +13,7 @@ import nmf.NMF;
 import nmf.NMFModel;
 import no.uib.cipr.matrix.DenseMatrix;
 import optionTraining.kmean.MatrixTools;
-import optionTraining.selectionPrediction.NearestNeighbor;
+import optionTraining.selectionPrediction.NNOptionSelPredict;
 import prefix.*;
 import tools.PrefixUtil;
 
@@ -29,7 +29,7 @@ public class OptionRatingPredictTest {
         this.testData = testData;
     }
     
-    private double[] getKMeanPredict(double[][] centers, double[] player){
+    public double[] getKMeanPredict(double[][] centers, double[] player){
         int nearest = MatrixTools.getNearest(centers, player);
         double[] ret = new double[player.length];
         
@@ -45,7 +45,7 @@ public class OptionRatingPredictTest {
         return ret;
     }
     
-    public Results KMeanTest(double[][] centers){
+    private Results KMeanTest(double[][] centers){
         Results all = new Results();
           for(int j = 0; j < testData.size(); j++){
                 ArrayList<Prefix> player = testData.get(j);
@@ -54,7 +54,7 @@ public class OptionRatingPredictTest {
                         continue;
                     }
                     double[] cPlayerOption;
-                    cPlayerOption = GenerateStoryOptionRatingData.generateOptionRatings(player, k);
+                    cPlayerOption = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, k);
                     Results r = getAccuracy(player.get(k), getKMeanPredict(centers, cPlayerOption));
                     all.add(r);
                 }
@@ -62,8 +62,8 @@ public class OptionRatingPredictTest {
           return all;
     }
     
-    private double[] getNNPredict(double[][] neibors, double[] player, int numNeibors){
-        NearestNeighbor nn = new NearestNeighbor();
+    public double[] getNNPredict(double[][] neibors, double[] player, int numNeibors){
+        NNOptionSelPredict nn = new NNOptionSelPredict();
         double[][] n = nn.computeNeighbor(neibors, player, numNeibors);
         double[] ret = new double[player.length];
         for(int i = 0; i < ret.length; i++){
@@ -80,7 +80,7 @@ public class OptionRatingPredictTest {
         return ret;
     }
     
-    public Results NearestNeighborTest(double[][] data, int numNeibors){
+    private Results NearestNeighborTest(double[][] data, int numNeibors){
 //        int numNeibors = 11;
         Results all = new Results();
         for(int j = 0; j < testData.size(); j++){
@@ -90,7 +90,7 @@ public class OptionRatingPredictTest {
                     continue;
                 }
                 double[] cPlayerOption;
-                cPlayerOption = GenerateStoryOptionRatingData.generateOptionRatings(player, k);
+                cPlayerOption = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, k);
                 Results r = getAccuracy(player.get(k), getNNPredict(data, cPlayerOption, numNeibors));
                 all.add(r);
             }
@@ -98,7 +98,7 @@ public class OptionRatingPredictTest {
         return all;
     }
     
-    private double[] getNMFPredict(NMFModel nmfm, double[] player){
+    public double[] getNMFPredict(NMFModel nmfm, double[] player){
         double[][] td = new double[player.length][1];
         for(int i = 0; i < td.length; i++){
             td[i][0] = player[i];
@@ -109,7 +109,7 @@ public class OptionRatingPredictTest {
         return p;
     }
     
-    public Results NMFTest(NMFModel nmfm){
+    private Results NMFTest(NMFModel nmfm){
         Results all = new Results();
         diff = 0;
         for(int j = 0; j < testData.size(); j++){
@@ -121,7 +121,7 @@ public class OptionRatingPredictTest {
                     continue;
                 }
                 double[] cPlayerOption;
-                cPlayerOption = GenerateStoryOptionRatingData.generateOptionRatings(player, k);
+                cPlayerOption = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, k);
                 Results r = getAccuracy(player.get(k), getNMFPredict(nmfm, cPlayerOption));
                 all.add(r);
             }

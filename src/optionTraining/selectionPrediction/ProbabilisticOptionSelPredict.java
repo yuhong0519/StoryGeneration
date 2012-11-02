@@ -17,7 +17,7 @@ import optionTraining.Results;
 import prefix.*;
 import tools.*;
 
-public class ProbabilisticPrediction {
+public class ProbabilisticOptionSelPredict {
 
     
     private static void probModelTest(ArrayList<ArrayList> test, ProbabilityModel pm, Results r){

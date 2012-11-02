@@ -18,33 +18,36 @@ public class Prefix implements Comparable<Prefix>{
 	public Prefix(){
 		
 	}
-        
         public Prefix(int s, PPOptions p){
 		
 		itemList.add(new IntegerPlotPoint(s));
 		options = p;
 	}
-        
-        public PlotPoint getLast(){
-            return itemList.get(itemList.size()-1);
-        }
-        
-	public Prefix(double[] s){
+        public Prefix(double[] s){
 		for(int i = 0; i < s.length; i++){
 			itemList.add(new IntegerPlotPoint((int)s[i]));
 		}
 	}
+//        deep copy
 	public Prefix(Prefix p){
 		if(p.itemList.size() > 0 && (p.itemList.get(0)) instanceof IntegerPlotPoint){
 			for(int i = 0; i < p.itemList.size(); i++){
 				this.itemList.add(new IntegerPlotPoint(((IntegerPlotPoint)p.itemList.get(i)).id));
 			}
-                        this.options = p.options;
+                        this.options = new PPOptions(p.options);
 		}
 		else{
-			System.out.println("Unsupported Prefix construction error!!");
+			System.err.println("Unsupported Prefix construction error!!");
 		}
 	}
+        
+        
+        
+        public PlotPoint getLast(){
+            return itemList.get(itemList.size()-1);
+        }
+        
+
         
         public void append(int s, PPOptions p){
             itemList.add(new IntegerPlotPoint(s));

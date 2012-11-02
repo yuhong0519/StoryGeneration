@@ -19,7 +19,7 @@ import optionTraining.kmean.MatrixTools;
 import prefix.*;
 import tools.*;
 
-public class NMFPredict {
+public class NMFOptionSelPredict {
     private int NMFdim = 5;
 //    static int numNeighbors = 16;
     static int numReadStories = 0;
@@ -31,7 +31,7 @@ public class NMFPredict {
     private NMFModel nmfModel = null;
     private ArrayList<ArrayList> trainData = null;
     
-    public NMFPredict(ArrayList<ArrayList> trainData){
+    public NMFOptionSelPredict(ArrayList<ArrayList> trainData){
         this.trainData = trainData;
     }
     
@@ -202,7 +202,7 @@ public class NMFPredict {
     
         
     public static void main(String[] args){
-        NMFPredict nmfp = new NMFPredict(null);
+        NMFOptionSelPredict nmfp = new NMFOptionSelPredict(null);
         nmfp.startProcess();
     }
     
