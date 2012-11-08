@@ -10,12 +10,15 @@ package optionTraining.optionPreferencePrediction;
  */
 import java.util.*;
 import optionTraining.GenerateStoryOptionRatingData;
+import tools.CommonUtil;
 
 public class OptionRepresentationGenerator {
     private static OptionRepresentationGenerator org = null;
     private OptionList ol = null;
     private Vocabulary vo = null;
     private double[][] BOWRep = null;
+    private String SAGEDataFile = "theta_sage30.txt";
+    private double[][] SAGEdata = null;
     
     private OptionRepresentationGenerator(){
         ol = OptionListOperation.getOptionList();
@@ -55,6 +58,14 @@ public class OptionRepresentationGenerator {
         return BOWRep;
     }
     
+//    return: option list size by reduced dimension
+    public double[][] getOptionSAGERep(){
+        if(SAGEdata == null){
+            SAGEdata = CommonUtil.readData(SAGEDataFile, false);
+        }
+        return SAGEdata;
+    }
+    
 //    Get representation of options with PCA dimension reduction
     public void getPCARepresentation(){
         
@@ -63,5 +74,6 @@ public class OptionRepresentationGenerator {
     public static void main(String[] args){
         OptionRepresentationGenerator o = OptionRepresentationGenerator.getInstance();
         double[][] t = o.getOriginalRepresentation();
+//        tools.CommonUtil.printObject(t, "BOW.txt");
     }
 }

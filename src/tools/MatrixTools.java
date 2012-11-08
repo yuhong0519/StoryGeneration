@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package optionTraining.kmean;
+package tools;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -26,6 +26,18 @@ public class MatrixTools {
             return;
         }
         System.arraycopy(source, 0, dest, 0, source.length);
+    }
+    
+    public static double innerProduct(double[] data1, double[] data2){
+        double ret = 0;
+        if(data1.length != data2.length){
+            System.err.println("Error using inner product!!!");
+            return ret;
+        }
+        for(int i = 0; i < data1.length; i++){
+            ret += data1[i]*data2[i];
+        }
+        return ret;
     }
         
     public static void add(double[] data1, double[] data2){

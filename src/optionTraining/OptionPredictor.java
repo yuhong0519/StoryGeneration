@@ -16,20 +16,31 @@ import optionTraining.optionPreferencePrediction.OptionList;
 import optionTraining.optionPreferencePrediction.OptionListOperation;
 import optionTraining.optionPreferencePrediction.OptionRatingPredictTest;
 import optionTraining.optionPreferencePrediction.OptionRatingPredictTrain;
+import optionTraining.selectionPrediction.NMFOptionSelPredict;
 import optionTraining.selectionPrediction.NNOptionSelPredict;
+import optionTraining.selectionPrediction.ProbabilisticOptionSelPredict;
 import prefix.*;
 import tools.PrefixUtil;
 
 public class OptionPredictor {
     private ArrayList<ArrayList> trainData = null;
+    
 //    Option preference prediction models
     public static final int NMFPref = 0, NNPref = 1, KMeanPref = 2;
 //    Option selection prediction models
     public static final int NMFSel = 0, NNSel = 1, ProbSel = 2;
-    private int numNN = 10;
     
-    private NMFModel nmfmPref = null, nmfmSel = null;
-    private double[][] NNmPref = null, NNmSel = null;
+    private int numNNPref = 10, numNNSel = 10;
+    private int numNMFPref = 2, numNMFSel = 2;
+    private int numKMPref = 2;
+    
+    
+    private NMFModel nmfmPref = null;
+    private double[][] NNmPref = null;
+    private double[][] KMmPref = null;
+    private NMFOptionSelPredict nmfOSP = null;
+    private NNOptionSelPredict nnOSP = null;
+    
     
     private double diffAdd = 0.12;
     private double diff = 0.15;
@@ -67,20 +78,25 @@ public class OptionPredictor {
         
 //      Predict ratings for ppo  
         double[] predictArray = null;
-        
+        double[] cPlayerOption;
+        cPlayerOption = GenerateStoryOptionRatingData.generatePlayerOptionRatings(newPlayer);
         if(PrefAlgorithm == NNPref){
             if(NNmPref == null){
                 NNmPref = orpt.NearestNeighborTrain();
             }
-            double[] cPlayerOption;
-            cPlayerOption = GenerateStoryOptionRatingData.generatePlayerOptionRatings(newPlayer);
-            predictArray = opt.getNNPredict(NNmPref, cPlayerOption, numNN);
+            predictArray = opt.getNNPredict(NNmPref, cPlayerOption, numNNPref);
         }
         else if(PrefAlgorithm == NMFPref){
-            
+            if(nmfmPref == null){
+                nmfmPref = orpt.NMFTrain(numNMFPref);
+            }
+            predictArray = opt.getNMFPredict(nmfmPref, cPlayerOption);
         }
         else if(PrefAlgorithm == KMeanPref){
-            
+            if(KMmPref == null){
+                KMmPref = orpt.KMeanClusterTrain(numKMPref);
+            }
+            predictArray = opt.getKMeanPredict(KMmPref, cPlayerOption);
         }
         else{
             System.err.println("No option preference prediction algorithm found!");
@@ -106,14 +122,19 @@ public class OptionPredictor {
 //      Option Selection
         int predictSel = 0;
         if(SelAlgorithm == NNSel){
-            NNOptionSelPredict nnsp = new NNOptionSelPredict();
-            predictSel = nnsp.NNPredict(trainData, newPlayer);
+            if(nnOSP == null){
+                nnOSP = new NNOptionSelPredict();
+            }
+            predictSel = nnOSP.NNPredict(trainData, newPlayer, numNNSel);
         }
         else if(SelAlgorithm == NMFSel){
-            
+            if(nmfOSP == null){
+                nmfOSP = new NMFOptionSelPredict(trainData, numNMFSel);
+            }
+            predictSel = nmfOSP.NMFPredict(newPlayer);
         }
         else if(SelAlgorithm == ProbSel){
-            
+            predictSel = ProbabilisticOptionSelPredict.probPredict(trainData, newPlayer);
         }
         else{
             System.err.println("No option selection prediction algorithm found!");
@@ -206,7 +227,7 @@ public class OptionPredictor {
                     PPOptions nppo = new PPOptions(tppo);
                     nppo.resetPreference();
                     tprefix.options = nppo;
-                    ArrayList<OptionItem> predictSel = op.predict(tplayer, NNPref, NNSel);
+                    ArrayList<OptionItem> predictSel = op.predict(tplayer, NMFPref, NMFSel);
                     tprefix.options = tppo;
                     r = getResults(player.get(k+1), predictSel);
                     all.add(r);

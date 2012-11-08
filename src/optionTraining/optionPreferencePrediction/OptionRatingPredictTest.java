@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import nmf.NMF;
 import nmf.NMFModel;
 import no.uib.cipr.matrix.DenseMatrix;
-import optionTraining.kmean.MatrixTools;
+import tools.MatrixTools;
 import optionTraining.selectionPrediction.NNOptionSelPredict;
 import prefix.*;
 import tools.PrefixUtil;
@@ -109,6 +109,48 @@ public class OptionRatingPredictTest {
         return p;
     }
     
+    public double[] getRedNMFPredict(NMFModel nmfm, ArrayList<Prefix> player, int num){
+        double[] cPlayerOption = OptionRatingPredictTrain.getRedPlayerTrainData(player, num);
+        double[] prePlayer = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, num);
+        double[] playerVector = getNMFPredict(nmfm, cPlayerOption);
+        OptionList ol = OptionListOperation.getOptionList();
+        double[] predict = new double[ol.getOptionListArray().size()];
+        OptionRepresentationGenerator o = OptionRepresentationGenerator.getInstance();
+        double[][] sageOptionRep = o.getOptionSAGERep();
+        for(int i = 0; i < predict.length; i++){
+            predict[i] = MatrixTools.innerProduct(playerVector, sageOptionRep[i]);
+            if(prePlayer[i] != 0){
+                predict[i] = prePlayer[i];
+            }
+        }
+        
+        return predict;
+        
+        
+    }
+    
+    private Results redNMFTest(NMFModel nmfm){
+        Results all = new Results();
+//        diff = 0;
+        for(int j = 0; j < testData.size(); j++){
+            System.out.println("Process player: " + j);
+            ArrayList<Prefix> player = testData.get(j);
+            for(int k = startPredictNum; k < player.size()-1; k++){
+                
+                if(player.get(k).options == null){
+                    continue;
+                }
+//                double[] cPlayerOption = OptionRatingPredictTrain.getRedPlayerTrainData(player, k);
+//                double[] playerVector = getNMFPredict(nmfm, cPlayerOption);
+                Results r = getAccuracy(player.get(k), getRedNMFPredict(nmfm, player, k));
+                all.add(r);
+            }
+        }        
+        return all;        
+        
+        
+    }
+    
     private Results NMFTest(NMFModel nmfm){
         Results all = new Results();
         diff = 0;
@@ -177,11 +219,11 @@ public class OptionRatingPredictTest {
         }
         return r;
     }
-//     0: kmean. 1: Nearest neighbor. 2: NMF
-    static int algorithm = 0;
+//     0: kmean. 1: Nearest neighbor. 2: NMF 3:reduced dimension NMF
+    static int algorithm = 3;
     static int KmeanCluster = 2;
     static int NNnum = 20;
-    static int NMFdim = 2;
+    static int NMFdim = 10;
     
     double diffAdd = 0.12;
     double diff = 0.15;
@@ -215,6 +257,11 @@ public class OptionRatingPredictTest {
             else if(algorithm == 2){
                 NMFModel nmfm = orpt.NMFTrain(NMFdim);
                 r = opt.NMFTest(nmfm);
+            }
+// NMF test
+            else if(algorithm == 3){
+                NMFModel nmfm = orpt.redNMFTrain(NMFdim);
+                r = opt.redNMFTest(nmfm);
             }
             all.add(r);            
             float accuracy = all.numCorrect / (all.numCorrect + all.numWrong);

@@ -62,7 +62,7 @@ public class VocabularyOperation {
         
     }
     
-    void processVocabularyList(ArrayList<String> vocabulary){
+    private void processVocabularyList(ArrayList<String> vocabulary){
         for(int i = 0; i < vocabulary.size()-1; i++){
             String word1 = vocabulary.get(i);
             for(int j = i+1; j < vocabulary.size(); j++){
@@ -79,7 +79,7 @@ public class VocabularyOperation {
         
     }
     
-    void startBuildVocabulary(String fileName){
+    private void startBuildVocabulary(String fileName){
         ArrayList<String> vocabulary = new ArrayList<String>();
         AllOptions ao = PrefixUtil.readOptions(fileName);
         ArrayList<PPOptions> allOptions = ao.getAllPPOptions();
@@ -103,7 +103,7 @@ public class VocabularyOperation {
         processVocabularyList(vocabulary);
         CommonUtil.printStringList(vocabulary, vocabularyFile);
     }
-    static Vocabulary v = null;
+    private static Vocabulary v = null;
     public static Vocabulary getVocabulary(){
         if(v == null){
             ArrayList<String> vl = CommonUtil.readStringList(vocabularyFile);

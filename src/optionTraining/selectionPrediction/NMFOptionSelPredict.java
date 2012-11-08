@@ -15,7 +15,7 @@ import java.util.*;
 import nmf.*;
 import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.*;
-import optionTraining.kmean.MatrixTools;
+import tools.MatrixTools;
 import prefix.*;
 import tools.*;
 
@@ -31,8 +31,9 @@ public class NMFOptionSelPredict {
     private NMFModel nmfModel = null;
     private ArrayList<ArrayList> trainData = null;
     
-    public NMFOptionSelPredict(ArrayList<ArrayList> trainData){
+    public NMFOptionSelPredict(ArrayList<ArrayList> trainData, int NMFdim){
         this.trainData = trainData;
+        this.NMFdim = NMFdim;
     }
     
     
@@ -202,7 +203,7 @@ public class NMFOptionSelPredict {
     
         
     public static void main(String[] args){
-        NMFOptionSelPredict nmfp = new NMFOptionSelPredict(null);
+        NMFOptionSelPredict nmfp = new NMFOptionSelPredict(null, 5);
         nmfp.startProcess();
     }
     

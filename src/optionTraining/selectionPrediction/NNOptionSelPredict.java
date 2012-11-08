@@ -35,11 +35,11 @@ public class NNOptionSelPredict {
     private void addNeibor(ArrayList<float[]> list, float[] data, float[] newNeibor){
         float dist = computeDistance(data, newNeibor);
         
-        if(list.size() == 0){
+        if(list.isEmpty()){
             list.add(newNeibor);
             return;
         }
-        int i = 0;
+        int i;
         for(i = 0; i < list.size(); i++){
             float td = computeDistance(list.get(i), data);
             if(dist < td){
@@ -47,9 +47,6 @@ public class NNOptionSelPredict {
             }
         }
         if(list.size() < numNeighbors){
-//            if(i == list.size())
-//                list.add(newNeibor);
-//            else
                 list.add(i, newNeibor);
         }
         else{
@@ -57,15 +54,13 @@ public class NNOptionSelPredict {
                 list.add(i, newNeibor);
                 list.remove(list.size()-1);
             }
-//            else
-//                list.add(i, newNeibor);
                 
         }
     }
     
-    public ArrayList<float[]> computeNeighbor(ArrayList<float[]> neibors, float[] data){
+    public ArrayList<float[]> computeNeighbor(ArrayList<float[]> neibors, float[] data, int numNeibors){
         ArrayList<float[]> nearestNebors = new ArrayList<float[]>();
-        
+        this.numNeighbors = numNeibors;
         for(int i = 0; i < neibors.size(); i++){
             addNeibor(nearestNebors, data, neibors.get(i));
         }
@@ -73,11 +68,11 @@ public class NNOptionSelPredict {
         return nearestNebors;
     }
     
-    public double[][] computeNeighbor(double[][] neiborA, double[] dataA, int num){
+    public double[][] computeNeighbor(double[][] neiborA, double[] dataA, int numNeibors){
         ArrayList<float[]> neibors = new ArrayList<float[]>();
         ArrayList<float[]> nearestNebors = new ArrayList<float[]>();
-        double[][] ret = new double[num][dataA.length];
-        numNeighbors = num;
+        double[][] ret = new double[numNeibors][dataA.length];
+        numNeighbors = numNeibors;
         float[] data = new float[dataA.length];
         for(int i = 0; i < data.length; i++){
             data[i] = (float)(dataA[i]);
@@ -150,17 +145,16 @@ public class NNOptionSelPredict {
     }
     
 //    return the predicted position of the selected. 0: select the highest rated, 1: select the second highest rated option...
-    public int NNPredict(ArrayList<ArrayList> train, ArrayList<Prefix> player){
+    public int NNPredict(ArrayList<ArrayList> train, ArrayList<Prefix> player, int numNeighbors){
             ProbabilityModel pm = DataCreator.computePlayerProbModel(player);
             float[] pmv = pm.modelVector();
-            ArrayList<float[]> trainData = DataCreator.computeProbVectorModel(train);
-            ArrayList<float[]> neibors = computeNeighbor(trainData, pmv);
-            
+            this.numNeighbors = numNeighbors;
             PPOptions ppo = player.get(player.size()-1).options;
-            
             if(ppo == null || ppo.getAllOptions().size() < 2){
                 return 0;
-            }                
+            }              
+            ArrayList<float[]> trainData = DataCreator.computeProbVectorModel(train);
+            ArrayList<float[]> neibors = computeNeighbor(trainData, pmv, numNeighbors);
             int numOptions = ppo.getAllOptions().size()-2;
             int numBefore = DataProcess.getExistNum(player, player.get(player.size()-1), player.size()-1);
             int numPosition = player.get(player.size()-1).itemList.size()-1;
@@ -178,7 +172,7 @@ public class NNOptionSelPredict {
         for(int i = startnum; i < player.size()-1; i++){
             ProbabilityModel pm = DataCreator.computePlayerProbModel(player, i);
             float[] pmv = pm.modelVector();
-            ArrayList<float[]> neibors = computeNeighbor(trainData, pmv);
+            ArrayList<float[]> neibors = computeNeighbor(trainData, pmv, numNeighbors);
             
             PPOptions ppo = player.get(i).options;
             if(ppo == null || ppo.getAllOptions().size() < 2){

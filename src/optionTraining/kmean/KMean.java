@@ -8,6 +8,7 @@ package optionTraining.kmean;
  *
  * @author Bunnih
  */
+import tools.MatrixTools;
 import java.util.*;
 
 public class KMean {
