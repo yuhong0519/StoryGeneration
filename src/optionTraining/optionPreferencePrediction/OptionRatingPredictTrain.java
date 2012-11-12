@@ -128,7 +128,12 @@ public class OptionRatingPredictTrain {
     }
     
 
-    
+
+    /**
+     *
+     * @param trainA Contains all players: ArrayList<Prefix>s
+     * @return word feature: number of word feature * number of players
+     */
     public static double[][] getRedTrainData(ArrayList<ArrayList> trainA){
         OptionRepresentationGenerator o = OptionRepresentationGenerator.getInstance();
         double[][] sageOptionRep = o.getOptionSAGERep();
@@ -195,6 +200,7 @@ public class OptionRatingPredictTrain {
         return MatrixTools.transpose(train);
     }
         
+//    Train NMF using word feature
     public NMFModel redNMFTrain(int nmfDim){
 //        if(nmfm != null){
 //            return nmfm;
@@ -209,6 +215,55 @@ public class OptionRatingPredictTrain {
         NMF.nmf_train(new CompColMatrix(new DenseMatrix(NMFtrainData)), new CompColMatrix(new DenseMatrix(NMFvalidateData)), nmfm);
        return nmfm;
                
+    }
+    
+    
+    public static double[] getAllPlayerTrainData(ArrayList<Prefix> player, int num){
+        double[] wordData = getRedPlayerTrainData(player, num);
+        double[] ratingData =  GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, num);
+        double[] ret = new double[ratingData.length + wordData.length];
+        System.arraycopy(ratingData, 0, ret, 0, ratingData.length);
+        System.arraycopy(wordData, 0, ret, ratingData.length, wordData.length);
+        return ret;
+        
+    }
+    
+    /**
+     * @return all training feature for NMF, including option rating feature and word feature
+     */
+    public double[][] getAllTrainData(){
+        double[][] ratingF = getOptionRatings();
+        double[][] wordF = getRedTrainData(trainData);
+        if(ratingF[0].length != wordF[0].length){
+            System.err.println("Cannot get all feature: the number of players in rating feature and word feature does not match!");
+            return null;
+        }
+        double[][] all = new double[ratingF.length+wordF.length][ratingF[0].length];
+        for(int i = 0; i < ratingF[0].length; i++){
+            for(int j = 0; j < ratingF.length; j++){
+                all[j][i] = ratingF[j][i];
+            }
+            for(int j = 0; j < wordF.length; j++){
+                all[j+ratingF.length][i] = wordF[j][i];
+            }
+            
+        }
+        
+        return all;
+        
+    }
+    
+//    train NMF using both rating feature and word feature
+    public NMFModel allNMFTrain(int nmfDim){
+        double splitP = 0.9;
+        double[][] data = getAllTrainData();
+        NMFModel nmfm = new NMFModel();
+        nmfm.dim = nmfDim;
+        double[][] NMFtrainData = new double[data.length][data[0].length];
+        double[][] NMFvalidateData = new double[data.length][data[0].length];
+        MatrixTools.split(data, NMFtrainData, NMFvalidateData, splitP);
+        NMF.nmf_train(new CompColMatrix(new DenseMatrix(NMFtrainData)), new CompColMatrix(new DenseMatrix(NMFvalidateData)), nmfm);
+        return nmfm;      
     }
     
     public static void main(String[] args){

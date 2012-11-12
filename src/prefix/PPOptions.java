@@ -71,7 +71,7 @@ public class PPOptions {
     public OptionItem getOptionItem(int index){
         OptionItem oi = null;
         for(int i = 0; i < options.size(); i++){
-            if(options.get(i).getOID() == index){
+            if(options.get(i).getIndicatedPP() == index){
                 oi = options.get(i);
             }
         }

@@ -28,6 +28,8 @@ public class MatrixTools {
         System.arraycopy(source, 0, dest, 0, source.length);
     }
     
+    
+    
     public static double innerProduct(double[] data1, double[] data2){
         double ret = 0;
         if(data1.length != data2.length){
@@ -136,6 +138,14 @@ public class MatrixTools {
             }
         }
     }
+//      subvector of data: include start, exlude end
+      public static double[] subVector(double[] data, int start, int end){
+          double[] ret = new double[end-start];
+          for(int i = start; i < end; i++){
+              ret[i-start] = data[i];
+          }
+          return ret;
+      }
     
     
 }

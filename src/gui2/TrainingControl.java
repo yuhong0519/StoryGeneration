@@ -93,7 +93,7 @@ public class TrainingControl {
             IntegerPlotPoint tp = ppl.getPP(ppid);
             ArrayList<OptionItem> ppo = tp.getOptions().getAllOptions();
             Prefix p = new Prefix(currentShown.get(currentShown.size()-1));
-            int nextPPID = ppo.get(index).getOID();
+            int nextPPID = ppo.get(index).getIndicatedPP();
             IntegerPlotPoint nextPP = ppl.getPP(nextPPID);
             p.append(nextPPID, new PPOptions(nextPP.getOptions()));
             currentShown.add(p);
@@ -195,7 +195,7 @@ public class TrainingControl {
             ArrayList<OptionItem> tao = quizList.get(rd.nextInt(quizList.size())).getAllOptions();
             for(int i = 0; i < tao.size(); i++){
                 options.add(tao.get(i).getValue());
-                if(tao.get(i).getOID() == 1){
+                if(tao.get(i).getIndicatedPP() == 1){
                     correctChoice = i;
                 }
             }

@@ -9,33 +9,36 @@ package prefix;
  * @author Hong Yu
  */
 public class OptionItem implements Comparable<OptionItem>{
-    private int optionID = -1;
+    private int indicatedPP = -1;
     private int PPID = -1;
     private String option = null;
     private double preference = 0;
     private int prefixID;
+    private int optionID = -1;
 
-    public OptionItem(int oi, int pi, String o){
-        optionID = oi;
-        PPID = pi;
-        option = o;
-    }
+//    public OptionItem(int iPP, int pi, String o){
+//        indicatedPP = iPP;
+//        PPID = pi;
+//        option = o;
+//        
+//    }
     
-    public OptionItem(int oi, int p){
-        optionID = oi;
+    public OptionItem(int iPP, int p){
+        indicatedPP = iPP;
         preference = p;
     }
     
     public OptionItem(OptionItem oi){
-        optionID = oi.optionID;
+        indicatedPP = oi.indicatedPP;
         PPID = oi.PPID;
         option = oi.option;
         preference = oi.getAccuratePreference();
         prefixID = oi.prefixID;
+        optionID = oi.optionID;
     }
     
-    public OptionItem(int oi, String o){
-        optionID = oi;
+    public OptionItem(int indicatePP, String o){
+        this.indicatedPP = indicatePP;        
         option = o;
     }
 
@@ -73,8 +76,8 @@ public class OptionItem implements Comparable<OptionItem>{
         return PPID;
     }
     
-    public int getOID(){
-        return optionID;
+    public int getIndicatedPP(){
+        return indicatedPP;
     }
     
     public String getValue(){
@@ -83,19 +86,34 @@ public class OptionItem implements Comparable<OptionItem>{
     public String toString(){
         return option;
     }
+    public void setOID(int id){
+        optionID = id;
+    }
+    public int getOID(){
+        return optionID;
+    }
     
     public int compareTo(OptionItem oi){
-        if(prefixID == oi.prefixID && optionID == oi.optionID)
+        if(prefixID == oi.prefixID && indicatedPP == oi.indicatedPP && optionID == optionID) {
             return 0;
+        }
         else if(prefixID > oi.prefixID){
             return 1;
         }
         else if(prefixID < oi.prefixID){
             return -1;
         }
-        else if(optionID > oi.optionID)
+        else if(indicatedPP > oi.indicatedPP) {
             return 1;
-        else 
+        }
+        else if(indicatedPP < oi.indicatedPP){
             return -1;
+        }
+        else if(optionID > oi.optionID){
+            return 1;
+        }
+        else {
+            return -1;
+        }
     }
 }

@@ -13,8 +13,8 @@ import tools.*;
  */
 public class VocabularyOperation {
     private static ArrayList<String> stopWords = null;
-    private static String stopWordFile = "StopWords.txt";
-    private static String vocabularyFile = "vocabulary.txt";
+    private static String stopWordFile = "par/StopWords.txt";
+    private static String vocabularyFile = "par/vocabulary.txt";
     
     public static String processWord(String iword){
         StringBuilder ret = new StringBuilder();

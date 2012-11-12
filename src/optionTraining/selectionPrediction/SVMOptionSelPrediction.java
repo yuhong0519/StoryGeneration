@@ -39,7 +39,7 @@ public class SVMOptionSelPrediction {
                 for(int k = 0; k < ppo.getAllOptions().size(); k++){
                     float[] svmd = new float[numFeature + 2];
 //                    String line = "qid:" + qid;
-                    if(player.get(j+1).getLast().id == ppo.getAllOptions().get(k).getOID()){
+                    if(player.get(j+1).getLast().id == ppo.getAllOptions().get(k).getIndicatedPP()){
 //                        line = "" + "5 " + line;
                         svmd[0] = 5;
                     }
@@ -51,7 +51,7 @@ public class SVMOptionSelPrediction {
                     svmd[2] = numBefore;
                     svmd[3] = numPosition;
 
-                    svmd[4] = ppo.getOptionItemPreferencePosition(ppo.getAllOptions().get(k).getOID());
+                    svmd[4] = ppo.getOptionItemPreferencePosition(ppo.getAllOptions().get(k).getIndicatedPP());
                     svmd[5] = numOptions;
                     svmd[6] = ppo.getAllOptions().get(k).getPreference();
                     svmd[7] = (float)(ppo.getAllOptions().get(k).getPreference()) / ppo.getHighestItemRating();

@@ -4,13 +4,16 @@
  */
 package optionTraining.optionPreferencePrediction;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import prefix.AllOptions;
 import prefix.OptionItem;
 import prefix.PPOptions;
 import prefix.Prefix;
-import tools.CommonUtil;
 import tools.PrefixUtil;
 
 /**
@@ -18,7 +21,7 @@ import tools.PrefixUtil;
  * @author Bunnih
  */
 public class OptionListOperation {
-    private static String optionListFile = "OptionItemList.txt";
+    private static String optionListFile = "par/OptionItemList.txt";
 //    Create a list of option items in a sequence. 
     private static ArrayList<OptionItem> createOptionItemList(){
         ArrayList<Prefix> prefixList = PrefixUtil.readPrefixList(PrefixUtil.prefixListFile, 1);
@@ -57,9 +60,59 @@ public class OptionListOperation {
          
     }
     
+    private static void addOptionID2Option(){
+        getOptionList();
+        String oldO = "par/options.txt";
+        String newO = "par/options2.txt";
+        String line;
+        ArrayList<OptionItem> oil = optionList.getOptionListArray();
+        
+        try{
+                BufferedReader br = new BufferedReader(new FileReader(oldO));
+                BufferedWriter bw = new BufferedWriter(new FileWriter(newO));
+//                int PPID = -1;
+                
+                while((line = br.readLine()) != null){
+                    if(line.startsWith("//")){
+                        bw.write(line);
+                        bw.newLine();
+                    }
+                    else if(line.startsWith("<")){
+                        bw.write(line);
+                        bw.newLine();
+                    }
+                    else{
+                        String[] t = line.split(":::");
+                        int iPP = Integer.parseInt(t[0]);
+                        int oid = -1;
+                        for(OptionItem oi : oil){
+                            if(oi.getIndicatedPP() == iPP){
+                                oid = oi.getOID();
+                                break;
+                            }
+                        }
+                        if(oid == -1){
+                            System.err.println("Cannot find the option: " + t[1]);
+                        }
+                        bw.write(""+iPP+":::"+oid+":::"+t[1]);
+                        bw.newLine();
+                    }
+                }
+                br.close();
+                bw.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            
+        }
+        
+    }
+    
     public static void main(String[] args){
         createOptionItemList();
-        
+//        addOptionID2Option();
     }
     
     

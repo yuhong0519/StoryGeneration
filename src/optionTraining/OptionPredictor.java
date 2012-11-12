@@ -182,7 +182,7 @@ public class OptionPredictor {
         int ppID = nextP.getLast().id;
         boolean flag = false;
         for(OptionItem oi : predict){
-            if(oi.getOID() == ppID){
+            if(oi.getIndicatedPP() == ppID){
                 flag = true;
                 break;
             }
@@ -232,10 +232,7 @@ public class OptionPredictor {
                     r = getResults(player.get(k+1), predictSel);
                     all.add(r);
                 }
-                
-                
-            }
-            
+            }            
             all.add(r);            
             float accuracy = all.numCorrect / (all.numCorrect + all.numWrong);
             System.out.println("Right: " + all.numCorrect + ", Wrong: " + all.numWrong + ", Accuracy: " + accuracy);

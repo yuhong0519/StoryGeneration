@@ -1,3 +1,4 @@
+//optionID: prefixID PPID IndicatedPP OptionString
 0:	0	0	1	You decide to search for Carlos by yourself.
 1:	0	0	2	You feel that Carlos is OK and want to meet with a Mountain Expedition expert.
 2:	1	100	101	You agree to go on tomorrow's plane for Paris.

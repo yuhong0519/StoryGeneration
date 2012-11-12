@@ -13,11 +13,11 @@ import prefix.Prefix;
 public class PrefixUtil {
         public static String ftpReadServer = "ftp://bunnih:xllyjj@scarecrow.cc.gt.atl.ga.us//ftp//";
 	public static String ftpWriteServer = "ftp://bunnih:xllyjj@scarecrow.cc.gt.atl.ga.us//ftp//ratings//";
-	public static String optionFile = "options.txt";
-        public static String prefixListFile = "PrefixList.txt";
-        public static String plotpointFile = "PlotPoints.txt";
-        public static String storySpaceFile = "StorySpace.txt";
-        public static String quizFile = "quiz.txt";
+	public static String optionFile = "par/options.txt";
+        public static String prefixListFile = "par/PrefixList.txt";
+        public static String plotpointFile = "par/PlotPoints.txt";
+        public static String storySpaceFile = "par/StorySpace.txt";
+        public static String quizFile = "par/quiz.txt";
         public static String allRatingFile = "AllRatings.txt";
         public static String optionRatingFile = "OptionRatings.txt";
         
@@ -98,7 +98,7 @@ public class PrefixUtil {
 				Prefix pi = pl.get(i);
                                 
 				for(int j = 0; j < pi.options.getAllOptions().size(); j++){
-					bw.write("" + pi.options.getAllOptions().get(j).getOID() + ":" + pi.options.getAllOptions().get(j).getPreference() + "\t");
+					bw.write("" + pi.options.getAllOptions().get(j).getIndicatedPP() + ":" + pi.options.getAllOptions().get(j).getPreference() + "\t");
 				}
 				bw.newLine();
 			}
@@ -191,8 +191,11 @@ public class PrefixUtil {
                                 continue;
                             }
                             String[] t = line.split(":::");
-                            int OID = Integer.parseInt(t[0]);
-                            ppo.add(new OptionItem(OID, t[1]));
+                            int iPP = Integer.parseInt(t[0]);
+                            int OID = Integer.parseInt(t[1]);
+                            OptionItem oi = new OptionItem(iPP, t[2]);
+                            oi.setOID(OID);
+                            ppo.add(oi);
 			}
                         ao.addPPOptions(ppo);
 		}
@@ -262,7 +265,7 @@ public class PrefixUtil {
 		try{
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
 			for(int i = 0; i < oiList.size(); i++){
-                                bw.write("" + i + ":\t" + oiList.get(i).getPrefixID() + "\t" + oiList.get(i).getPPID() + "\t" + oiList.get(i).getOID() + "\t" + oiList.get(i).getValue());
+                                bw.write("" + oiList.get(i).getOID() + ":\t" + oiList.get(i).getPrefixID() + "\t" + oiList.get(i).getPPID() + "\t" + oiList.get(i).getIndicatedPP() + "\t" + oiList.get(i).getValue());
 				bw.newLine();
 			}
 			bw.close();
@@ -282,14 +285,19 @@ public class PrefixUtil {
 //			}
                         String line;
                         while((line = br.readLine()) != null){
+                            if(line.startsWith("//")){
+                                continue;
+                            }
                             String[] p = line.split("\t");
 //                            assert(p.length == 5);
                             int prefixID = Integer.parseInt(p[1]);
+                            int optionID = Integer.parseInt(p[0].substring(0, p[0].length()-1));
                             int PPID = Integer.parseInt(p[2]);
-                            int OID = Integer.parseInt(p[3]);
-                            OptionItem oi = new OptionItem(OID, p[4]);
+                            int indicatePP = Integer.parseInt(p[3]);
+                            OptionItem oi = new OptionItem(indicatePP, p[4]);
                             oi.setPrefixID(prefixID);
                             oi.setPPID(PPID);
+                            oi.setOID(optionID);
                             oiList.add(oi);
                         }
 			br.close();
@@ -340,8 +348,6 @@ public class PrefixUtil {
                                     String[] tp = t2[i].split(":");
                                     int tpID = Integer.parseInt(tp[0]);
                                     int tpP = Integer.parseInt(tp[1]);
-                                    
-                                    
                                     ppo.add(new OptionItem(tpID, tpP));
                                     
                                 }
