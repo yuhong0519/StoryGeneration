@@ -158,7 +158,7 @@ public class DataProcess {
                     }
                     
                     int prefixRating = p2.rating;
-                    int optionRating = p1.options.getOptionItem(p2.getLast().id).getPreference();
+                    int optionRating = p1.options.getItemByIndicatedPP(p2.getLast().id).getPreference();
                     bw.write("" + prefixRating + "\t" + optionRating + "\n");
                 }
             }

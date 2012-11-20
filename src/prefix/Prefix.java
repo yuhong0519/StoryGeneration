@@ -74,5 +74,16 @@ public class Prefix implements Comparable<Prefix>{
         public int numOfPlotPoints(){
             return itemList.size();
         }
+        
+        public boolean contains(int id){
+            boolean flag = false;
+            for(PlotPoint pp : itemList){
+                if(pp.id == id){
+                    flag = true;
+                    break;
+                }
+            }
+            return flag;
+        }
 	
 }

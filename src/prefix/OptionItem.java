@@ -37,8 +37,9 @@ public class OptionItem implements Comparable<OptionItem>{
         optionID = oi.optionID;
     }
     
-    public OptionItem(int indicatePP, String o){
-        this.indicatedPP = indicatePP;        
+    public OptionItem(int indicatePP, int optionID, String o){
+        this.indicatedPP = indicatePP;  
+        this.optionID = optionID;
         option = o;
     }
 
@@ -94,26 +95,29 @@ public class OptionItem implements Comparable<OptionItem>{
     }
     
     public int compareTo(OptionItem oi){
-        if(prefixID == oi.prefixID && indicatedPP == oi.indicatedPP && optionID == optionID) {
+//        if(prefixID == oi.prefixID && indicatedPP == oi.indicatedPP && optionID == optionID) {
+//            return 0;
+//        }
+//        else if(prefixID > oi.prefixID){
+//            return 1;
+//        }
+//        else if(prefixID < oi.prefixID){
+//            return -1;
+//        }
+//        else if(indicatedPP > oi.indicatedPP) {
+//            return 1;
+//        }
+//        else if(indicatedPP < oi.indicatedPP){
+//            return -1;
+//        }
+        if(optionID > oi.optionID){
+            return 1;
+        }
+        else if(optionID < oi.optionID){
+            return -1;
+        }
+        else{
             return 0;
-        }
-        else if(prefixID > oi.prefixID){
-            return 1;
-        }
-        else if(prefixID < oi.prefixID){
-            return -1;
-        }
-        else if(indicatedPP > oi.indicatedPP) {
-            return 1;
-        }
-        else if(indicatedPP < oi.indicatedPP){
-            return -1;
-        }
-        else if(optionID > oi.optionID){
-            return 1;
-        }
-        else {
-            return -1;
         }
     }
 }

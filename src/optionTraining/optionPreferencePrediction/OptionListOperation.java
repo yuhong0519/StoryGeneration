@@ -22,6 +22,7 @@ import tools.PrefixUtil;
  */
 public class OptionListOperation {
     private static String optionListFile = "par/OptionItemList.txt";
+    
 //    Create a list of option items in a sequence. 
     private static ArrayList<OptionItem> createOptionItemList(){
         ArrayList<Prefix> prefixList = PrefixUtil.readPrefixList(PrefixUtil.prefixListFile, 1);
@@ -35,9 +36,9 @@ public class OptionListOperation {
             if((ppo = ao.getPPOptions(p.itemList.get(p.itemList.size()-1).id)) != null){
                 for(int j = 0; j < ppo.getAllOptions().size(); j++){
                     OptionItem oi = new OptionItem(ppo.getAllOptions().get(j));
-                    if(optionItemList.size() == 292){
-                        System.out.println(oi.getValue());
-                    }
+//                    if(optionItemList.size() == 292){
+//                        System.out.println(oi.getValue());
+//                    }
                     oi.setPrefixID(i);
                     optionItemList.add(oi);
                     Collections.sort(optionItemList);
@@ -60,6 +61,9 @@ public class OptionListOperation {
          
     }
     
+/*  add option id to the options.txt  
+ * 
+ */
     private static void addOptionID2Option(){
         getOptionList();
         String oldO = "par/options.txt";
@@ -110,9 +114,53 @@ public class OptionListOperation {
         
     }
     
+    /*  add option id to the quiz.txt  
+ * 
+ */
+    private static void addOptionID2Quiz(){
+        getOptionList();
+        String oldO = "par/quiz.txt";
+        String newO = "par/quiz2.txt";
+        String line;
+  
+        try{
+                BufferedReader br = new BufferedReader(new FileReader(oldO));
+                BufferedWriter bw = new BufferedWriter(new FileWriter(newO));
+//                int PPID = -1;
+                
+                while((line = br.readLine()) != null){
+                    if(line.startsWith("//")){
+                        bw.write(line);
+                        bw.newLine();
+                    }
+                    else if(line.startsWith("<")){
+                        bw.write(line);
+                        bw.newLine();
+                    }
+                    else{
+                        String[] t = line.split(":::");
+                        int iPP = Integer.parseInt(t[0]);
+ 
+                        bw.write(""+iPP+":::"+"0"+":::"+t[1]);
+                        bw.newLine();
+                    }
+                }
+                br.close();
+                bw.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            
+        }
+        
+    }
+    
     public static void main(String[] args){
         createOptionItemList();
 //        addOptionID2Option();
+//        addOptionID2Quiz();
     }
     
     

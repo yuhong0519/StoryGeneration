@@ -1,4 +1,4 @@
-//optionID: prefixID PPID IndicatedPP OptionString
+//OptionID: Prefix ID, PP ID, Indicated PP, Option 
 0:	0	0	1	You decide to search for Carlos by yourself.
 1:	0	0	2	You feel that Carlos is OK and want to meet with a Mountain Expedition expert.
 2:	1	100	101	You agree to go on tomorrow's plane for Paris.
@@ -14,7 +14,7 @@
 12:	5	1	3	You and Runal want to search below the base camp in the valley.
 13:	5	1	19	You and Runal want to search above the base camp.
 14:	6	2	41	You decide to go ahead with the expedition for the Yeti.
-15:	6	2	42	You decide to postpoe the expedition to let the Yeti calm down and go on to the Terai region in search for tigers.
+15:	6	2	42	You decide to postpone the expedition to let the Yeti calm down and go on to the Terai region in search for tigers.
 16:	7	101	102	You accept his offer and believe you make the right choice.
 17:	7	101	123	You are not sure but still accept his offer.
 18:	7	101	130	You make excuses and refuse his help.
@@ -320,3 +320,13 @@
 318:	171	482	488	You submit to the injection and want to journey with them through time and space to their planet in your own body.
 319:	171	482	489	You submit to the injection and want to journey with them through time and space to their planet in an energy form.
 320:	171	482	490	You decline.
+321:	6	2	41	Carlos could be in danger. You decide to go ahead with the expedition for the Yeti.
+322:	6	2	42	It is wise to play it safe. You decide to postpone the expedition.
+323:	6	2	41	Tigers are common in your view. You decide to go ahead with the expedition for the Yeti.
+324:	6	2	41	You still decide to continue the expedition for the Yeti since tigers can also be dangerous.
+325:	6	2	41	You continue the expedition for the Yeti since you do not believe what Mr. Runal said.
+326:	6	2	41	You have been preparing for the expedition for such a long time that you decide to continue to search for Yeti.
+327:	6	2	42	You decide to postpone the expedition for the Yeti since you can do it later.
+328:	6	2	42	It is a rare chance to be allowed studying tigers in the Terai region. You definitely go for tigers.
+329:	6	2	42	Carlos should be safe. You decide to go to the expedition for the tigers.
+330:	6	2	42	You decide to go to the expedition for the tigers since you have dreamed to photograph tigers since very young.

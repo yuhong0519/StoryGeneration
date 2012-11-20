@@ -20,7 +20,8 @@ public class PPOptions {
     }
     //    Create Prefix options, deep copy
     public PPOptions(PPOptions ppo){
-        PPID = -1; // no plot point id for prefix
+        PPID = ppo.PPID; 
+        prefixID = ppo.prefixID;
         options = new ArrayList<OptionItem>();
         if(ppo != null){
             ArrayList<OptionItem> o = ppo.getAllOptions();
@@ -45,11 +46,9 @@ public class PPOptions {
         return prefixID;
     }
     
-
-    
     public int getOptionItemPreferencePosition(int id){
         int position = 1;
-        OptionItem oi = getOptionItem(id);
+        OptionItem oi = getItemByIndicatedPP(id);
         
         for(int i = 0; i < options.size(); i++){
             if(options.get(i).getAccuratePreference() > oi.getAccuratePreference()){
@@ -63,20 +62,84 @@ public class PPOptions {
     
     public void add(OptionItem oi){
         oi.setPPID(PPID);
+        oi.setPrefixID(prefixID);
         options.add(oi);
     }
+    
     public ArrayList<OptionItem> getAllOptions(){
         return options;
     }
-    public OptionItem getOptionItem(int index){
+    
+    /**
+     * Get option item with indicated plot point indicatedPP 
+     */
+    public OptionItem getItemByIndicatedPP(int indicatedPP){
         OptionItem oi = null;
         for(int i = 0; i < options.size(); i++){
-            if(options.get(i).getIndicatedPP() == index){
+            if(options.get(i).getIndicatedPP() == indicatedPP){
                 oi = options.get(i);
             }
         }
         return oi;
     }
+    
+     /**
+     * Get all the option items with the indicated plot points indicatedPP 
+     */
+    public ArrayList<OptionItem> getItemListByIndicatedPP(int indicatedPP){
+        ArrayList<OptionItem> ret = new ArrayList<OptionItem>();
+        for(int i = 0; i < options.size(); i++){
+            if(options.get(i).getIndicatedPP() == indicatedPP){
+                ret.add(options.get(i));
+            }
+        }
+        return ret;
+    }
+    
+    /**
+     * Get the Option Item with optionID id
+     */
+    public OptionItem getItemByID(int id){
+        OptionItem oi = null;
+        for(int i = 0; i < options.size(); i++){
+            if(options.get(i).getOID() == id){
+                oi = options.get(i);
+            }
+        }
+        return oi;
+    }
+    
+    /**
+     * Find the first occurrence of Option Item oi
+     * @param oi: the Option Item to find
+     * @return the position of the option item, -1 if not found
+     */
+    public int getOptionItemPos(OptionItem oi){
+        int ret = -1;        
+        for(int i = 0; i < options.size(); i++){
+            if(options.get(i).getOID() == oi.getOID()){
+                ret = i;
+            }
+        }
+        return ret;
+    }
+    
+    /**
+     * Get all the indicated plot point IDs
+     * @return Integer ArrayList contains all the distinct plot point IDs
+     */
+    public ArrayList<Integer> getAllIndicatedPP(){
+        ArrayList<Integer> ret = new ArrayList<Integer>();
+        for(OptionItem oi : options){
+            int ipp = oi.getIndicatedPP();
+            if(Collections.binarySearch(ret, ipp) < 0){
+                ret.add(ipp);
+                Collections.sort(ret);
+            }
+        }
+        return ret;
+    }
+    
     public int getPPID(){
         return PPID;
     }
@@ -104,7 +167,7 @@ public class PPOptions {
     }
      
 //    get the option items by their perference ranking pos
-    public ArrayList<OptionItem> getOptionItembyPosition(int pos){
+    public ArrayList<OptionItem> getItembyPreference(int pos){
         if(pos > options.size()-1){
             System.err.println("Preference position out of range!");
             return null;
@@ -131,7 +194,8 @@ public class PPOptions {
             }
             list.remove(cm);
             list.add(i, cm);
-        }
-        
+        }        
     }
+    
+
 }

@@ -19,7 +19,7 @@ public class GenerateStoryOptionRatingData {
     
 //    create option rating file, which contains the matrix: number of options * number of players 
     static void generateAllOptionRatings(){
-        ArrayList<OptionItem> optionItemList = OptionListOperation.getOptionList().getOptionListArray();
+//        ArrayList<OptionItem> optionItemList = OptionListOperation.getOptionList().getOptionListArray();
         ArrayList<ArrayList> storyWOptions = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder );
         double data[][] = generateOptionRatings(storyWOptions);
         CommonUtil.printObject(data, PrefixUtil.optionRatingFile);

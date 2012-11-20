@@ -4,6 +4,7 @@ import java.util.*;
 import javax.swing.*;
 import prefix.*;
 import java.net.*;
+import tools.CommonUtil;
 
 /**
  *
@@ -30,10 +31,18 @@ public class TrainingControl {
     private int numQuestions = 0;
     private int numCorrectQuestions = 0;
     private String key;
+    
+    private ArrayList<Integer> avoidPlotPoints = new ArrayList<Integer>();
+    private ArrayList<Integer> requiredPlotPoints = new ArrayList<Integer>();
+    private ArrayList<Integer> preferedPlotPoints = new ArrayList<Integer>();
+    private int numOptionsPerBranch = 2;
+    private int numOptionPerPreferBranch = 2;
+    
 //    private char[] keyTable = new char[]{'A','B','C','D','E','F','G','H','I','J',};
     public TrainingControl(JApplet ja, TrainingPanel tp){
         this.ja = ja;
         this.trainingp = tp;
+        loadData();
         prefixList = PrefixUtil.readPrefixList(PrefixUtil.prefixListFile, 1);
         StorySpace = PrefixUtil.readStorySpace(PrefixUtil.storySpaceFile);
         currentShown = new ArrayList<Prefix>();
@@ -60,44 +69,103 @@ public class TrainingControl {
         currentStory = 1;
         currentPlotPoint = 0;
         dlm = new DefaultListModel();
-        restart();
+        startNewStory();
         
 
     }
     
+    private void loadData(){
+        requiredPlotPoints.add(0);
+        
+    }
     public String getTitle(){
         return("Story: " + currentStory);
         
     }
     
-    public void restart(){
+    private boolean checkStoryLegal(Prefix p){
+        
+        for(int i = 0; i < avoidPlotPoints.size(); i++){
+            if(p.contains(avoidPlotPoints.get(i))){
+                return false;
+            }
+        }
+        for(int i = 0; i < requiredPlotPoints.size(); i++){
+            if(!p.contains(requiredPlotPoints.get(i))){
+                return false;
+            }
+        }
+        return true;
+    } 
+    
+    public void startNewStory(){
         Random rd = new Random();
         currentPlotPoint = 0;
         int tp = rd.nextInt(StorySpace.size());
-//        int tp = 0;
+        while(!checkStoryLegal(StorySpace.get(tp))){
+            tp = rd.nextInt(StorySpace.size());
+        }
         //currentShown.clear();
         int id = StorySpace.get(tp).itemList.get(0).id;
         IntegerPlotPoint ipp = ppl.getPP(id);
-        Prefix p = new Prefix(id, new PPOptions(ipp.getOptions()));
+        Prefix p = new Prefix(id, getNextOption(ipp));
         currentShown.add(p);
         
     }
     
+    private PPOptions getNextOption(IntegerPlotPoint pp){
+        PPOptions ppo = pp.getOptions();
+        if(ppo == null){
+            return null;
+        }
+        PPOptions ret = new PPOptions(ppo.getPPID());
+        ArrayList<Integer> aipp = ppo.getAllIndicatedPP();
+        int numOptionPerPP = 1;
+        for(Integer ipp : aipp){
+            boolean flag = false;
+            for(int i : avoidPlotPoints){
+                if(i == ipp.intValue()){
+                    flag = true;
+                    break;
+                }
+            }
+//            remove option items which lead to plot points in the avoidPlotPoints
+            if(flag){
+                continue;
+            }
+            for(int i : requiredPlotPoints){
+                if(i == ipp.intValue()){
+                    flag = true;
+                    break;
+                }
+            }
+            ArrayList<OptionItem> oil = ppo.getItemListByIndicatedPP(ipp.intValue());
+            if(oil.size() > 1){
+                ArrayList<Integer> sel = CommonUtil.getRandom(oil.size(), numOptionPerPP);
+                for(Integer i : sel){
+                    ret.add(oil.get(i));
+                }
+            }
+            else if(oil.size() == 1){
+                ret.add(oil.get(0));
+            }
+            else{
+                System.err.println("Error in TrainingControl.getNexOption: Cannot find the indicated option item");
+            }
+        }
+        return ret;
+    }
+    
     public void next(int index, int rating) {
-
-            
         currentShown.get(currentShown.size()-1).rating = rating;
         if(currentPlotPoint < numPPPStory - 1){
             currentPlotPoint++;
-            int ppid = currentShown.get(currentShown.size()-1).getLast().id;
-            IntegerPlotPoint tp = ppl.getPP(ppid);
-            ArrayList<OptionItem> ppo = tp.getOptions().getAllOptions();
+            ArrayList<OptionItem> ppo = currentShown.get(currentShown.size()-1).options.getAllOptions();
             Prefix p = new Prefix(currentShown.get(currentShown.size()-1));
             int nextPPID = ppo.get(index).getIndicatedPP();
             IntegerPlotPoint nextPP = ppl.getPP(nextPPID);
-            p.append(nextPPID, new PPOptions(nextPP.getOptions()));
-            currentShown.add(p);
-                    
+            p.append(nextPPID, getNextOption(nextPP));
+            currentShown.add(p);        
         }
         
         else if(currentStory < numStories ){
@@ -106,15 +174,12 @@ public class TrainingControl {
                 Calendar d = Calendar.getInstance();
                 int month = d.get(Calendar.MONTH) + 1;
                 ratingFile = "Rating" + "_" + key + "_" + month + "." + d.get(Calendar.DAY_OF_MONTH) +  "." + d.get(Calendar.HOUR_OF_DAY) + "." + d.get(Calendar.MINUTE) + "_" + ip+".txt";
-                //ratingFile = "Rating.txt";
-                       
-//                System.out.println(ratingFile);
                 optionPreferenceFile = "OptionPreference" + "_" + key + "_" + month + "." + d.get(Calendar.DAY_OF_MONTH) +  "." + d.get(Calendar.HOUR_OF_DAY) + "." + d.get(Calendar.MINUTE) + "_" + ip+".txt";
             }
             PrefixUtil.writePrefixList2Server(currentShown, ratingFile);
             PrefixUtil.writeOptionPreference2Server(currentShown, optionPreferenceFile);
             currentStory++;
-            restart();
+            startNewStory();
         }
         else{
             trainingp.disableNext();
@@ -138,10 +203,7 @@ public class TrainingControl {
                 Done doneDialog = new Done(null, true, key);
                 doneDialog.setVisible(true);
             }
-            
-//            PrefixUtil.writeString2Server(key, key);
-//            PrefixUtil.writePrefixList2Server(currentShown, ratingFile);
-//            PrefixUtil.writeOptionPreference2Server(currentShown, optionPreferenceFile);
+
             try{
                 ja.getAppletContext().showDocument(new URL("http://scarecrow.cc.gt.atl.ga.us//Finish.html"));
             }
@@ -152,8 +214,9 @@ public class TrainingControl {
         
     }
     public void correctQuestion(int value){
-        if(value == correctChoice)
+        if(value == correctChoice){
             numCorrectQuestions++;
+        }
     }
     
     int correctChoice = -1;
@@ -169,7 +232,7 @@ public class TrainingControl {
             return null;
         }
         Random rd = new Random();
-//        20 percent of times no questions.
+//        10 percent of times no questions.
 //        if(rd.nextDouble() > 0.9)
 //            return null;
         
@@ -183,13 +246,13 @@ public class TrainingControl {
         ArrayList<PlotPoint> tp = currentShown.get(currentShown.size()-1).itemList;
         ArrayList<PPOptions> quizList = quiz.getPPOptionList(tp.get(tp.size()-1).id);
             
-            
+//         Question type 1: option chosn question   
         if(rd.nextDouble() > 0.7 && oiList.size() > 1){
-
             for(int i = 0; i < oiList.size(); i++){
                 options.add("You just chose: \"" + oiList.get(i).getValue() + "\"");
             }
         }
+//        Question type 2: story context question
         else{
 
             ArrayList<OptionItem> tao = quizList.get(rd.nextInt(quizList.size())).getAllOptions();
@@ -221,9 +284,10 @@ public class TrainingControl {
     public DefaultListModel getListModel(){
         dlm.clear();
         if(currentPlotPoint < numPPPStory-1){
-            int ppid = currentShown.get(currentShown.size()-1).getLast().id;
-            IntegerPlotPoint tp = ppl.getPP(ppid);
-            ArrayList<OptionItem> ppo = tp.getOptions().getAllOptions();
+//            int ppid = currentShown.get(currentShown.size()-1).getLast().id;
+//            IntegerPlotPoint tp = ppl.getPP(ppid);
+//            ArrayList<OptionItem> ppo = tp.getOptions().getAllOptions();
+            ArrayList<OptionItem> ppo = currentShown.get(currentShown.size()-1).options.getAllOptions();
             for(int i = 0; i < ppo.size(); i++){
                 int ii = i+1;
                 dlm.addElement("" + ii + ": " + ppo.get(i).getValue());
@@ -236,8 +300,10 @@ public class TrainingControl {
     }
     
     public void getPreferenceCB(TrainingPanel trainingPanel, JRadioButton[][] jcb){
-        if(currentPlotPoint < numPPPStory){
-     
+        for(int i = 0; i < jcb.length; i++){
+            jcb[i][5].setSelected(true);
+        }
+        if(currentPlotPoint < numPPPStory){     
             Prefix tp = null;
             for(int i = 0; i < currentShown.size()-1; i++){
                 if(currentShown.get(currentShown.size()-1).compareTo(currentShown.get(i))==0){
@@ -245,14 +311,16 @@ public class TrainingControl {
                     break;
                 }
             }
+//           The player has rate this prefix before
             if(tp != null){
-                ArrayList<OptionItem> ppo = tp.options.getAllOptions();
-                ArrayList<OptionItem> ppo2 = currentShown.get(currentShown.size()-1).options.getAllOptions();
+                PPOptions newO = currentShown.get(currentShown.size()-1).options;
                 
-                for(int i = 0; i < ppo.size(); i++){
-                    jcb[i][ppo.get(i).getPreference()-1].setSelected(true);
-                    ppo2.get(i).setPreference(ppo.get(i).getPreference());
-                    trainingPanel.preferenceArray[i] = ppo.get(i).getPreference();
+                for(int i = 0; i < newO.getAllOptions().size(); i++){
+                    int pref = newO.getAllOptions().get(i).getPreference();
+                    if(pref != 0){
+                        trainingPanel.preferenceArray[i] = pref;
+                        jcb[i][pref-1].setSelected(true);
+                    }
                 }
                 
                 currentShown.get(currentShown.size()-1).rating = tp.rating;
@@ -260,31 +328,19 @@ public class TrainingControl {
                 trainingPanel.rating = tp.rating;
                 trainingPanel.showSame();
             } 
-            else{
-                for(int i = 0; i < jcb.length; i++){
-//                    jcb.get(i).setValue(3);
-                    jcb[i][5].setSelected(true);
-                }
-            }
-            
+//            first time see the prefix
+//            else{
+//                for(int i = 0; i < jcb.length; i++){
+//                    jcb[i][5].setSelected(true);
+//                }
+//            }            
         }
-                
-        else{
-            for(int i = 0; i < jcb.length; i++){
-                jcb[i][5].setSelected(true);
-            }
-
-        }
+              
     }
     
     public void setPreferenceCB(int index, int value){
         if(currentPlotPoint < numPPPStory-1){
-//            int ppid = currentShown.get(currentShown.size()-1).getLast().id;
-//            IntegerPlotPoint tp = ppl.getPP(ppid);
-//            ArrayList<OptionItem> ppo = tp.getOptions().getAllOptions();
-// 
-//            ppo.get(index).setPreference(value);
-              
+             
             ArrayList<OptionItem> ppo = currentShown.get(currentShown.size()-1).options.getAllOptions();
             ppo.get(index).setPreference(value);
         }
@@ -293,9 +349,10 @@ public class TrainingControl {
     
     public int getNumOptions(){
         if(currentPlotPoint < numPPPStory-1){
-            int ppid = currentShown.get(currentShown.size()-1).getLast().id;
-            IntegerPlotPoint tp = ppl.getPP(ppid);
-            ArrayList<OptionItem> ppo = tp.getOptions().getAllOptions();
+//            int ppid = currentShown.get(currentShown.size()-1).getLast().id;
+//            IntegerPlotPoint tp = ppl.getPP(ppid);
+//            ArrayList<OptionItem> ppo = tp.getOptions().getAllOptions();
+            ArrayList<OptionItem> ppo = currentShown.get(currentShown.size()-1).options.getAllOptions();
             return ppo.size();
         }
         else

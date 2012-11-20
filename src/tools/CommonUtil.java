@@ -1,8 +1,9 @@
 package tools;
 import java.io.*;
-import java.util.ArrayList;
-import no.uib.cipr.matrix.*;
 import java.net.*;
+import java.util.*;
+import java.util.Vector;
+import no.uib.cipr.matrix.*;
 
 public class CommonUtil {
 	
@@ -507,5 +508,22 @@ public class CommonUtil {
 		
 		return Math.sqrt(dist);
 	}
+        
+/**Get num random number from 0 (inclusive) to max (exclusive)
+ * 
+ */
+        public static ArrayList<Integer> getRandom(int max, int num){
+            ArrayList<Integer> ret = new ArrayList<Integer>();
+            Random r = new Random();
+            for(int i = 0; i < num; i++){
+                int k = r.nextInt(max);
+                while(Collections.binarySearch(ret, k) >= 0){
+                    k = r.nextInt(max);
+                }
+                ret.add(k);
+                Collections.sort(ret);
+            }
+            return ret;
+        }
 	
 }

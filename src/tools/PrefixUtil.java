@@ -94,11 +94,13 @@ public class PrefixUtil {
                         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(url.openConnection().getOutputStream()));
                         
 			for(int i = 0; i < pl.size(); i++){
-				
 				Prefix pi = pl.get(i);
-                                
-				for(int j = 0; j < pi.options.getAllOptions().size(); j++){
-					bw.write("" + pi.options.getAllOptions().get(j).getIndicatedPP() + ":" + pi.options.getAllOptions().get(j).getPreference() + "\t");
+                                PPOptions ppo = pi.options;
+                                if(ppo == null){
+                                    continue;
+                                }
+				for(int j = 0; j < ppo.getAllOptions().size(); j++){
+                                    bw.write("" + pi.options.getAllOptions().get(j).getOID() + ":" + pi.options.getAllOptions().get(j).getPreference() + "\t");
 				}
 				bw.newLine();
 			}
@@ -138,6 +140,7 @@ public class PrefixUtil {
 			}
 		}
 		catch(Exception e){
+                    e.printStackTrace();
 //                        System.out.println("Cannot read file " + fileName + " locally. Try to read it remotely");
                         try{
                             URL url = new URL(ftpReadServer+fileName);
@@ -193,19 +196,18 @@ public class PrefixUtil {
                             String[] t = line.split(":::");
                             int iPP = Integer.parseInt(t[0]);
                             int OID = Integer.parseInt(t[1]);
-                            OptionItem oi = new OptionItem(iPP, t[2]);
-                            oi.setOID(OID);
+                            OptionItem oi = new OptionItem(iPP, OID, t[2]);
+//                            oi.setOID(OID);
                             ppo.add(oi);
 			}
                         ao.addPPOptions(ppo);
 		}
 		catch(Exception e){
-                    //e.printStackTrace();
+                    e.printStackTrace();
 //                    System.out.println("Cannot read file " + fileName + " locally. Try to read it remotely");
                         try{
                             URL url = new URL(ftpReadServer+fileName);
                             BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-                            
                             int PPID = -1;
                             PPOptions ppo = null;
                             while((line = br.readLine()) != null){
@@ -222,8 +224,9 @@ public class PrefixUtil {
                                     continue;
                                 }
                                 String[] t = line.split(":::");
-                                int OID = Integer.parseInt(t[0]);
-                                ppo.add(new OptionItem(OID, t[1]));
+                                int iPP = Integer.parseInt(t[0]);
+                                int OID = Integer.parseInt(t[1]);
+                                ppo.add(new OptionItem(iPP, OID, t[2]));
                             }
                             ao.addPPOptions(ppo);
                             System.out.println("Read " + fileName + " successfully");
@@ -264,6 +267,8 @@ public class PrefixUtil {
         public static void writeOptionItemList(ArrayList<OptionItem> oiList, String filename){
 		try{
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+                        bw.write("//OptionID: Prefix ID, PP ID, Indicated PP, Option ");
+                        bw.newLine();
 			for(int i = 0; i < oiList.size(); i++){
                                 bw.write("" + oiList.get(i).getOID() + ":\t" + oiList.get(i).getPrefixID() + "\t" + oiList.get(i).getPPID() + "\t" + oiList.get(i).getIndicatedPP() + "\t" + oiList.get(i).getValue());
 				bw.newLine();
@@ -294,10 +299,10 @@ public class PrefixUtil {
                             int optionID = Integer.parseInt(p[0].substring(0, p[0].length()-1));
                             int PPID = Integer.parseInt(p[2]);
                             int indicatePP = Integer.parseInt(p[3]);
-                            OptionItem oi = new OptionItem(indicatePP, p[4]);
+                            OptionItem oi = new OptionItem(indicatePP, optionID, p[4]);
                             oi.setPrefixID(prefixID);
                             oi.setPPID(PPID);
-                            oi.setOID(optionID);
+//                            oi.setOID(optionID);
                             oiList.add(oi);
                         }
 			br.close();
@@ -476,7 +481,7 @@ public class PrefixUtil {
             AllOptions ao = readOptions(PrefixUtil.optionFile);
             addOptions2PlotPoints(ppl, ao);
             
-            System.out.println(ppl.getPP(470).getOptions().getOptionItem(475));
+            System.out.println(ppl.getPP(470).getOptions().getItemByIndicatedPP(475));
             
             
         }

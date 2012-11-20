@@ -30,8 +30,6 @@ public class TrainingPanel extends javax.swing.JPanel {
     
     private ArrayList<JPanel> optionPanels = new ArrayList<JPanel>();
     
-//    private ArrayList<JLabel> jlA = new ArrayList<JLabel>();
-    
     private final int maxNumOptions = 6;
     private final int maxRatingLevels = 6;
     public ArrayList<JRadioButton> jrbA = new ArrayList<JRadioButton>();
@@ -40,6 +38,11 @@ public class TrainingPanel extends javax.swing.JPanel {
 //    private int nextMove = -1;
     JRadioButton[][] optionRadioA = new JRadioButton[maxNumOptions][maxRatingLevels];
 //    private int selectedOption = -1;
+    
+    private Color backgroundC = new Color(240,240,240);
+    private Color greyC = new Color(204,204,204);
+    private Color yellowC = new Color(255,255,102);
+    private Color darkYelloC = new Color(255,255,0);
     
     public TrainingPanel(JApplet ja) {
         tc = new TrainingControl(ja, this);
@@ -61,9 +64,9 @@ public class TrainingPanel extends javax.swing.JPanel {
         optionPanels.add(optionP6);
         
         for(int i = 0;i < jrbA.size()-1; i++){
-            jrbA.get(i).setBackground(new Color(255,255,102));
+            jrbA.get(i).setBackground(yellowC);
         }
-        jPanel1.setBackground(new Color(255,255,102));
+        jPanel1.setBackground(yellowC);
         
         options.add(jLabel3);
         options.add(jLabel4);
@@ -108,21 +111,16 @@ public class TrainingPanel extends javax.swing.JPanel {
         optionRadioA[5][4] = jRadioButton47;
         optionRadioA[5][5] = jRadioButton48;
         jLabel10.setVisible(false);
-//        jLabel2.setVisible(false);
         
         for (int i = 0; i < maxNumOptions; i++){
-            //jcbA.get(i).setVisible(false);
             options.get(i).setVisible(false);
             for(int j = 0; j < 6; j++){
                 optionRadioA[i][j].setVisible(false);
             }
         }
-//        optionList.setVisible(false);
 
     }
     public void disableNext(){
-//        nextButton.setEnabled(false);
-//        jButton1.setEnabled(false);
         showNextMove = false;
         jRadioButton1.setEnabled(false);
         jRadioButton2.setEnabled(false); 
@@ -135,48 +133,56 @@ public class TrainingPanel extends javax.swing.JPanel {
     public void showSame(){
         for(int i = 0; i < jrbA.size()-1; i++){
             jrbA.get(i).setEnabled(false);
-            jrbA.get(i).setBackground(new Color(240,240,240));
+            jrbA.get(i).setBackground(backgroundC);
         }
-        jPanel1.setBackground(new Color(240,240,240));
+        jPanel1.setBackground(backgroundC);
 
+        int min = 10;
+        for(int i = 0; i < tc.getNumOptions(); i++){ 
+            if(preferenceArray[i] < min)
+                min = preferenceArray[i];            
+        }        
+        jLabel10.setVisible(true);
         for(int i = 0; i < tc.getNumOptions(); i++){
             options.get(i).setVisible(true);
-            options.get(i).setBackground(new Color(255, 255, 102));
+            optionPanels.get(i).setBackground(yellowC);
             for(int j = 0; j < 5; j++){
                 optionRadioA[i][j].setVisible(true);
-                optionRadioA[i][j].setEnabled(false);
+                optionRadioA[i][j].setBackground(yellowC);
             }
+        }        
+        if(min > 0){
+            for(int i = 0; i < tc.getNumOptions(); i++){
+                options.get(i).setBackground(yellowC);
+                optionPanels.get(i).setBackground(backgroundC);
+                 for(int j = 0; j < 5; j++){
+//                    optionRadioA[i][j].setEnabled(false);
+                    optionRadioA[i][j].setBackground(backgroundC);
+                }
+            }            
+            jLabel10.setText("Please select your preferred option by clicking it.");
+            showNextMove = true;
         }
-
-        
-        
-        jLabel10.setVisible(true);
-        jLabel10.setText("Please select your preferred option by clicking it.");
-        showNextMove = true;
-       
     }
     
     private void showOptions(){
-
         for(int i = 0;i < jrbA.size()-1; i++){
             jrbA.get(i).setEnabled(false);
-            jrbA.get(i).setBackground(new Color(240,240,240));
+            jrbA.get(i).setBackground(backgroundC);
         }
-        jPanel1.setBackground(new Color(240,240,240));
+        jPanel1.setBackground(backgroundC);
         
         jLabel10.setVisible(true);
-//        jButton1.setEnabled(false);
-//        options.setVisible(true);
         DefaultListModel dlm = tc.getListModel();
         for(int i = 0; i < dlm.size(); i++){
             options.get(i).setText(dlm.get(i).toString());
             options.get(i).setVisible(true);
-            options.get(i).setBackground(new Color(204,204,204));
-            optionPanels.get(i).setBackground(new Color(255,255,102));
+            options.get(i).setBackground(greyC);
+            optionPanels.get(i).setBackground(yellowC);
             for(int j = 0; j < 5; j++){
                 optionRadioA[i][j].setVisible(true);
                 optionRadioA[i][j].setEnabled(true);
-                optionRadioA[i][j].setBackground(new Color(255,255,102));
+                optionRadioA[i][j].setBackground(yellowC);
             }
             
         }
@@ -187,84 +193,13 @@ public class TrainingPanel extends javax.swing.JPanel {
                 optionRadioA[i][j].setVisible(false);
             }
         }    
-
-        for(int i = 0; i < preferenceArray.length; i++){
-            preferenceArray[i] = -1;
-        }    
-        if(dlm.size() == 1){
+        if(dlm.size() == 1 && dlm.get(0).toString().compareTo("1: Continue.") == 0){
+            
             selectOptionPreference(0, 3);
         }
     }
     
-//    private int getNextMove(){
-//
-//       if(optionList.getSelectedValue() == null){
-//           return -1;
-//       }
-//       
-//       String selected = optionList.getSelectedValue().toString();
-//       if(selected.compareTo("") == 0){
-//           return -1;
-//       }
-//       
-//       int i;
-//       
-//       //System.out.println(tc.getNumOptions());
-//       
-//       for(i = 0; i < tc.getNumOptions(); i++){
-//           if(selected.compareTo(options.get(i).getText()) == 0){
-//               break;
-//           }
-//       }
-//       if(i == tc.getNumOptions())
-//           return -1;
-//       
-//       return i;
-//    }
-    
-//    DefaultComboBoxModel nextMoveCBM = new DefaultComboBoxModel();
-//    DefaultListModel nextMoveLB = new DefaultListModel();
-    
-//    private void ComboBoxStatus2List1(){
-//       
-////        nextMoveCBM.removeAllElements();
-//        nextMoveLB.removeAllElements();
-//        int numO = tc.getNumOptions();
-//        if(numO == 1){
-////            nextMoveCBM.addElement("");
-//            nextMoveLB.addElement("");
-//            nextMoveLB.addElement(options.get(0).getText());
-//            optionList.setModel(nextMoveLB);
-//            return;
-//        }
-//        int[] tid = new int[numO];
-//        int[] ind = new int[numO];
-//        
-//        System.arraycopy(preferenceArray, 0, tid, 0, numO);
-//
-//        int max = -1;
-//        int maxID = -1;
-//               
-//        for(int i = 0; i < numO; i++){
-//            for(int j = 0; j < numO; j++){
-//                if(tid[j]>max){
-//                    max = tid[j];
-//                    maxID = j;
-//                }
-//                        
-//            }
-//            max = -1;
-//            ind[i] = maxID;
-//            tid[maxID] = -1;
-//        }
-//        nextMoveLB.addElement("");
-//        for(int i = 0; i < numO; i++){
-//            nextMoveLB.addElement(options.get(ind[i]).getText());
-//        }
-//        
-//        optionList.setModel(nextMoveLB);
-//
-//    }
+
     
     int[] preferenceArray = new int[maxNumOptions];
 
@@ -275,30 +210,24 @@ public class TrainingPanel extends javax.swing.JPanel {
         int min = 10;
         for(int i = 0; i < tc.getNumOptions(); i++){ 
             if(preferenceArray[i] < min)
-                min = preferenceArray[i];
-            
+                min = preferenceArray[i];            
         }
-        if(min > 0){
-//            ComboBoxStatus2List1();
+        if(min > 0 && options.get(0).getBackground().getBlue() != 102){
             for(int i = 0; i < tc.getNumOptions(); i++){
+//                disable the option radio buttons when finish
                 for(int j = 0; j < 5; j++){
-                    optionRadioA[i][j].setEnabled(false);
-                    optionRadioA[i][j].setBackground(new Color(240,240,240));
+//                    optionRadioA[i][j].setEnabled(false);
+                    optionRadioA[i][j].setBackground(backgroundC);
                 }
-                options.get(i).setBackground(new Color(255,255,102));
-                optionPanels.get(i).setBackground(new Color(240,240,240));
+                options.get(i).setBackground(yellowC);
+                optionPanels.get(i).setBackground(backgroundC);
             }
             showNextMove = true;
             jLabel10.setText("Please select your preferred option by clicking it.");
-//            jLabel2.setVisible(true);
-//            jLabel10.setVisible(false);
-//            optionList.setVisible(true);
-//            this.repaint();
         }
     }
     
     public void questionResult(int value){
-
         tc.correctQuestion(value);
     }
     
@@ -306,36 +235,36 @@ public class TrainingPanel extends javax.swing.JPanel {
     QuestionDialog qdd = null;
     private void nextPlotPoint(int nextMove){
 
-
-        showNextMove = false;
         int tp = nextMove;
         if(tp == -1){
             return;
         }
+        showNextMove = false;
+        for(int i = 0; i < preferenceArray.length; i++){
+            preferenceArray[i] = -1;
+        }
+        
         ArrayList<String> questions = tc.getQuestions();
 
         tc.setCorrectChoice(tp);
-        
-
+//        Enable the story rating panel
         for(int i = 0;i < jrbA.size()-1; i++){
             jrbA.get(i).setEnabled(true);
-            jrbA.get(i).setBackground(new Color(255,255,102));
+            jrbA.get(i).setBackground(yellowC);
         }
-        jPanel1.setBackground(new Color(255,255,102));
+        jPanel1.setBackground(yellowC);
 
         jLabel10.setVisible(false);
         jLabel10.setText("Please rate each option.");
 
         for(int i = 0; i < tc.getNumOptions(); i++){
             options.get(i).setVisible(false);
-            options.get(i).setBackground(new Color(204,204,204));
+            options.get(i).setBackground(greyC);
             for(int j = 0; j < 5; j++){
                 optionRadioA[i][j].setVisible(false);
                 
             }
         }
-
-        
         tc.next(tp, rating);
 
         StoryTextArea.setText(tc.show());
@@ -344,8 +273,6 @@ public class TrainingPanel extends javax.swing.JPanel {
         jRadioButton6.setSelected(true);
         rating = 0;
 
-
-        
         for(int i = 0; i < dlm.size(); i++){
             options.get(i).setText(dlm.get(i).toString());
         }
@@ -462,7 +389,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         StoryTextArea.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jScrollPane1.setViewportView(StoryTextArea);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText(tc.getTitle());
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -522,12 +449,15 @@ public class TrainingPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jRadioButton1)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton2)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton3)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton4)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton5)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton6))
         );
         jPanel1Layout.setVerticalGroup(
@@ -575,8 +505,8 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         jLabel4.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14));
-        jLabel4.setText("jLabel3");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("jLabel4");
         jLabel4.setOpaque(true);
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -591,8 +521,8 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         jLabel5.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14));
-        jLabel5.setText("jLabel3");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("jLabel5");
         jLabel5.setOpaque(true);
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -607,8 +537,8 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         jLabel6.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14));
-        jLabel6.setText("jLabel3");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("jLabel6");
         jLabel6.setOpaque(true);
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -623,8 +553,8 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         jLabel7.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14));
-        jLabel7.setText("jLabel3");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("jLabel7");
         jLabel7.setOpaque(true);
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -640,7 +570,7 @@ public class TrainingPanel extends javax.swing.JPanel {
 
         jLabel8.setBackground(new java.awt.Color(204, 204, 204));
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("jLabel3");
+        jLabel8.setText("jLabel8");
         jLabel8.setOpaque(true);
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -655,7 +585,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup2.add(jRadioButton7);
-        jRadioButton7.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton7.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton7.setText("1");
         jRadioButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -664,7 +594,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup2.add(jRadioButton8);
-        jRadioButton8.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton8.setText("2");
         jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -709,12 +639,15 @@ public class TrainingPanel extends javax.swing.JPanel {
             .addGroup(optionP1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jRadioButton7)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton8)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton9)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton10)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton11)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton12))
         );
         optionP1Layout.setVerticalGroup(
@@ -739,11 +672,11 @@ public class TrainingPanel extends javax.swing.JPanel {
                     .addGroup(optionP1Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jRadioButton12)))
-                .addContainerGap(6, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonGroup3.add(jRadioButton25);
-        jRadioButton25.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton25.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton25.setText("1");
         jRadioButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -752,7 +685,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup3.add(jRadioButton26);
-        jRadioButton26.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton26.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton26.setText("2");
         jRadioButton26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -761,7 +694,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup3.add(jRadioButton27);
-        jRadioButton27.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton27.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton27.setText("3");
         jRadioButton27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -770,7 +703,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup3.add(jRadioButton28);
-        jRadioButton28.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton28.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton28.setText("4");
         jRadioButton28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -779,7 +712,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup3.add(jRadioButton29);
-        jRadioButton29.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton29.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton29.setText("5");
         jRadioButton29.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -797,12 +730,15 @@ public class TrainingPanel extends javax.swing.JPanel {
             .addGroup(optionP2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jRadioButton25)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton26)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton27)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton28)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton29)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton30))
         );
         optionP2Layout.setVerticalGroup(
@@ -827,11 +763,11 @@ public class TrainingPanel extends javax.swing.JPanel {
                     .addGroup(optionP2Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jRadioButton30)))
-                .addContainerGap(6, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonGroup4.add(jRadioButton31);
-        jRadioButton31.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton31.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton31.setText("1");
         jRadioButton31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -840,7 +776,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup4.add(jRadioButton32);
-        jRadioButton32.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton32.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton32.setText("2");
         jRadioButton32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -849,7 +785,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup4.add(jRadioButton33);
-        jRadioButton33.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton33.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton33.setText("3");
         jRadioButton33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -858,7 +794,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup4.add(jRadioButton34);
-        jRadioButton34.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton34.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton34.setText("4");
         jRadioButton34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -867,7 +803,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup4.add(jRadioButton35);
-        jRadioButton35.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton35.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton35.setText("5");
         jRadioButton35.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -885,12 +821,15 @@ public class TrainingPanel extends javax.swing.JPanel {
             .addGroup(optionP3Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jRadioButton31)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton32)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton33)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton34)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton35)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton36))
         );
         optionP3Layout.setVerticalGroup(
@@ -915,11 +854,11 @@ public class TrainingPanel extends javax.swing.JPanel {
                     .addGroup(optionP3Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jRadioButton36)))
-                .addContainerGap(6, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonGroup5.add(jRadioButton37);
-        jRadioButton37.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton37.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton37.setText("1");
         jRadioButton37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -928,7 +867,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup5.add(jRadioButton38);
-        jRadioButton38.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton38.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton38.setText("2");
         jRadioButton38.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -937,7 +876,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup5.add(jRadioButton39);
-        jRadioButton39.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton39.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton39.setText("3");
         jRadioButton39.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -946,7 +885,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup5.add(jRadioButton40);
-        jRadioButton40.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton40.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton40.setText("4");
         jRadioButton40.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -955,7 +894,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup5.add(jRadioButton41);
-        jRadioButton41.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton41.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton41.setText("5");
         jRadioButton41.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -973,12 +912,15 @@ public class TrainingPanel extends javax.swing.JPanel {
             .addGroup(optionP4Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jRadioButton37)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton38)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton39)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton40)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton41)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton42))
         );
         optionP4Layout.setVerticalGroup(
@@ -1003,11 +945,11 @@ public class TrainingPanel extends javax.swing.JPanel {
                     .addGroup(optionP4Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jRadioButton42)))
-                .addContainerGap(6, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonGroup6.add(jRadioButton49);
-        jRadioButton49.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton49.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton49.setText("1");
         jRadioButton49.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1016,7 +958,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup6.add(jRadioButton50);
-        jRadioButton50.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton50.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton50.setText("2");
         jRadioButton50.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1025,7 +967,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup6.add(jRadioButton51);
-        jRadioButton51.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton51.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton51.setText("3");
         jRadioButton51.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1034,7 +976,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup6.add(jRadioButton52);
-        jRadioButton52.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton52.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton52.setText("4");
         jRadioButton52.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1043,7 +985,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup6.add(jRadioButton53);
-        jRadioButton53.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton53.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton53.setText("5");
         jRadioButton53.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1061,12 +1003,15 @@ public class TrainingPanel extends javax.swing.JPanel {
             .addGroup(optionP5Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jRadioButton49)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton50)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton51)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton52)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton53)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton54))
         );
         optionP5Layout.setVerticalGroup(
@@ -1091,11 +1036,11 @@ public class TrainingPanel extends javax.swing.JPanel {
                     .addGroup(optionP5Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jRadioButton54)))
-                .addContainerGap(6, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonGroup7.add(jRadioButton43);
-        jRadioButton43.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton43.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton43.setText("1");
         jRadioButton43.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1104,7 +1049,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup7.add(jRadioButton44);
-        jRadioButton44.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton44.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton44.setText("2");
         jRadioButton44.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1113,7 +1058,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup7.add(jRadioButton45);
-        jRadioButton45.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton45.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton45.setText("3");
         jRadioButton45.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1122,7 +1067,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
 
         buttonGroup7.add(jRadioButton46);
-        jRadioButton46.setFont(new java.awt.Font("Verdana", 0, 14));
+        jRadioButton46.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jRadioButton46.setText("4");
         jRadioButton46.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1149,12 +1094,15 @@ public class TrainingPanel extends javax.swing.JPanel {
             .addGroup(optionP6Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jRadioButton43)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton44)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton45)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton46)
                 .addGap(2, 2, 2)
                 .addComponent(jRadioButton47)
+                .addGap(0, 0, 0)
                 .addComponent(jRadioButton48))
         );
         optionP6Layout.setVerticalGroup(
@@ -1179,7 +1127,7 @@ public class TrainingPanel extends javax.swing.JPanel {
                     .addGroup(optionP6Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jRadioButton48)))
-                .addContainerGap(6, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1212,11 +1160,11 @@ public class TrainingPanel extends javax.swing.JPanel {
                     .addComponent(optionP1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(optionP2, 0, 40, Short.MAX_VALUE)
+                    .addComponent(optionP2, 0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(optionP3, 0, 40, Short.MAX_VALUE)
+                    .addComponent(optionP3, 0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1224,11 +1172,11 @@ public class TrainingPanel extends javax.swing.JPanel {
                     .addComponent(optionP4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(optionP5, 0, 40, Short.MAX_VALUE)
+                    .addComponent(optionP5, 0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(optionP6, 0, 40, Short.MAX_VALUE)
+                    .addComponent(optionP6, 0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -1237,28 +1185,28 @@ public class TrainingPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(474, 474, 474)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(3141, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1070, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(3160, 3160, 3160))))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3281, 3281, 3281))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(474, 474, 474)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1273,7 +1221,7 @@ public class TrainingPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1469,7 +1417,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel3.setBackground(new Color(255,255,0));
+            jLabel3.setBackground(darkYelloC);
             this.repaint();
         }
     }//GEN-LAST:event_jLabel3MouseEntered
@@ -1477,7 +1425,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel3.setBackground(new Color(255,255,102));
+            jLabel3.setBackground(yellowC);
             this.repaint();
         }
     }//GEN-LAST:event_jLabel3MouseExited
@@ -1485,7 +1433,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel4.setBackground(new Color(255,255,0));
+            jLabel4.setBackground(darkYelloC);
             this.repaint();
         }
     }//GEN-LAST:event_jLabel4MouseEntered
@@ -1493,7 +1441,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel4.setBackground(new Color(255,255,102));
+            jLabel4.setBackground(yellowC);
             this.repaint();
         }
     }//GEN-LAST:event_jLabel4MouseExited
@@ -1501,7 +1449,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
         if (showNextMove) {          
-            jLabel3.setBackground(new Color(204,204,204));
+            jLabel3.setBackground(greyC);
             nextPlotPoint(0);
             
         }
@@ -1510,7 +1458,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
         if (showNextMove) {     
-            jLabel4.setBackground(new Color(204,204,204));
+            jLabel4.setBackground(greyC);
             nextPlotPoint(1);
         }
     }//GEN-LAST:event_jLabel4MouseClicked
@@ -1518,7 +1466,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel5.setBackground(new Color(255,255,0));
+            jLabel5.setBackground(darkYelloC);
             this.repaint();
         }
     }//GEN-LAST:event_jLabel5MouseEntered
@@ -1526,7 +1474,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel5.setBackground(new Color(255,255,102));
+            jLabel5.setBackground(yellowC);
             this.repaint();
         }
     }//GEN-LAST:event_jLabel5MouseExited
@@ -1534,7 +1482,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
         if (showNextMove) {  
-            jLabel5.setBackground(new Color(204,204,204));
+            jLabel5.setBackground(greyC);
             nextPlotPoint(2);
         }
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -1542,7 +1490,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel6.setBackground(new Color(255,255,0));
+            jLabel6.setBackground(darkYelloC);
             this.repaint();
         }        
     }//GEN-LAST:event_jLabel6MouseEntered
@@ -1550,7 +1498,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel6.setBackground(new Color(255,255,102));
+            jLabel6.setBackground(yellowC);
             this.repaint();
         }
     }//GEN-LAST:event_jLabel6MouseExited
@@ -1558,7 +1506,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
         if (showNextMove) { 
-            jLabel6.setBackground(new Color(204,204,204));
+            jLabel6.setBackground(greyC);
             nextPlotPoint(3);
         }
     }//GEN-LAST:event_jLabel6MouseClicked
@@ -1566,7 +1514,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel7.setBackground(new Color(255,255,0));
+            jLabel7.setBackground(darkYelloC);
             this.repaint();
         }              
     }//GEN-LAST:event_jLabel7MouseEntered
@@ -1574,7 +1522,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel7.setBackground(new Color(255,255,102));
+            jLabel7.setBackground(yellowC);
             this.repaint();
         }        
     }//GEN-LAST:event_jLabel7MouseExited
@@ -1582,7 +1530,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
         if (showNextMove) {          
-            jLabel7.setBackground(new Color(204,204,204));
+            jLabel7.setBackground(greyC);
             nextPlotPoint(4);
         }
     }//GEN-LAST:event_jLabel7MouseClicked
@@ -1590,7 +1538,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseEntered
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel8.setBackground(new Color(255,255,0));
+            jLabel8.setBackground(darkYelloC);
             this.repaint();
         }   
     }//GEN-LAST:event_jLabel8MouseEntered
@@ -1598,7 +1546,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseExited
         // TODO add your handling code here:
         if(showNextMove){
-            jLabel8.setBackground(new Color(255,255,102));
+            jLabel8.setBackground(yellowC);
             this.repaint();
         }    
     }//GEN-LAST:event_jLabel8MouseExited
@@ -1606,7 +1554,7 @@ public class TrainingPanel extends javax.swing.JPanel {
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
         if (showNextMove) {    
-            jLabel8.setBackground(new Color(204,204,204));
+            jLabel8.setBackground(greyC);
             nextPlotPoint(5);
         }
     }//GEN-LAST:event_jLabel8MouseClicked

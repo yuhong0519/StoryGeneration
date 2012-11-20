@@ -143,7 +143,7 @@ public class OptionPredictor {
         if(predictSel < 0){
             predictSel = 0;
         }
-        ArrayList<OptionItem> ret = ppo.getOptionItembyPosition(predictSel);
+        ArrayList<OptionItem> ret = ppo.getItembyPreference(predictSel);
         return ret;
         
     }
