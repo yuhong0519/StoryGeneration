@@ -330,3 +330,4 @@
 328:	6	2	42	It is a rare chance to be allowed studying tigers in the Terai region. You definitely go for tigers.
 329:	6	2	42	Carlos should be safe. You decide to go to the expedition for the tigers.
 330:	6	2	42	You decide to go to the expedition for the tigers since you have dreamed to photograph tigers since very young.
+331:	6	2	42	Mr. Runal is an expert. You follow his advise to go on the expedition for the tigers.

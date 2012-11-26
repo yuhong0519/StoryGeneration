@@ -66,6 +66,12 @@ public class PPOptions {
         options.add(oi);
     }
     
+    public void add(ArrayList<OptionItem> oi){
+        for(OptionItem o : oi){
+            add(o);
+        }
+    }
+    
     public ArrayList<OptionItem> getAllOptions(){
         return options;
     }

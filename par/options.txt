@@ -17,6 +17,7 @@
 42:::328:::It is a rare chance to be allowed studying tigers in the Terai region. You definitely go for tigers.
 42:::329:::Carlos should be safe. You decide to go to the expedition for the tigers.
 42:::330:::You decide to go to the expedition for the tigers since you have dreamed to photograph tigers since very young.
+42:::331:::Mr. Runal is an expert. You follow his advise to go on the expedition for the tigers.
 <3>
 4:::38:::You decide to ignore the message and go to look for Carlos.
 7:::39:::You obey the message and climb back up to the base camp to wait for Carlos.

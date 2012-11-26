@@ -11,15 +11,17 @@ import tools.CommonUtil;
  * @author Hong Yu
  */
 public class TrainingControl {
-    private ArrayList<Prefix> prefixList = null;
+    private ArrayList<Prefix> prefixList;
     private ArrayList<Prefix> StorySpace = null;
     private PlotPointLibrary ppl = null;
-    private static final int numStories = 20;
+    private static final int numStories = 5;
     private static final int numPPPStory = 6;
     private int currentStory;
     private int currentPlotPoint;
     private DefaultListModel dlm;
     private AllOptions quiz = null;
+    
+    private boolean testing = false;
     
     private ArrayList<Prefix> currentShown = null;
     
@@ -36,7 +38,7 @@ public class TrainingControl {
     private ArrayList<Integer> requiredPlotPoints = new ArrayList<Integer>();
     private ArrayList<Integer> preferedPlotPoints = new ArrayList<Integer>();
     private int numOptionsPerBranch = 2;
-    private int numOptionPerPreferBranch = 2;
+    private int numOptionsPerPreferBranch = 2;
     
 //    private char[] keyTable = new char[]{'A','B','C','D','E','F','G','H','I','J',};
     public TrainingControl(JApplet ja, TrainingPanel tp){
@@ -76,7 +78,7 @@ public class TrainingControl {
     
     private void loadData(){
         requiredPlotPoints.add(0);
-        
+//        preferedPlotPoints.add(41);
     }
     public String getTitle(){
         return("Story: " + currentStory);
@@ -98,7 +100,7 @@ public class TrainingControl {
         return true;
     } 
     
-    public void startNewStory(){
+    private void startNewStory(){
         Random rd = new Random();
         currentPlotPoint = 0;
         int tp = rd.nextInt(StorySpace.size());
@@ -133,21 +135,27 @@ public class TrainingControl {
             if(flag){
                 continue;
             }
-            for(int i : requiredPlotPoints){
+            for(int i : preferedPlotPoints){
                 if(i == ipp.intValue()){
                     flag = true;
                     break;
                 }
             }
+            if(flag){
+                numOptionPerPP = numOptionsPerPreferBranch;
+            }
+            else{
+                numOptionPerPP = numOptionsPerBranch;
+            }
             ArrayList<OptionItem> oil = ppo.getItemListByIndicatedPP(ipp.intValue());
-            if(oil.size() > 1){
+            if(oil.size() > numOptionPerPP){
                 ArrayList<Integer> sel = CommonUtil.getRandom(oil.size(), numOptionPerPP);
                 for(Integer i : sel){
                     ret.add(oil.get(i));
                 }
             }
-            else if(oil.size() == 1){
-                ret.add(oil.get(0));
+            else if(oil.size() >= 1){
+                ret.add(oil);
             }
             else{
                 System.err.println("Error in TrainingControl.getNexOption: Cannot find the indicated option item");
