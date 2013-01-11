@@ -40,9 +40,9 @@ public class TrainingApplet extends JApplet {
             ip = socket.getLocalAddress().getHostAddress();
 
         }catch(Exception io){
-            System.out.println(io.getMessage());
+            System.out.println("Cannot get local IP address: " + io.getMessage());
         }
-        System.out.println(ip);
+        System.out.println("Local IP address: " + ip);
         tp.tc.ip = ip;
         
         try{

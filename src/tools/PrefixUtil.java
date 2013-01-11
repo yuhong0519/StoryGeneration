@@ -25,10 +25,13 @@ public class PrefixUtil {
         public static String optionTrainingFolder = "Options_training";
         public static String trainDataSplitFile = "svmData/optionDataSplit.txt";
         
+        /**
+         * Write prefix list beginning with prefix ID each line
+         * @param pl 
+         */
         public static void writePrefixList(ArrayList<Prefix> pl){
-		String filename = new String(prefixListFile);
 		try{
-			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(prefixListFile));
 			for(int i = 0; i < pl.size(); i++){
 				bw.write(""+i+":");
 				Prefix pi = pl.get(i);
@@ -42,7 +45,57 @@ public class PrefixUtil {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+        
+        /**
+         * Write prefix list beginning with prefix preference each line
+         * @param pl prefix list
+         * @param fileName  the file name
+         */
+        public static void writePreferencePrefixList(ArrayList<Prefix> pl, String fileName){
 		
+		try{
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+			for(int i = 0; i < pl.size(); i++){
+				Prefix pi = pl.get(i);
+                                bw.write("" + pi.rating +":");
+				for(int j = 0; j < pi.itemList.size(); j++){
+					bw.write("\t"+pi.itemList.get(j));
+				}
+				bw.newLine();
+			}
+			bw.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+                
+        /**
+         * Write options id with preference to file
+         * @param pl
+         * @param fileName 
+         */
+        public static void writeOptionPreference(ArrayList<Prefix> pl, String fileName) {
+		
+		try{
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+                        for(int i = 0; i < pl.size(); i++){
+				Prefix pi = pl.get(i);
+                                PPOptions ppo = pi.options;
+                                if(ppo == null){
+                                    continue;
+                                }
+				for(int j = 0; j < ppo.getAllOptions().size(); j++){
+                                    bw.write("" + ppo.getAllOptions().get(j).getOID() + ":" + ppo.getAllOptions().get(j).getPreference() + "\t");
+				}
+				bw.newLine();
+			}
+			bw.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}		
 	}
         
         public static void writeString2Server(String s, String fileName){
@@ -51,21 +104,30 @@ public class PrefixUtil {
                         URL url = new URL(ftpWriteServer+fileName);
                         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(url.openConnection().getOutputStream()));
                         bw.write(s);
+                        bw.close();
                 }
                 catch(Exception e){
 			e.printStackTrace();
 		}
         }
-        
-        public static void writePrefixList2Server(ArrayList<Prefix> pl, String fileName) {
-		
+                
+        public static void writeString(String s, String fileName){
+		try{
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+                        bw.write(s);
+                        bw.close();
+                }
+                catch(Exception e){
+			e.printStackTrace();
+		}
+        }
+                
+        public static void writePreferencePrefixList2Server(ArrayList<Prefix> pl, String fileName) {
 		try{
 			//BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
                         URL url = new URL(ftpWriteServer+fileName);
                         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(url.openConnection().getOutputStream()));
-                        
-			for(int i = 0; i < pl.size(); i++){
-				
+                        for(int i = 0; i < pl.size(); i++){
 				Prefix pi = pl.get(i);
                                 bw.write(""+pi.rating +":");
 				for(int j = 0; j < pi.itemList.size(); j++){
@@ -82,8 +144,7 @@ public class PrefixUtil {
                         JOptionPane jo = new JOptionPane();
                         jo.showMessageDialog(null,e.getMessage());
                         throw new RuntimeException("Cannot write to " + fileName);
-		}
-		
+		}		
 	}
              
         public static void writeOptionPreference2Server(ArrayList<Prefix> pl, String fileName) {
@@ -92,15 +153,14 @@ public class PrefixUtil {
 			//BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
                         URL url = new URL(ftpWriteServer+fileName);
                         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(url.openConnection().getOutputStream()));
-                        
-			for(int i = 0; i < pl.size(); i++){
+                        for(int i = 0; i < pl.size(); i++){
 				Prefix pi = pl.get(i);
                                 PPOptions ppo = pi.options;
                                 if(ppo == null){
                                     continue;
                                 }
 				for(int j = 0; j < ppo.getAllOptions().size(); j++){
-                                    bw.write("" + pi.options.getAllOptions().get(j).getOID() + ":" + pi.options.getAllOptions().get(j).getPreference() + "\t");
+                                    bw.write("" + ppo.getAllOptions().get(j).getOID() + ":" + ppo.getAllOptions().get(j).getPreference() + "\t");
 				}
 				bw.newLine();
 			}
@@ -113,8 +173,7 @@ public class PrefixUtil {
                         JOptionPane jo = new JOptionPane();
                         jo.showMessageDialog(null,e.getMessage());
                         throw new RuntimeException("Cannot write to " + fileName);
-		}
-		
+		}		
 	}
                 
 	

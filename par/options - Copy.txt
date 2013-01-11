@@ -5,20 +5,19 @@
 3:::12:::You and Runal want to search below the base camp in the valley.
 19:::13:::You and Runal want to search above the base camp.
 <2>
-//friendship
-41:::14:::Carlos could be in danger. You decide to go ahead with the expedition for Yeti.
-//fame
-41:::321:::You continue the expedition for Yeti since you could be the first person in the world to get Yeti photos. 
-//Consistency
-41:::322:::You have been preparing for the expedition for such a long time that you decide to continue to search for Yeti.
-//Safety
-42:::15:::It is wise to play it safe. You decide to postpone the expedition.
-//Money
-42:::323:::You go for tigers since you can make a good fortune by selling photos of tigers in the Terai region.
-//Follow others
-42:::324:::You go for tigers since many friends of yours strongly recommended photography in Terai region.
-//Safety
-42:::325:::Mr. Runal is an expedition expert. You follow his advice to go on the expedition for the tigers.
+41:::14:::You decide to go ahead with the expedition for the Yeti.
+41:::321:::Carlos could be in danger. You decide to go ahead with the expedition for the Yeti.
+41:::323:::Tigers are common in your view. You decide to go ahead with the expedition for the Yeti.
+41:::324:::You still decide to continue the expedition for the Yeti since tigers can also be dangerous.
+41:::325:::You continue the expedition for the Yeti since you do not believe what Mr. Runal said.
+41:::326:::You have been preparing for the expedition for such a long time that you decide to continue to search for Yeti.
+42:::15:::You decide to postpone the expedition to let the Yeti calm down and go on to the Terai region in search for tigers.
+42:::322:::It is wise to play it safe. You decide to postpone the expedition.
+42:::327:::You decide to postpone the expedition for the Yeti since you can do it later.
+42:::328:::You definitely go for tigers since it is a rare chance to be allowed studying tigers in the Terai region and you can make a fortune by selling tiger photos.
+42:::329:::Carlos should be safe. You decide to go to the expedition for the tigers.
+42:::330:::You decide to go to the expedition for the tigers since you have dreamed to photograph tigers since very young.
+42:::331:::Mr. Runal is an expedition expert. You follow his advice to go on the expedition for the tigers.
 <3>
 4:::38:::You decide to ignore the message and go to look for Carlos.
 7:::39:::You obey the message and climb back up to the base camp to wait for Carlos.

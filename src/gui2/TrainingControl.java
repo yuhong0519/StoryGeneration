@@ -11,7 +11,7 @@ import tools.CommonUtil;
  * @author Hong Yu
  */
 public class TrainingControl {
-    private ArrayList<Prefix> prefixList;
+//    private ArrayList<Prefix> prefixList;
     private ArrayList<Prefix> StorySpace = null;
     private PlotPointLibrary ppl = null;
     private static final int numStories = 5;
@@ -20,9 +20,7 @@ public class TrainingControl {
     private int currentPlotPoint;
     private DefaultListModel dlm;
     private AllOptions quiz = null;
-    
-    private boolean testing = false;
-    
+
     private ArrayList<Prefix> currentShown = null;
     
     private String ratingFile = null;
@@ -40,12 +38,15 @@ public class TrainingControl {
     private int numOptionsPerBranch = 2;
     private int numOptionsPerPreferBranch = 2;
     
+    private boolean testFlag = false;
+    private int numTrainForTest = 4;
+    
 //    private char[] keyTable = new char[]{'A','B','C','D','E','F','G','H','I','J',};
     public TrainingControl(JApplet ja, TrainingPanel tp){
         this.ja = ja;
         this.trainingp = tp;
-        loadData();
-        prefixList = PrefixUtil.readPrefixList(PrefixUtil.prefixListFile, 1);
+        loadStorySelectionPreference();
+//        prefixList = PrefixUtil.readPrefixList(PrefixUtil.prefixListFile, 1);
         StorySpace = PrefixUtil.readStorySpace(PrefixUtil.storySpaceFile);
         currentShown = new ArrayList<Prefix>();
         ppl = PrefixUtil.readPlotPoints(PrefixUtil.plotpointFile);
@@ -72,12 +73,13 @@ public class TrainingControl {
         currentPlotPoint = 0;
         dlm = new DefaultListModel();
         startNewStory();
-        
-
     }
     
-    private void loadData(){
+    private void loadStorySelectionPreference(){
         requiredPlotPoints.add(0);
+        if(testFlag){
+            avoidPlotPoints.add(2);
+        }
 //        preferedPlotPoints.add(41);
     }
     public String getTitle(){
@@ -177,14 +179,19 @@ public class TrainingControl {
         }
         
         else if(currentStory < numStories ){
-
+            
+            if(testFlag && currentStory >= numTrainForTest){
+                avoidPlotPoints.clear();
+                avoidPlotPoints.add(1);
+            }
+            
             if(ratingFile == null){
                 Calendar d = Calendar.getInstance();
                 int month = d.get(Calendar.MONTH) + 1;
                 ratingFile = "Rating" + "_" + key + "_" + month + "." + d.get(Calendar.DAY_OF_MONTH) +  "." + d.get(Calendar.HOUR_OF_DAY) + "." + d.get(Calendar.MINUTE) + "_" + ip+".txt";
                 optionPreferenceFile = "OptionPreference" + "_" + key + "_" + month + "." + d.get(Calendar.DAY_OF_MONTH) +  "." + d.get(Calendar.HOUR_OF_DAY) + "." + d.get(Calendar.MINUTE) + "_" + ip+".txt";
             }
-            PrefixUtil.writePrefixList2Server(currentShown, ratingFile);
+            PrefixUtil.writePreferencePrefixList2Server(currentShown, ratingFile);
             PrefixUtil.writeOptionPreference2Server(currentShown, optionPreferenceFile);
             currentStory++;
             startNewStory();
@@ -192,7 +199,7 @@ public class TrainingControl {
         else{
             trainingp.disableNext();
             
-            PrefixUtil.writePrefixList2Server(currentShown, ratingFile);
+            PrefixUtil.writePreferencePrefixList2Server(currentShown, ratingFile);
             PrefixUtil.writeOptionPreference2Server(currentShown, optionPreferenceFile);
             
             if((double)numCorrectQuestions/numQuestions < 0.9){
@@ -322,12 +329,13 @@ public class TrainingControl {
 //           The player has rate this prefix before
             if(tp != null){
                 PPOptions newO = currentShown.get(currentShown.size()-1).options;
-                
-                for(int i = 0; i < newO.getAllOptions().size(); i++){
-                    int pref = newO.getAllOptions().get(i).getPreference();
-                    if(pref != 0){
-                        trainingPanel.preferenceArray[i] = pref;
-                        jcb[i][pref-1].setSelected(true);
+                if(newO != null){
+                    for(int i = 0; i < newO.getAllOptions().size(); i++){
+                        int pref = newO.getAllOptions().get(i).getPreference();
+                        if(pref != 0){
+                            trainingPanel.preferenceArray[i] = pref;
+                            jcb[i][pref-1].setSelected(true);
+                        }
                     }
                 }
                 

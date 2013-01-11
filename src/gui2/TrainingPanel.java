@@ -376,7 +376,7 @@ public class TrainingPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jList1);
 
-        setPreferredSize(new java.awt.Dimension(1100, 1000));
+        setPreferredSize(new java.awt.Dimension(1100, 1300));
 
         StoryTextArea.setBackground(new java.awt.Color(204, 204, 204));
         StoryTextArea.setColumns(100);
