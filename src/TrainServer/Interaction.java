@@ -55,15 +55,30 @@ public class Interaction implements Comparable<Interaction>{
     private int numTrainForTest = 4;
 
     private int quizStatus = 0;
-    private boolean finalPlot = false;
-    
+        
     private String ratingFile = null;
     private String optionPreferenceFile = null;
+    private boolean finalPlot = false;
     
     private int correctChoice = -1;
+    private boolean initPP = true;
+    private boolean firstPP = true;
     
     public Interaction(int id){
         this.userID = id;
+        key = "";
+        Random r = new Random();
+        for(int i = 0; i < 20; i++){
+            int tt = r.nextInt(36);
+            if(tt < 26){
+                tt += 65;
+                key = key + (char)tt;
+            }
+            else{
+                tt -= 26;
+                key = key + tt;
+            }
+        }
         PrefixUtil.addOptions2PlotPoints(ppl, ao);
         loadStorySelectionPreference();
         startNewStory();
@@ -110,6 +125,7 @@ public class Interaction implements Comparable<Interaction>{
     private void startNewStory(){
         Random rd = new Random();
         currentPlotPoint = 1;
+//        firstPP = true;
         int tp = rd.nextInt(StorySpace.size());
         while(!checkStoryLegal(StorySpace.get(tp))){
             tp = rd.nextInt(StorySpace.size());
@@ -191,7 +207,6 @@ public class Interaction implements Comparable<Interaction>{
         }
 //        Question type 2: story context question
         else{
-
             ArrayList<OptionItem> tao = quizList.get(rd.nextInt(quizList.size())).getAllOptions();
             for(int i = 0; i < tao.size(); i++){
                 questions.add(tao.get(i).getValue());
@@ -201,7 +216,12 @@ public class Interaction implements Comparable<Interaction>{
             }
             
         }        
-        return (String[])(questions.toArray());
+        String[] ret = new String[questions.size()];
+        int i = 0;
+        for(String s : questions){
+            ret[i++] = s;
+        }
+        return ret;
         
         
     }
@@ -212,7 +232,7 @@ public class Interaction implements Comparable<Interaction>{
             return null;
         }
 //        record player ratings
-        if(quizStatus == 0 || quizStatus == 1){
+        if((quizStatus == 0 || quizStatus == 1) && !initPP){
             Prefix cp = currentShown.get(currentShown.size()-1);
             cp.rating = pr.plotRating;
             if(cp.options != null){
@@ -227,20 +247,27 @@ public class Interaction implements Comparable<Interaction>{
         sr.userId = pr.userId;
 //        Final 
         if(finalPlot){
+            nextPlotPoint(pr);
             sr.rateOptions = false;
             sr.ratePlot = false;
             sr.clear = true;
             sr.last = true;
             sr.plot = "Thank you very much for your help! You key code is <b>" + key + "</b><br>Please copy it back to Amazon MT.";
+            
             intl.remove(this);
         }
 //        normal mode
         else if(quizStatus == 0 || quizStatus == 2){
-            Prefix p = currentShown.get(currentShown.size()-1);
-            PPOptions co = p.options;
+
             if(currentPlotPoint == numPPPStory - 1){
                 correctChoice = pr.choice;
             }
+            
+            if(!initPP && quizStatus != 2){
+                nextPlotPoint(pr);
+            }
+            Prefix p = currentShown.get(currentShown.size()-1);
+            PPOptions co = p.options;                        
             if(co != null){
                 String[] optionStrings = new String[co.getAllOptions().size()];
                 for(int i = 0; i < optionStrings.length; i++){
@@ -266,21 +293,29 @@ public class Interaction implements Comparable<Interaction>{
                 }                
             }
             sr.plot = ppl.getPP(p.getLast().id).value();
-            
-            if(currentPlotPoint == 1){
-                sr.clear = true;
-            }
+      
             Prefix pre = getVisitedPrefix();
             if(pre != null){
                 sr.oldPlotPref = pre.rating;
             }
+            if(currentPlotPoint == 1){
+                sr.clear = true;
+            }
+            if(quizStatus == 2){
+                firstPP = true;
+            }
+            else{
+                firstPP = false;
+            }            
             if(quizStatus == 2){
                 if(pr.choice == correctChoice){
                     numCorrectQuestions++;
                 }
                 quizStatus = 0;
             }
-            nextPlotPoint(pr);
+            if(quizStatus == 0 && currentPlotPoint == numPPPStory){
+                quizStatus = 1;
+            }
         }
 //        send quiz question
         else if(quizStatus == 1){
@@ -292,28 +327,44 @@ public class Interaction implements Comparable<Interaction>{
             sr.plot = "Please select the statement below that most accurately describes what happened in the story you just read: ";
             sr.oldOptionsPref = new int[sr.options.length];
             Arrays.fill(sr.oldOptionsPref, 0);
+            nextPlotPoint(pr);
             quizStatus = 2;
         }
+        initPP = false;
+
         return sr;
     }
     
     private void nextPlotPoint(PlayerResponse pr){
         Prefix cp = currentShown.get(currentShown.size()-1);
-//        cp.rating = pr.plotRating;
-//        if(cp.options != null){
-//            ArrayList<OptionItem> aoi = cp.options.getAllOptions();            
-//            for(int i = 0; i < aoi.size(); i++){
-//                aoi.get(i).setPreference(pr.optionRatings[i]);
-//            }
-//        }
+        //       the last plot point of the last story
+        if(finalPlot){            
+            PrefixUtil.writePreferencePrefixList(currentShown, ratingFile);
+            PrefixUtil.writeOptionPreference(currentShown, optionPreferenceFile);
+            if((double)numCorrectQuestions/numQuestions < 0.9){
+                key = key+"00";
+                PrefixUtil.writeString(key, key);
+            }
+
+            else{
+                key = key + "11";
+                PrefixUtil.writeString(key, key);
+            }
+            return;
+        }
+        
         if(currentPlotPoint < numPPPStory){
             currentPlotPoint++;
             ArrayList<OptionItem> ppo = cp.options.getAllOptions();
-            Prefix p = new Prefix(currentShown.get(currentShown.size()-1));
+            Prefix p = new Prefix(cp);
             int nextPPID = ppo.get(pr.choice).getIndicatedPP();
             IntegerPlotPoint nextPP = ppl.getPP(nextPPID);
             p.append(nextPPID, getNextOption(nextPP));
-            currentShown.add(p);        
+            currentShown.add(p); 
+            if(currentPlotPoint == numPPPStory && currentStory == numStories){
+                finalPlot = true;
+            }
+
         }
 //        last plot point, but not the last story
         else if(currentStory < numStories ){            
@@ -331,32 +382,11 @@ public class Interaction implements Comparable<Interaction>{
             PrefixUtil.writePreferencePrefixList(currentShown, ratingFile);
             PrefixUtil.writeOptionPreference(currentShown, optionPreferenceFile);
             currentStory++;
-            quizStatus = 1;
+//            quizStatus = 2;
             startNewStory();
             
         }
-//       the last plot point of the last story
-        else{
-            finalPlot = true;
-            PrefixUtil.writePreferencePrefixList(currentShown, ratingFile);
-            PrefixUtil.writeOptionPreference(currentShown, optionPreferenceFile);
-            if((double)numCorrectQuestions/numQuestions < 0.9){
-                key = key+"00";
-                PrefixUtil.writeString(key, key);
-//                Done doneDialog = new Done(null, true, key);
-//                doneDialog.setMessage("<html>Thank you very much for your help! Unfortunately, you did not pass the quiz. You key code is as follows. Please copy it back to Amazon:</html>");
-//                doneDialog.setVisible(true);
-            }
-
-            else{
-                key = key + "11";
-                PrefixUtil.writeString(key, key);
-//                Done doneDialog = new Done(null, true, key);
-//                doneDialog.setVisible(true);
-            }
-
-
-        }        
+        
     }
     
     private Prefix getVisitedPrefix(){
