@@ -4,14 +4,10 @@
  */
 package TrainServer;
 
-import gui2.Done;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
-import javax.swing.DefaultListModel;
 import prefix.AllOptions;
 import prefix.IntegerPlotPoint;
 import prefix.OptionItem;
