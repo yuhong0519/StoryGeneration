@@ -30,8 +30,8 @@ public class TCPRequestProcessor  implements Runnable{
                 ServerResponse sr = itp.processMessage(line);
                 out.writeObject(sr.toJason().toString()); 
                 System.out.println("Server send: " + sr.toJason().toString());
-                
-                out.close();
+//                out.writeObject("Server response. Server received: " + line);
+//                out.close();
                 in.close();
                 skt.close();
         }

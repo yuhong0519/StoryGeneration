@@ -62,4 +62,12 @@ public class InteractionList {
         return userList.get(ind);
     }
     
+    /**
+     * Check expired interaction
+     */
+    public void checkExpired(){
+        for(int i = 0; i < userList.size(); i++){
+            userList.get(i).checkExpiration(this);
+        }
+    }
 }

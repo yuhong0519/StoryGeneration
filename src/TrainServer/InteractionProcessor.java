@@ -31,6 +31,7 @@ public class InteractionProcessor {
             intl.add(itn);
         }
         ServerResponse sr = itn.playerAction(intl, pr);
+        intl.checkExpired();
         return sr;
     }
     

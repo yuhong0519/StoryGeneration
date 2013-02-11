@@ -31,7 +31,9 @@ public class Interaction implements Comparable<Interaction>{
     private ArrayList<Prefix> currentShown = new ArrayList<Prefix>();
     private int currentStory = 1;
     private int currentPlotPoint = 1;
-    
+    private long accesstime = System.currentTimeMillis();
+//    Session expires in 1 hour
+    private long accessInterval = 3600000;
     private static ArrayList<Prefix> StorySpace = PrefixUtil.readStorySpace(PrefixUtil.storySpaceFile);;
     
     private static final int numStories = 5;
@@ -62,8 +64,10 @@ public class Interaction implements Comparable<Interaction>{
     
     private int correctChoice = -1;
     private boolean initPP = true;
-    private boolean firstPP = true;
-    
+    private int instructions = 0;
+    private String dataFolder = "playerData";
+            
+
     public Interaction(int id){
         this.userID = id;
         key = "";
@@ -121,6 +125,7 @@ public class Interaction implements Comparable<Interaction>{
         }
         return true;
     } 
+   
     
     private void startNewStory(){
         Random rd = new Random();
@@ -226,13 +231,22 @@ public class Interaction implements Comparable<Interaction>{
         
     }
         
+    public void checkExpiration(InteractionList intl){
+        long ct = System.currentTimeMillis();
+        if(ct - accesstime > accessInterval){
+             intl.remove(this);
+             System.out.println("Expire: " + userID);
+        }
+    }
+    
     public ServerResponse playerAction(InteractionList intl, PlayerResponse pr){
+        accesstime = System.currentTimeMillis();
         if(userID != pr.userId){
             System.err.println("Sending the player action to the wrong interaction!");
             return null;
         }
 //        record player ratings
-        if((quizStatus == 0 || quizStatus == 1) && !initPP){
+        if((quizStatus == 0 || quizStatus == 1) && !initPP && instructions > 2){
             Prefix cp = currentShown.get(currentShown.size()-1);
             cp.rating = pr.plotRating;
             if(cp.options != null){
@@ -245,8 +259,46 @@ public class Interaction implements Comparable<Interaction>{
         
         ServerResponse sr = new ServerResponse();
         sr.userId = pr.userId;
+        if(instructions == 0){
+            sr.rateOptions = true;
+            sr.ratePlot = true;
+            sr.clear = false;
+            sr.last = false;
+            sr.plot = "<b class='transient'>The following is a beginning of an example story.</b><br>";
+            sr.plot = sr.plot + "You like to camp in the heart of the quiet forest. By a stormy night, Your tent is torn. You decide to find a shelter to spend the rest of the night. "
+                    + "You leave the camp to look after a possible shelter. You walk through the surroundings of the camp but do not see anything nor anybody at this place of the forest. "
+                    + "Disappointed, You return near the former camp and decide to construct a shelter on your own. You look for the perfect camping manual in your bag. "
+                    + "However, your soaked manual is almost unreadable.";
+            sr.plot = sr.plot + "<br><b class='transient'>Please rate the story so far and the options below. Then click one of the options to continue.</b> ";
+            
+            sr.options = new String[]{"You continue to read the manual.", "You decide to get some rest."};
+            instructions = 1;
+        }
+        else if(instructions == 1){
+            sr.rateOptions = true;
+            sr.ratePlot = true;
+            sr.clear = true;
+            sr.last = false;
+            
+            sr.plot = "Nevertheless, You read the interesting chapter in the manual. You gather pieces of wood that laid on the ground. "
+                    + "Then you sharpen the pieces of wood to make pegs. But you cut your hand sharpening the pieces of wood. "
+                    + "You cover the injury with a handkerchief made with cotton and drive in the pegs in the ground and arrange it in a square. "
+                    + "You hang on it what remained of the tent sheet. Finally you succeed in the construction of a shelter on your own.";
+            
+            sr.options = new String[]{"You spend the rest of the night in the shelter.", "You change your mind and continue to search for new shelter."};
+            instructions = 2;
+        }
+        else if(instructions == 2){
+            sr.rateOptions = false;
+            sr.ratePlot = false;
+            sr.clear = true;
+            sr.last = false;
+            sr.plot = "<b>Congratulations! You did a great job on the instructions! Now you can continue to the real experiment.</b>";
+            sr.options = new String[]{"Click here to start your journey!"};
+            instructions = 3;
+        }
 //        Final 
-        if(finalPlot){
+        else if(finalPlot){
             nextPlotPoint(pr);
             sr.rateOptions = false;
             sr.ratePlot = false;
@@ -258,7 +310,7 @@ public class Interaction implements Comparable<Interaction>{
         }
 //        normal mode
         else if(quizStatus == 0 || quizStatus == 2){
-
+            instructions = 4;
             if(currentPlotPoint == numPPPStory - 1){
                 correctChoice = pr.choice;
             }
@@ -298,15 +350,10 @@ public class Interaction implements Comparable<Interaction>{
             if(pre != null){
                 sr.oldPlotPref = pre.rating;
             }
-            if(currentPlotPoint == 1){
+            if(currentPlotPoint == 6){
                 sr.clear = true;
             }
-            if(quizStatus == 2){
-                firstPP = true;
-            }
-            else{
-                firstPP = false;
-            }            
+           
             if(quizStatus == 2){
                 if(pr.choice == correctChoice){
                     numCorrectQuestions++;
@@ -330,8 +377,10 @@ public class Interaction implements Comparable<Interaction>{
             nextPlotPoint(pr);
             quizStatus = 2;
         }
-        initPP = false;
-
+        
+        if(instructions > 3){
+            initPP = false;
+        }
         return sr;
     }
     
@@ -339,16 +388,16 @@ public class Interaction implements Comparable<Interaction>{
         Prefix cp = currentShown.get(currentShown.size()-1);
         //       the last plot point of the last story
         if(finalPlot){            
-            PrefixUtil.writePreferencePrefixList(currentShown, ratingFile);
-            PrefixUtil.writeOptionPreference(currentShown, optionPreferenceFile);
+            PrefixUtil.writePreferencePrefixList(currentShown, dataFolder + "/" + ratingFile);
+            PrefixUtil.writeOptionPreference(currentShown, dataFolder + "/" + optionPreferenceFile);
             if((double)numCorrectQuestions/numQuestions < 0.9){
                 key = key+"00";
-                PrefixUtil.writeString(key, key);
+                PrefixUtil.writeString(key, dataFolder + "/" + key);
             }
 
             else{
                 key = key + "11";
-                PrefixUtil.writeString(key, key);
+                PrefixUtil.writeString(key, dataFolder + "/" + key);
             }
             return;
         }
@@ -379,8 +428,8 @@ public class Interaction implements Comparable<Interaction>{
                 ratingFile = "Rating" + "_" + key + "_" + month + "." + d.get(Calendar.DAY_OF_MONTH) +  "." + d.get(Calendar.HOUR_OF_DAY) + "." + d.get(Calendar.MINUTE) + "_" + pr.userId +".txt";
                 optionPreferenceFile = "OptionPreference" + "_" + key + "_" + month + "." + d.get(Calendar.DAY_OF_MONTH) +  "." + d.get(Calendar.HOUR_OF_DAY) + "." + d.get(Calendar.MINUTE) + "_" + pr.userId +".txt";
             }
-            PrefixUtil.writePreferencePrefixList(currentShown, ratingFile);
-            PrefixUtil.writeOptionPreference(currentShown, optionPreferenceFile);
+            PrefixUtil.writePreferencePrefixList(currentShown, dataFolder + "/" + ratingFile);
+            PrefixUtil.writeOptionPreference(currentShown, dataFolder + "/" + optionPreferenceFile);
             currentStory++;
 //            quizStatus = 2;
             startNewStory();
