@@ -4,6 +4,7 @@ import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.*;
 import  java.text.SimpleDateFormat;
 import java.util.*;
+import nmf.NMFModel;
 //import x.na.SparseMatrixBuilder;
 //import java.io.*;
 
@@ -50,6 +51,7 @@ public class PPCA {
 //			Compute Eoi = Eo^{-1}
 			Eoi = new DenseMatrix(D-missing[ind], D-missing[ind]);		
 			DenseMatrix Eo = new DenseMatrix(Matrices.getSubMatrix(E, obs, obs));
+//                        CommonUtil.addIdentity(0.01, Eo);
 			Eo.solve(Matrices.identity(D-missing[ind]), Eoi);
 
 //			Compute TE. getSubMatrix return reference to TE
@@ -161,7 +163,7 @@ public class PPCA {
 	public static PPCAModel ppca_train(Matrix data, Matrix test, Matrix mask) throws NotConvergedException{
 		
 		PPCAModel model = new PPCAModel();
-		int maxiter = 100;
+		int maxiter = 50;
 		int D = data.numRows();
 		int N = data.numColumns();
 //		double sigmasq = Math.abs(Math.random());
@@ -169,7 +171,7 @@ public class PPCA {
 //		if(D == d){
 //			sigmasq = 0;
 //		}
-		double threshold = 0.0001;
+		double threshold = 0.001;
 		boolean dotest = test == null ? false : true;
 		
 //		Initialization Process	
@@ -297,6 +299,90 @@ public class PPCA {
 		model.cov = E;
 		
 		return model;
-		
 	}
+        
+        public static void main(String[] args){
+            DenseMatrix V = (new DenseMatrix(10, 20));
+            double missing = 0.8;
+            Random r = new Random();
+            for(int i = 0; i < V.numColumns(); i++){
+                
+
+                if(r.nextBoolean() == true){
+                    for(int j = 0; j < V.numRows(); j++){
+                        double t = r.nextDouble();
+                        if(t < missing){
+                            V.set(j, i, 0);
+                        }
+                        else if(j > V.numRows()/2.0){
+                            V.set(j, i, 5);
+                        }
+                        else{
+                            V.set(j, i, 1);
+                        }
+                    }
+                }
+                else{
+                    for(int j = 0; j < V.numRows(); j++){
+                        double t = r.nextDouble();
+                        if(t < missing){
+                            V.set(j, i, 0);
+                        }
+                        else if(j % 2 == 0){
+                            V.set(j, i, 5);
+                        }
+                        else
+                            V.set(j, i, 1);
+                    }
+                }
+            }
+            DenseMatrix test = (new DenseMatrix(10,1));
+            DenseMatrix test2 = (new DenseMatrix(10,1));
+            for(int i = 0; i < test.numColumns(); i++){
+                
+                    for(int j = 0; j < test.numRows(); j++){
+                        if(r.nextDouble() < missing){
+                            test.set(j, i, 0);
+                        }
+                        else if(j > test.numRows()/2.0){
+                            test.set(j, i, 5);
+                        }
+                        else
+                            test.set(j, i, 1);
+                    }
+                   for(int j = 0; j < test.numRows(); j++){
+                        if(r.nextDouble() < missing){
+                            test2.set(j, i, 0);
+                        }
+                        else if(j % 2 == 0){
+                            test2.set(j, i, 5);
+                        }
+                        else
+                            test2.set(j, i, 1);
+                    }
+                
+                
+            }
+            PPCAModel ppcam = null;
+            CompColMatrix cV = CommonUtil.getCompMatrix(V);
+//            tools.CommonUtil.printObject(V, "v.txt");
+//            tools.CommonUtil.printObject(cV, "cv.txt");
+            CompColMatrix ctest = CommonUtil.getCompMatrix(test);
+            CompColMatrix ctest2 = CommonUtil.getCompMatrix(test2);
+                  
+            try{
+                ppcam = ppca_train(cV, null, null);
+                
+                tools.CommonUtil.printObject(V, "v.txt");
+                tools.CommonUtil.printObject(ppcam.cov, "w.txt");
+                tools.CommonUtil.printObject(ppcam.mean, "mean.txt");
+                tools.CommonUtil.printObject(ppca_test(ppcam.cov, ppcam.mean, ctest), "test.txt");
+                tools.CommonUtil.printObject(ppca_test(ppcam.cov, ppcam.mean, ctest2), "test2.txt");
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+            
+        }
 }

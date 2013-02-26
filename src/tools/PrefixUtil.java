@@ -20,11 +20,13 @@ public class PrefixUtil {
         public static String quizFile = "par/quiz.txt";
         public static String allRatingFile = "AllRatings.txt";
         public static String optionRatingFile = "OptionRatings.txt";
+        public static String optionListFile = "par/OptionItemList.txt";
         
-        public static String ratingWOptionTrainingFolder = "ratings_wOptionTraining";
-        public static String optionTrainingFolder = "Options_training";
-        public static String trainDataSplitFile = "svmData/optionDataSplit.txt";
-        
+        public static String storyRatingTrainingFolder = "playerData/StoryRating";
+        public static String optionRatingTrainingFolder = "playerData/OptionRating";
+        public static String trainDataSplitFile = "playerData/optionDataSplit.txt";
+        public static String PPCAModelFolder = "playerData/model/ppca/";
+        private static int numPrefixPerStory = 6;
         /**
          * Write prefix list beginning with prefix ID each line
          * @param pl 
@@ -294,9 +296,6 @@ public class PrefixUtil {
                             e2.printStackTrace();
                         }
                 }
-//                catch(Exception e){
-//                    System.out.println(line);
-//                }
                 return ao;
             
         }
@@ -341,49 +340,168 @@ public class PrefixUtil {
         
         //        read option item list. Format: PrefixID \t PPID \t ItemID \t string
         public static void readOptionItemList(ArrayList<OptionItem> oiList, String filename){
-		try{
-			BufferedReader br = new BufferedReader(new FileReader(filename));
-//			for(int i = 0; i < oiList.size(); i++){
-//                                bw.write("" + i + ":\t" + oiList.get(i).getPrefixID() + "\t" + oiList.get(i).getPPID() + "\t" + oiList.get(i).getOID() + "\t" + oiList.get(i).getValue());
-//				bw.newLine();
-//			}
-                        String line;
-                        while((line = br.readLine()) != null){
-                            if(line.startsWith("//")){
-                                continue;
-                            }
-                            String[] p = line.split("\t");
-//                            assert(p.length == 5);
-                            int prefixID = Integer.parseInt(p[1]);
-                            int optionID = Integer.parseInt(p[0].substring(0, p[0].length()-1));
-                            int PPID = Integer.parseInt(p[2]);
-                            int indicatePP = Integer.parseInt(p[3]);
-                            OptionItem oi = new OptionItem(indicatePP, optionID, p[4]);
-                            oi.setPrefixID(prefixID);
-                            oi.setPPID(PPID);
-//                            oi.setOID(optionID);
-                            oiList.add(oi);
-                        }
-			br.close();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}            
+            try{
+                BufferedReader br = new BufferedReader(new FileReader(filename));
+                String line;
+                while((line = br.readLine()) != null){
+                    if(line.startsWith("//")){
+                        continue;
+                    }
+                    String[] p = line.split("\t");
+                    int prefixID = Integer.parseInt(p[1]);
+                    int optionID = Integer.parseInt(p[0].substring(0, p[0].length()-1));
+                    int PPID = Integer.parseInt(p[2]);
+                    int indicatePP = Integer.parseInt(p[3]);
+                    OptionItem oi = new OptionItem(indicatePP, optionID, p[4]);
+                    oi.setPrefixID(prefixID);
+                    oi.setPPID(PPID);
+                    oiList.add(oi);
+                }
+                br.close();
+            }
+            catch(Exception e){
+                    e.printStackTrace();
+            }            
         }
         
 //       Read story ratings combined with option ratings.
         public static ArrayList<Prefix> readPrefixWOption(String prefixFile, String ratingFile){
             ArrayList<Prefix> pl = new ArrayList<Prefix>();
-            		
+            ArrayList<OptionItem> oiList = new ArrayList<OptionItem>();
+            readOptionItemList(oiList, optionListFile);
+            
             try{
-                    BufferedReader pReader = new BufferedReader(new FileReader(prefixFile));
-                    BufferedReader rReader = new BufferedReader(new FileReader(ratingFile));
-                    
+                BufferedReader pReader = new BufferedReader(new FileReader(prefixFile));
+                BufferedReader rReader = new BufferedReader(new FileReader(ratingFile));
+                String line;
+                String line2;
+//                For every other five prefixes, the sixth prefix does not have options.
+                int numPos = 0;
+                while((line = pReader.readLine()) != null){
+                    numPos++;
+                    String sep = "\t";
+                    if(line.indexOf(sep) < 0)
+                        sep = " ";
+                    String[] t = line.split(sep);
+
+                    int[] list = new int[t.length - 1];
+                    for(int i = 1; i < t.length; i++){
+                        list[i-1] = Integer.parseInt(t[i]);
+                    }
+                    Prefix pi = new Prefix(list);
+                    pi.prefixFileName = prefixFile;
+                    pi.rating = Integer.parseInt(t[0].substring(0, t[0].length()-1));
+//                    read options for the prefix, no option for the last plot point of each story
+                    if(numPos % numPrefixPerStory != 0){
+                        line2 = rReader.readLine();
+                        if(line2 == null){
+                            System.out.println("Error! The prefix file and the rating file do not match!");
+                            return pl;
+                        }
+                        if(!line2.isEmpty()){
+                            if(line2.indexOf(sep) < 0){
+                                sep = " ";
+                            }
+                            String[] t2 = line2.split(sep);
+                            PPOptions ppo = new PPOptions(-1);
+                            for(int i = 0; i < t2.length; i++){
+                                if(t2[i].isEmpty())
+                                    continue;
+                                String[] tp = t2[i].split(":");
+                                int tpID = Integer.parseInt(tp[0]);
+                                int tpP = Integer.parseInt(tp[1]);
+                                OptionItem toi = new OptionItem(tpID, tpP);
+                                int ind = Collections.binarySearch(oiList, toi);
+                                if(ind < 0){
+                                    System.err.println("Cannot find the option item when reading player preference files");
+                                }
+                                else{
+                                    toi = new OptionItem(oiList.get(ind));
+                                    toi.setPreference(tpP);
+                                    ppo.add(toi);
+                                }
+                            }
+                            pi.options = ppo;
+                        }
+                    }
+
+                    pl.add(pi);
+                }
+
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            return pl;
+        }
+        
+        /**
+         * read all the story and option ratings for all the players
+         * @param prefixFolder the folder name of the story/prefix ratings
+         * @param optionFolder the folder name of the option ratings
+         * @return allprefix
+         */
+        public static ArrayList<ArrayList> readAllStoryRatingsWOptions(String prefixFolder, String optionFolder){
+            File pfolder = new File(prefixFolder);
+            String[] files = pfolder.list();
+            File ofolder = new File(optionFolder);
+            String[] ofiles = ofolder.list();
+            Arrays.sort(files);
+            Arrays.sort(ofiles);
+
+            ArrayList<Prefix> prefixList = PrefixUtil.readPrefixList(PrefixUtil.prefixListFile, 1);
+            int num = files.length;
+            ArrayList<ArrayList> allprefix = new ArrayList<ArrayList>(); 
+            for(int i = 0; i < num; i++){
+                ArrayList<Prefix> tp = PrefixUtil.readPrefixWOption(prefixFolder+"/"+files[i], optionFolder+"/"+ofiles[i]);
+                allprefix.add(tp);
+//        Assgin prefixID to all option items.
+//                for(int j = 0; j < tp.size(); j++){
+//                    PPOptions to  = tp.get(j).options;
+//                    if(to == null)
+//                        continue;
+//                    int prefixID = Collections.binarySearch(prefixList, tp.get(j));
+//                    for(int k = 0; k < to.getAllOptions().size(); k++){
+//                        to.getAllOptions().get(k).setPrefixID(prefixID);
+//                    }
+//                }
+            }        
+            return allprefix;
+        }
+        
+	
+//	type: 1 integer plot point	
+	public static ArrayList<Prefix> readPrefixList(String filename, int type){
+            ArrayList<Prefix> pl = new ArrayList<Prefix>();
+            if(type == 1){
+                try{
+                    BufferedReader br = new BufferedReader(new FileReader(filename));
                     String line;
-                    String line2;
-                    while((line = pReader.readLine()) != null){
-                            
+                    while((line = br.readLine()) != null){
+                        String sep = "\t";
+                        if(line.indexOf(sep) < 0)
+                            sep = " ";
+                        String[] t = line.split(sep);
+
+                        int[] list = new int[t.length - 1];
+                        for(int i = 1; i < t.length; i++){
+                                list[i-1] = Integer.parseInt(t[i]);
+                        }
+                        Prefix pi = new Prefix(list);
+                        pi.rating = Integer.parseInt(t[0].substring(0, t[0].length()-1));
+                        pl.add(pi);
+                    }
+
+                }
+                catch(Exception e){
+//				System.out.println("Cannot read file " + filename + " locally. Try to read it remotely");
+                    try{
+                        URL url = new URL(ftpReadServer+filename);
+                        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+                        String line;
+                        while((line = br.readLine()) != null){
                             String sep = "\t";
+                            //System.out.println(line);
                             if(line.indexOf(sep) < 0)
                                 sep = " ";
                             String[] t = line.split(sep);
@@ -394,93 +512,17 @@ public class PrefixUtil {
                             }
                             Prefix pi = new Prefix(list);
                             pi.rating = Integer.parseInt(t[0].substring(0, t[0].length()-1));
-                            
-                            line2 = rReader.readLine();
-                            if(line2 == null){
-                                System.out.println("Error! The prefix file and the rating file do not match!");
-                                return pl;
-                            }
-                            if(!line2.isEmpty()){
-                                
-                                if(line2.indexOf(sep) < 0)
-                                    sep = " ";
-                                String[] t2 = line2.split(sep);
-                                PPOptions ppo = new PPOptions(-1);
-                                for(int i = 0; i < t2.length; i++){
-                                    if(t2[i].isEmpty())
-                                        continue;
-                                    String[] tp = t2[i].split(":");
-                                    int tpID = Integer.parseInt(tp[0]);
-                                    int tpP = Integer.parseInt(tp[1]);
-                                    ppo.add(new OptionItem(tpID, tpP));
-                                    
-                                }
-                                pi.options = ppo;
-                            }
-                            
                             pl.add(pi);
+                        }
+                        System.out.println("Read " + filename + " successfully");
                     }
+                    catch(Exception e2){
+                        e2.printStackTrace();
+                    }
+                }
+            }
 
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
             return pl;
-        }
-	
-//	type: 1 integer plot point	
-	public static ArrayList<Prefix> readPrefixList(String filename, int type){
-		ArrayList<Prefix> pl = new ArrayList<Prefix>();
-		if(type == 1){
-			try{
-				BufferedReader br = new BufferedReader(new FileReader(filename));
-				String line;
-				while((line = br.readLine()) != null){
-                                        String sep = "\t";
-                                        if(line.indexOf(sep) < 0)
-                                            sep = " ";
-					String[] t = line.split(sep);
-                                        
-					int[] list = new int[t.length - 1];
-					for(int i = 1; i < t.length; i++){
-						list[i-1] = Integer.parseInt(t[i]);
-					}
-					Prefix pi = new Prefix(list);
-                                        pi.rating = Integer.parseInt(t[0].substring(0, t[0].length()-1));
-					pl.add(pi);
-				}
-	
-			}
-			catch(Exception e){
-//				System.out.println("Cannot read file " + filename + " locally. Try to read it remotely");
-                                try{
-                                    URL url = new URL(ftpReadServer+filename);
-                                    BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-                                    String line;
-                                    while((line = br.readLine()) != null){
-                                            String sep = "\t";
-                                            //System.out.println(line);
-                                            if(line.indexOf(sep) < 0)
-                                                sep = " ";
-                                            String[] t = line.split(sep);
-
-                                            int[] list = new int[t.length - 1];
-                                            for(int i = 1; i < t.length; i++){
-                                                    list[i-1] = Integer.parseInt(t[i]);
-                                            }
-                                            Prefix pi = new Prefix(list);
-                                            pi.rating = Integer.parseInt(t[0].substring(0, t[0].length()-1));
-                                            pl.add(pi);
-                                    }
-                                    System.out.println("Read " + filename + " successfully");
-                                }
-                                catch(Exception e2){
-                                    e2.printStackTrace();
-                                }
-			}
-		}
-		
-		return pl;
 		
 	}
         
@@ -529,7 +571,7 @@ public class PrefixUtil {
             ArrayList<IntegerPlotPoint> ppList = ppl.getLibrary();
             for(int i = 0; i < ppList.size(); i++){
                 IntegerPlotPoint tp = ppList.get(i);
-                tp.setOptions(ao.getPPOptions(tp.id));
+                tp.setOptions(ao.getPPOptionsByPPID(tp.id));
                 
             }
             

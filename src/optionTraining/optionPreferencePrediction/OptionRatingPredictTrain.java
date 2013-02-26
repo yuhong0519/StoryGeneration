@@ -9,15 +9,18 @@ package optionTraining.optionPreferencePrediction;
  * @author Bunnih
  */
 
+import PPCA.PPCA;
+import PPCA.PPCAModel;
 import java.util.*;
 import nmf.*;
 import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.sparse.CompColMatrix;
-import optionTraining.GenerateStoryOptionRatingData;
+import optionTraining.GetStoryOptionRatingData;
 import optionTraining.kmean.KMean;
 import prefix.OptionItem;
 import prefix.PPOptions;
 import prefix.Prefix;
+import tools.CommonUtil;
 import tools.MatrixTools;
 
 public class OptionRatingPredictTrain {
@@ -33,7 +36,7 @@ public class OptionRatingPredictTrain {
 
 //    trainsform training data to option rating matrix: number of option items * number of players
     public double[][] getOptionRatings(){
-        double[][] optionRatings = GenerateStoryOptionRatingData.generateOptionRatings(trainData);
+        double[][] optionRatings = GetStoryOptionRatingData.generateOptionRatings(trainData);
         return optionRatings;
     }
     
@@ -67,9 +70,21 @@ public class OptionRatingPredictTrain {
         MatrixTools.split(data, NMFtrainData, NMFvalidateData, splitP);
         NMF.nmf_train(new CompColMatrix(new DenseMatrix(NMFtrainData)), new CompColMatrix(new DenseMatrix(NMFvalidateData)), nmfm);
        return nmfm;
-        
-        
     }
+    
+    public PPCAModel PPCATrain(){
+        double[][] data = getOptionRatings();
+        CompColMatrix cdata = CommonUtil.getCompMatrix(new DenseMatrix(data));
+        PPCAModel ppcam = null;
+        try{
+            ppcam = PPCA.ppca_train(cdata, null, null);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return ppcam;
+    }
+    
     
     public static double[] getRedPlayerTrainData(ArrayList<Prefix> player, int num){
         OptionRepresentationGenerator o = OptionRepresentationGenerator.getInstance();
@@ -87,7 +102,7 @@ public class OptionRatingPredictTrain {
             ArrayList<OptionItem> oil = ppo.getAllOptions();
             for(int k = 0; k < oil.size() ; k++){
                 OptionItem oi = oil.get(k);
-                int pos = ol.getOptionItemID(oi);
+                int pos = ol.getOptionItemPosition(oi);
                 if(pos >= 0 && pos < sageOptionRep.length){
                     double[] sageClass = sageOptionRep[pos];
                     for(int l = 0; l < sageClass.length; l++){
@@ -152,7 +167,7 @@ public class OptionRatingPredictTrain {
                 ArrayList<OptionItem> oil = ppo.getAllOptions();
                 for(int k = 0; k < oil.size(); k++){
                     OptionItem oi = oil.get(k);
-                    int pos = ol.getOptionItemID(oi);
+                    int pos = ol.getOptionItemPosition(oi);
                     if(pos >= 0 && pos < sageOptionRep.length){
                         double[] sageClass = sageOptionRep[pos];
                         for(int l = 0; l < sageClass.length; l++){
@@ -220,7 +235,7 @@ public class OptionRatingPredictTrain {
     
     public static double[] getAllPlayerTrainData(ArrayList<Prefix> player, int num){
         double[] wordData = getRedPlayerTrainData(player, num);
-        double[] ratingData =  GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, num);
+        double[] ratingData =  GetStoryOptionRatingData.generatePlayerOptionRatings(player, num);
         double[] ret = new double[ratingData.length + wordData.length];
         System.arraycopy(ratingData, 0, ret, 0, ratingData.length);
         System.arraycopy(wordData, 0, ret, ratingData.length, wordData.length);

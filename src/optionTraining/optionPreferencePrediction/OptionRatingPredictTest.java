@@ -4,17 +4,22 @@
  */
 package optionTraining.optionPreferencePrediction;
 
+import PPCA.PPCA;
+import PPCA.PPCAModel;
 import optionTraining.DataCreator;
 import optionTraining.Results;
-import optionTraining.GenerateStoryOptionRatingData;
+import optionTraining.GetStoryOptionRatingData;
 import optionTraining.DataProcess;
 import java.util.ArrayList;
 import nmf.NMF;
 import nmf.NMFModel;
 import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.Matrix;
+import no.uib.cipr.matrix.sparse.CompColMatrix;
 import tools.MatrixTools;
 import optionTraining.selectionPrediction.NNOptionSelPredict;
 import prefix.*;
+import tools.CommonUtil;
 import tools.PrefixUtil;
 
 /**
@@ -45,22 +50,6 @@ public class OptionRatingPredictTest {
         return ret;
     }
     
-    private Results KMeanTest(double[][] centers){
-        Results all = new Results();
-          for(int j = 0; j < testData.size(); j++){
-                ArrayList<Prefix> player = testData.get(j);
-                for(int k = startPredictNum; k < player.size()-1; k++){
-                    if(player.get(k).options == null){
-                        continue;
-                    }
-                    double[] cPlayerOption;
-                    cPlayerOption = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, k);
-                    Results r = getAccuracy(player.get(k), getKMeanPredict(centers, cPlayerOption));
-                    all.add(r);
-                }
-            }
-          return all;
-    }
     
     public double[] getNNPredict(double[][] neibors, double[] player, int numNeibors){
         NNOptionSelPredict nn = new NNOptionSelPredict();
@@ -80,24 +69,6 @@ public class OptionRatingPredictTest {
         return ret;
     }
     
-    private Results NearestNeighborTest(double[][] data, int numNeibors){
-//        int numNeibors = 11;
-        Results all = new Results();
-        for(int j = 0; j < testData.size(); j++){
-            ArrayList<Prefix> player = testData.get(j);
-            for(int k = startPredictNum; k < player.size()-1; k++){
-                if(player.get(k).options == null){
-                    continue;
-                }
-                double[] cPlayerOption;
-                cPlayerOption = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, k);
-                Results r = getAccuracy(player.get(k), getNNPredict(data, cPlayerOption, numNeibors));
-                all.add(r);
-            }
-        }        
-        return all;
-    }
-    
     public double[] getNMFPredict(NMFModel nmfm, double[] player){
         double[][] td = new double[player.length][1];
         for(int i = 0; i < td.length; i++){
@@ -108,10 +79,64 @@ public class OptionRatingPredictTest {
         double[] p = predict.getData();
         return p;
     }
+        
+    public double[] getPPCAPredict(PPCAModel ppcam, double[] player){
+        double[][] td = new double[player.length][1];
+        for(int i = 0; i < td.length; i++){
+            td[i][0] = player[i];
+        }
+        CompColMatrix test = CommonUtil.getCompMatrix(new DenseMatrix(td));
+        DenseMatrix ret = new DenseMatrix(PPCA.ppca_test(ppcam.cov, ppcam.mean, test));
+        return ret.getData();
+        
+    }
     
+    private Results KMeanTest(double[][] centers){
+        Results all = new Results();
+          for(int j = 0; j < testData.size(); j++){
+                ArrayList<Prefix> player = testData.get(j);
+                for(int k = startPredictNum; k < player.size()-1; k++){
+                    if(player.get(k).options == null){
+                        continue;
+                    }
+                    double[] cPlayerOption;
+                    cPlayerOption = GetStoryOptionRatingData.generatePlayerOptionRatings(player, k);
+                    Results r = getAccuracy(player.get(k), getKMeanPredict(centers, cPlayerOption));
+                    all.add(r);
+                }
+            }
+          return all;
+    }    
+    
+    private Results NearestNeighborTest(double[][] data, int numNeibors){
+//        int numNeibors = 11;
+        Results all = new Results();
+        for(int j = 0; j < testData.size(); j++){
+            ArrayList<Prefix> player = testData.get(j);
+            for(int k = startPredictNum; k < player.size()-1; k++){
+                if(player.get(k).options == null){
+                    continue;
+                }
+                double[] cPlayerOption;
+                cPlayerOption = GetStoryOptionRatingData.generatePlayerOptionRatings(player, k);
+                Results r = getAccuracy(player.get(k), getNNPredict(data, cPlayerOption, numNeibors));
+                all.add(r);
+            }
+        }        
+        return all;
+    }
+    
+   
+    /**
+     * NMF on word features
+     * @param nmfm
+     * @param player
+     * @param num
+     * @return 
+     */
     public double[] getRedNMFPredict(NMFModel nmfm, ArrayList<Prefix> player, int num){
         double[] cPlayerOption = OptionRatingPredictTrain.getRedPlayerTrainData(player, num);
-        double[] prePlayer = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, num);
+        double[] prePlayer = GetStoryOptionRatingData.generatePlayerOptionRatings(player, num);
         double[] playerVector = getNMFPredict(nmfm, cPlayerOption);
         OptionList ol = OptionListOperation.getOptionList();
         double[] predict = new double[ol.getOptionListArray().size()];
@@ -126,9 +151,16 @@ public class OptionRatingPredictTest {
         return predict;               
     }
     
+    /**
+     * NMF on both rating features and word features
+     * @param nmfm
+     * @param player
+     * @param num
+     * @return 
+     */
     public double[] getAllNMFPredict(NMFModel nmfm, ArrayList<Prefix> player, int num){
         double[] cPlayerOption = OptionRatingPredictTrain.getAllPlayerTrainData(player, num);
-        double[] prePlayer = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, num);
+        double[] prePlayer = GetStoryOptionRatingData.generatePlayerOptionRatings(player, num);
         double[] playerVector = getNMFPredict(nmfm, cPlayerOption);
         OptionList ol = OptionListOperation.getOptionList();
         
@@ -199,7 +231,7 @@ public class OptionRatingPredictTest {
                     continue;
                 }
                 double[] cPlayerOption;
-                cPlayerOption = GenerateStoryOptionRatingData.generatePlayerOptionRatings(player, k);
+                cPlayerOption = GetStoryOptionRatingData.generatePlayerOptionRatings(player, k);
                 Results r = getAccuracy(player.get(k), getNMFPredict(nmfm, cPlayerOption));
                 all.add(r);
             }
@@ -215,7 +247,7 @@ public class OptionRatingPredictTest {
         double[] predictPref = new double[ppo.getAllOptions().size()];
         
         for(int i = 0; i < ppo.getAllOptions().size(); i++){
-            int ind = ol.getOptionItemID(ppo.getAllOptions().get(i));
+            int ind = ol.getOptionItemPosition(ppo.getAllOptions().get(i));
             predictPref[i] = predict[ind];
             playerPref[i] = ppo.getAllOptions().get(i).getPreference();
         }
@@ -268,7 +300,7 @@ public class OptionRatingPredictTest {
     
     public static void main(String[] args){
 
-        ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
+        ArrayList<ArrayList> allprefix = PrefixUtil.readAllStoryRatingsWOptions(PrefixUtil.storyRatingTrainingFolder, PrefixUtil.optionRatingTrainingFolder);
         int[][] splitD = tools.CommonUtil.readIntData(PrefixUtil.trainDataSplitFile);
         Results all = new Results();
         for(int i = 0; i < splitD.length; i++){

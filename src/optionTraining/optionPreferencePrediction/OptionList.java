@@ -22,7 +22,12 @@ public class OptionList {
         return optionItemList;
     }
     
-    public int getOptionItemID(OptionItem oi){
+    /**
+     * Get the position of oi in the option list
+     * @param oi
+     * @return the position of oi
+     */
+    public int getOptionItemPosition(OptionItem oi){
         int id = -1;
         for(int i = 0; i < optionItemList.size(); i++){
             if(optionItemList.get(i).compareTo(oi) == 0){

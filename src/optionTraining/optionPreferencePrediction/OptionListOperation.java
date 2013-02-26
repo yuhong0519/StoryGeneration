@@ -21,7 +21,9 @@ import tools.PrefixUtil;
  * @author Bunnih
  */
 public class OptionListOperation {
-    private static String optionListFile = "par/OptionItemList.txt";
+    
+//    true if the training and testing data only contain the first story (abominable snowman)
+    private static boolean firstStoryOnly = true;
     
 //    Create a list of option items in a sequence. 
     private static ArrayList<OptionItem> createOptionItemList(){
@@ -33,12 +35,9 @@ public class OptionListOperation {
         PPOptions ppo;
         for(int i = 0; i < prefixList.size(); i++){
             Prefix p = prefixList.get(i);
-            if((ppo = ao.getPPOptions(p.itemList.get(p.itemList.size()-1).id)) != null){
+            if((ppo = ao.getPPOptionsByPPID(p.itemList.get(p.itemList.size()-1).id)) != null){
                 for(int j = 0; j < ppo.getAllOptions().size(); j++){
                     OptionItem oi = new OptionItem(ppo.getAllOptions().get(j));
-//                    if(optionItemList.size() == 292){
-//                        System.out.println(oi.getValue());
-//                    }
                     oi.setPrefixID(i);
                     optionItemList.add(oi);
                     Collections.sort(optionItemList);
@@ -46,15 +45,24 @@ public class OptionListOperation {
             }
                           
         }
-        PrefixUtil.writeOptionItemList(optionItemList, optionListFile);
+        PrefixUtil.writeOptionItemList(optionItemList, PrefixUtil.optionListFile);
         return optionItemList;
     }
     
     private static OptionList optionList = null;
+    /**
+     * Get
+     * @return 
+     */
     public static OptionList getOptionList(){
         if(optionList == null){
             ArrayList<OptionItem> oi = new ArrayList<OptionItem>();
-            PrefixUtil.readOptionItemList(oi, optionListFile);
+            if(firstStoryOnly){
+                PrefixUtil.readOptionItemList(oi, firstStoryOIList);
+            }
+            else{
+                PrefixUtil.readOptionItemList(oi, PrefixUtil.optionListFile);
+            }
             optionList = new OptionList(oi);
         }
         return optionList;
@@ -157,8 +165,24 @@ public class OptionListOperation {
         
     }
     
+    private static String firstStoryOIList = "par/firstStoryOptionItemList.txt";
+    /**
+     * create option list for the first story abominable snowman
+     */
+    private static void createOptionListforStory1(){
+        OptionList ol = OptionListOperation.getOptionList();
+        ArrayList<OptionItem> noil = ol.getOptionListArray();
+        ArrayList<OptionItem> newlist = new ArrayList<OptionItem>();
+        for(int i = 0; i < noil.size(); i++){
+            if(noil.get(i).getPPID() < 100){
+                newlist.add(noil.get(i));
+            }
+        }
+        PrefixUtil.writeOptionItemList(newlist, firstStoryOIList);
+    }
+    
     public static void main(String[] args){
-        createOptionItemList();
+        createOptionListforStory1();
 //        addOptionID2Option();
 //        addOptionID2Quiz();
     }

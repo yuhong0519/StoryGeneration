@@ -23,7 +23,7 @@ public class AllOptions {
         return ao;
     }
     
-    public PPOptions getPPOptions(int index){
+    public PPOptions getPPOptionsByPPID(int index){
 //        PPOptions p = null;
         for(int i = 0; i < ao.size(); i++){
             if(ao.get(i).getPPID() == index){
@@ -35,14 +35,13 @@ public class AllOptions {
         
     }
     
-    public ArrayList<PPOptions> getPPOptionList(int index){
+    public ArrayList<PPOptions> getPPOptionListByPPID(int index){
         ArrayList<PPOptions> ppoList = new ArrayList<PPOptions>();
         for(int i = 0; i < ao.size(); i++){
             if(ao.get(i).getPPID() == index){
                 ppoList.add(ao.get(i));
             }
-        }
-        
+        }        
         return ppoList;
     }
     

@@ -1,0 +1,729 @@
+//Quiz questions. 0 means the option is incorrect while 1 means it is correct.
+<6>
+0:::0:::You have found real Yeti in the story.
+1:::0:::You have NOT found real Yeti in the story.
+0:::0:::You don't know.
+<10>
+1:::0:::You have NOT found Carlos.
+0:::0:::You have found Carlos.
+<10>
+0:::0:::You did NOT go into the red door.
+1:::0:::You did go into the red door.
+0:::0:::You don't know.
+<11>
+0:::0:::You did NOT go into the red door.
+1:::0:::You did go into the red door.
+0:::0:::You don't know.
+<11>
+0:::0:::You have NOT found Carlos.
+1:::0:::You have found Carlos.
+<12>
+1:::0:::You have found the Yeti.
+0:::0:::You have NOT found the Yeti.
+<12>
+1:::0:::You have got the pictures of the Yeti.
+0:::0:::You have not got the pictures of the Yeti.
+0:::0:::You don't know.
+<12>
+0:::0:::You got away from the Yeti by yourself.
+0:::0:::Runal helped you to get away from the Yeti.
+1:::0:::The above two are NOT correct.
+<13>
+1:::0:::You have found the Yeti.
+0:::0:::You have NOT found the Yeti.
+<13>
+0:::0:::You have NOT found Carlos.
+1:::0:::You have found Carlos.
+<13>
+0:::0:::You have got the pictures of the Yeti.
+1:::0:::You have not got the pictures of the Yeti.
+0:::0:::You don't know.
+<14>
+0:::0:::You have NOT found Carlos.
+1:::0:::You have found Carlos.
+<14>
+1:::0:::You have got the pictures of the Yeti.
+0:::0:::You have not got the pictures of the Yeti.
+0:::0:::You don't know.
+<16>
+0:::0:::You have NOT found Carlos.
+1:::0:::You have found Carlos.
+<16>
+0:::0:::You stayed on earth at the end.
+1:::0:::You did NOT stay on earth at the end.
+<16>
+0:::0:::You have got the pictures of the Yeti.
+0:::0:::You have not got the pictures of the Yeti.
+1:::0:::You don't know.
+<17>
+0:::0:::You have NOT found Carlos.
+1:::0:::You have found Carlos.
+<17>
+0:::0:::You have NOT found the Yeti.
+1:::0:::You have found the Yeti.
+<18>
+0:::0:::You have NOT found the Yeti.
+1:::0:::You have found the Yeti.
+<18>
+0:::0:::You have got the pictures of the Yeti.
+1:::0:::You have not got the pictures of the Yeti.
+0:::0:::You don't know.
+<18>
+0:::0:::You have NOT found Carlos.
+1:::0:::You have found Carlos.
+<22>
+0:::0:::The three enemies trusted the story your told them.
+1:::0:::The three enemies did not trust your story.
+<22>
+1:::0:::You were managed to get out from the door.
+0:::0:::You did not get out from the door. 
+<23>
+1:::0:::You did not really have a deal to make but to stall for time. 
+0:::0:::Your truely wanted to make a deal with them. 
+<23>
+0:::0:::The map you found was phony. 
+0:::0:::You have no idea about the map. 
+1:::0:::The map you found could lead you to their hidden supplies. 
+<26>
+1:::0:::You were considered as a hero by the Nepalese government. 
+0:::0:::You were not considered as a hero.
+0:::0:::There was not any talking about hero. 
+<26>
+0:::0:::The police will not give any help for your expedition.
+1:::0:::The police will give help for your expedition. 
+0:::0:::You do not know.
+<29>
+0:::0:::The smoke was not dense.
+1:::0:::The smoke was dense. 
+0:::0:::There was no smoke.
+<29>
+0:::0:::You found the way to the door and get out. 
+1:::0:::You could not find the door because of the thick smoke. 
+0:::0:::You do not know. 
+<33>
+0:::0:::You run faster than the Yeti. 
+1:::0:::Yeti run faster than you. 
+0:::0:::You did not run. 
+<33>
+1:::0:::You were alive because Yeti saved you. 
+0:::0:::You slipped into space over the cliff. 
+0:::0:::You fell to death. 
+<34>
+0:::0:::You did nothing to scare away the Yeti.
+1:::0:::You tried to use your camera to scare the Yeti.
+0:::0:::There is no Yeti. 
+<34>
+0:::0:::The Yeti attacked you. 
+1:::0:::The Yeti vanished into the night. 
+<34>
+0:::0:::The shutter in your camera worked fine till the end.
+0:::0:::You do not know. 
+1:::0:::The shutter in your camera jammed in the end. 
+<35>
+0:::0:::You were taking pictures when the yeti lurches for the tents.
+0:::0:::You did nothing when the Yeti lurches for the tents. 
+1:::0:::You grabbed an ice axe to frighten the Yeti when it lurches for the tents. 
+<35>
+1:::0:::The Yeti spoke to you. 
+0:::0:::The Yeti did not speak to you. 
+0:::0:::You could not understand what the Yeti was speaking about. 
+<35>
+1:::0:::The Yeti left after speaking to you.
+0:::0:::The Yeti stayed after speaking to you.
+0:::0:::You do not know whether the Yeti stayed or left. 
+<36>
+0:::0:::You and Carlos came across ten Yeti.
+0:::0:::You and Carlos did not see any Yeti. 
+1:::0:::You and Carlos saw eleven Yeti around a fire. 
+<36>
+0:::0:::You  talked with the Yeti. 
+0:::0:::You did nothing when you saw the Yeti.
+1:::0:::You took pictures quietly when you saw the Yeti. 
+<36>
+1:::0:::You were given the highest award at the International Explorers Conference.
+0:::0:::You did not attend the International Explorers Conference.
+0:::0:::You did not get any award at the International Explorers Conference.
+<37>
+0:::0:::You did not go out and stayed at the same place the whole night.
+1:::0:::You set off without your guide near dawn.
+0:::0:::You did set off with the help of your guide. 
+<37>
+0:::0:::The plane you found has an intact tail section. 
+1:::0:::The plane you found has intact wings. 
+<37>
+1:::0:::One of the passengers in the plane was unconscious.
+0:::0:::All the people you found in the plane were doing well.
+0:::0:::All the people you found in the plane were unconscious. 
+<39>
+0:::0:::You were doing well climbing on the icefall.
+0:::0:::You met the Yeti and they talked to you at the icefall. 
+1:::0:::You heard the sound of the Yeti but did not see them. 
+<39>
+0:::0:::You were hit by an ice block. 
+1:::0:::You were locked around by the ice blocks. 
+0:::0:::You got away from the tumbling ice blocks. 
+<40>
+0:::0:::Sangee did not agree to withdraw from the expedition. 
+0:::0:::You did not agree to withdraw from the expedition. 
+1:::0:::Both Sangee and You agreed to leave and withdraw from the expedition.
+<40>
+0:::0:::Your supplies stayed with you the whole night. 
+1:::0:::Your supplies mysteriously disappeared that night.
+0:::0:::Your supplies were taken away by the Yeti. 
+<57>
+1:::0:::You went into the jungle alone. 
+0:::0:::You and the guide both went into the jungle. 
+0:::0:::The guide went into the jungle. 
+<57>
+1:::0:::A tiger jumped out from the jungle and you were finished. 
+0:::0:::You had a safe journey in the jungle. 
+<58>
+1:::0:::You and your guide met poachers downstream and did not get away.
+0:::0:::You and your guide were hit by a tiger. 
+0:::0:::You and your guide met poachers downstream and got away successfully.
+<58>
+0:::0:::It is legal to kill tigers and elephants in Nepal. 
+1:::0:::It is a serious crime to kill tigers and elephants in Nepal. 
+<50>
+1:::0:::You were feeling frightened and want to leave. 
+0:::0:::You were feeling great and did not want to leave. 
+<51>
+0:::0:::You were frightened by the Yeti guide. 
+1:::0:::The Yeti looked nice and gentle to you. 
+0:::0:::You did not meet the Yeti guide. 
+<51>
+0:::0:::You never reached Shangri-La.
+0:::0:::You were lost on the way to Shangri-La.
+1:::0:::You were welcomed by people at Shangri-La. 
+<52>
+1:::0:::You walked out of the monastery and stayed in the world you live in. 
+0:::0:::You trusted what Runal said. 
+0:::0:::You decided to accept the life of the secret world.
+<52>
+0:::0:::You and Carlos found the Yeti later. 
+0:::0:::You and Carlos still had enough funds months later for your searching. 
+1:::0:::You and Carlos had no luck finding the Yeti. 
+<54>
+1:::0:::You decided not to go ahead and your trip was over.
+0:::0:::You decided to go ahead and continue your expedition. 
+<54>
+0:::0:::Your permit will still work fine even you decided not go ahead. 
+0:::0:::You were allowed to stay as long as you like. 
+1:::0:::You were asked to leave within twenty-four hours.
+<46>
+1:::0:::The King was not happy about people's visit and decided to close the mountains.
+0:::0:::The King showed his welcome for people's visit. 
+0:::0:::The King asked Runal to lead you to the Yeti. 
+<48>
+0:::0:::You sit in your hotel because of the heavy snow. 
+1:::0:::You stayed in the hotel because of the heavy rain.
+0:::0:::You stayed in the hotel because your were very tired. 
+<105>
+1:::0:::You found the jewels at the end.
+0:::0:::You did not find the jewels at the end.
+<105>
+0:::0:::You found the jewels by yourself.
+1:::0:::Some one gave the jewels to you. 
+<107>
+1:::0:::You did not find the jewels at the end.
+0:::0:::You found the jewels at the end.
+<107>
+0:::0:::You found the jewels by yourself.
+0:::0:::Some one gave the jewels to you. 
+1:::0:::You got killed at the end.
+<108>
+0:::0:::You and Molotawa separated at the end.
+1:::0:::You and Molotawa stayed together at the end.
+<108>
+1:::0:::You chose task one.
+0:::0:::You chose task two.
+0:::0:::You chose neither one.
+<109>
+0:::0:::You chose task one.
+1:::0:::You chose task two.
+0:::0:::You chose neither one.
+<109>
+1:::0:::You talked with Molotawa.
+0:::0:::You did NOT talk with Molotawa.
+<110>
+1:::0:::You talked with Molotawa.
+0:::0:::You did NOT talk with Molotawa.
+<110>
+1:::0:::You and Molotawa separated at the end.
+0:::0:::You and Molotawa stayed together at the end.
+<112>
+0:::0:::You died at the end.
+1:::0:::You were alive at the end.
+<112>
+1:::0:::You argued with them.
+0:::0:::You did NOT argue with them.
+<113>
+0:::0:::You died at the end.
+1:::0:::You were alive at the end.
+<113>
+1:::0:::A dog saved you.
+0:::0:::A stranger saved you.
+0:::0:::You saved yourself.
+<114>
+1:::0:::You told a lie at the end.
+0:::0:::You told the truth at the end.
+<115>
+0:::0:::You were free at the end.
+1:::0:::You were arrested at the end.
+<115>
+0:::0:::You got the diamond at the end
+1:::0:::You did NOT get the diamond at the end.
+<116>
+1:::0:::You died at the end.
+0:::0:::You were alive at the end.
+<116>
+0:::0:::You got the diamond at the end.
+1:::0:::You did NOT get the diamond at the end.
+<119>
+1:::0:::You tried to fly to the Nabooti tribe.
+0:::0:::You tried to drive to the Nabooti tribe.
+<119>
+0:::0:::You got to the Nabooti tribe.
+0:::0:::You did NOT get to the Nabooti tribe.
+1:::0:::You do NOT know if you get to the Nabooti tribe.
+<120>
+1:::0:::You got to the Nabooti tribe.
+0:::0:::You did NOT get to the Nabooti tribe.
+0:::0:::You do NOT know if you get to the Nabooti tribe.
+<120>
+1:::0:::You tried to fly to the Nabooti tribe.
+0:::0:::You tried to drive to the Nabooti tribe.
+<121>
+1:::0:::You did NOT get the diamond at the end.
+0:::0:::You got the diamond at the end.
+<121>
+0:::0:::You tried to fly to the Nabooti tribe.
+0:::0:::You tried to drive to the Nabooti tribe.
+1:::0:::None of the above is correct.
+<122>
+0:::0:::You tried to fly to the Nabooti tribe.
+1:::0:::You tried to drive to the Nabooti tribe.
+<126>
+1:::0:::You crossed the threshold.
+0:::0:::You obeyed Ouobessa's warning and did NOT cross the threshold.
+<126>
+0:::0:::You got the diamond at the end.
+1:::0:::You did NOT get the diamond at the end.
+<127>
+1:::0:::You went down to get help.
+0:::0:::Ouobessa went down to get help.
+<127>
+1:::0:::You fell into a pitch at the end.
+0:::0:::You got the diamond at the end.
+<129>
+1:::0:::You got the diamond at the end.
+0:::0:::You did NOT get the diamond at the end.
+<129>
+0:::0:::You met with Mr Kurtz.
+1:::0:::You did NOT meet with Mr Kurtz.
+<133>
+1:::0:::You got the diamond at the end.
+0:::0:::You did NOT get the diamond at the end.
+<133>
+0:::0:::You found the diamond in a house.
+1:::0:::You found the diamond in your pocket.
+<134>
+0:::0:::You escaped at the end.
+1:::0:::You jumped into a pool full of crocodiles .
+<136>
+0:::0:::You were alive at the end.
+1:::0:::You died at the end.
+<139>
+0:::0:::You got the diamond.
+1:::0:::You did NOT get the diamond.
+<139>
+1:::0:::You went back to the US at the end.
+0:::0:::You did not go back to the US at the end.
+<143>
+0:::0:::You got the diamond.
+1:::0:::You did NOT get the diamond.
+<143>
+1:::0:::You met with the African People's Federation.
+0:::0:::You did NOT meet the African People's Federation.
+<144>
+0:::0:::You met with the African People's Federation.
+1:::0:::You did NOT meet the African People's Federation.
+<144>
+0:::0:::You were alive at the end.
+0:::0:::You were dead at the end.
+1:::0:::You did NOT know.
+<145>
+0:::0:::You met with the African People's Federation.
+1:::0:::You did NOT meet the African People's Federation.
+<145>
+1:::0:::You got the diamond.
+0:::0:::You did NOT get the diamond.
+<146>
+0:::0:::You got the diamond.
+1:::0:::You did NOT get the diamond.
+<147>
+1:::0:::You went to the EIFFEL tower.
+0:::0:::You went to the Louvre Museum.
+<148>
+1:::0:::Raoul gave you the diamond.
+0:::0:::You found the diamond by yourself.
+<150>
+1:::0:::You were trapped at the end.
+0:::0:::You escaped at the end.
+<151>
+1:::0:::You met Lucy.
+0:::0:::You did NOT meet Lucy.
+<151>
+1:::0:::You met Peter.
+0:::0:::You did NOT meet Peter.
+<156>
+1:::0:::You quit at the end.
+0:::0:::You did NOT quit at the end.
+<161>
+0:::0:::You were saved.
+1:::0:::You died.
+<161>
+0:::0:::You met Lucy at the end.
+1:::0:::You did NOT meet Lucy at the end.
+<165>
+0:::0:::You met with Anson.
+1:::0:::You did NOT meet with Anson.
+<166>
+0:::0:::You met Peter.
+1:::0:::You did NOT meet Peter.
+<166>
+0:::0:::You continued to search for the jewels.
+1:::0:::You decided to search for Anson.
+<168>
+0:::0:::You met Peter at the end.
+1:::0:::You did NOT meet Peter at the end.
+<168>
+0:::0:::You continued to search for the jewels.
+1:::0:::You stopped searching for the jewels.
+<170>
+0:::0:::You volunteered.
+1:::0:::You did NOT volunteer.
+<172>
+0:::0:::You jumped off the plane to China.
+1:::0:::You did not jump off the plane to China.
+<173>
+1:::0:::You stayed in Athen at the end.
+0:::0:::You returned to the US at the end.
+<174>
+0:::0:::You stayed in Athen at the end.
+1:::0:::You returned to the US at the end.
+<205>
+0:::0:::You went back to your home world.
+1:::0:::You went to the interior of the black hole.
+<218>
+1:::0:::You were going to explore remote intergalactic space. 
+0:::0:::You were going to explore a particular planet.
+<210>
+0:::0:::You found the cause of the revolt on Mars.
+1:::0:::You did NOT know the cause of the revolt on Mars.
+<212>
+1:::0:::You joined with the Shadow people.
+0:::0:::You joined with the Light people.
+<212>
+0:::0:::You won at the end.
+0:::0:::You lost at the end.
+1:::0:::You did NOT know the result.
+<213>
+1:::0:::You joined with the Shadow people.
+0:::0:::You joined with the Light people.
+<213>
+0:::0:::You won at the end.
+0:::0:::You lost at the end.
+1:::0:::You did NOT know the result.
+<214>
+1:::0:::You retreated.
+0:::0:::You attacked without retreating.
+<215>
+0:::0:::You joined with the Shadow people.
+0:::0:::You joined with the Light people.
+1:::0:::Neither of the above is correct.
+<222>
+0:::0:::You went back to the beginning of the earth.
+1:::0:::You went back to the beginning of the civilization.
+<225>
+1:::0:::The "Erase" button did NOT really lead to anywhere.
+0:::0:::The "Erase" button took you to the beginning of the civilization.
+<224>
+0:::0:::You went back to the beginning of the earth.
+0:::0:::You went back to the beginning of the civilization.
+1:::0:::You went back to the beginning of the universe.
+<235>
+0:::0:::You were unhurt at the end.
+1:::0:::You were transformed into energy at the end.
+<236>
+1:::0:::You did NOT want to destroy them.
+0:::0:::You wanted to destroy them. 
+<240>
+1:::0:::You merged into the space because you were too fast.
+0:::0:::You merged into the space because you were too slow.
+<241>
+0:::0:::The major energy drain was due to a war.
+1:::0:::They had not found the reason for the major energy drain.
+<242>
+1:::0:::You went back to the start.
+0:::0:::You went to the end of the universe.
+0:::0:::None of the above is correct.
+<243>
+0:::0:::You went back to the start.
+0:::0:::You went to the end of the universe.
+1:::0:::None of the above is correct.
+<247>
+1:::0:::You died at the end.
+0:::0:::You were alive at the end.
+<250>
+0:::0:::You succeeded to stop the war.
+1:::0:::You failed to stop the war.
+<251>
+0:::0:::You stopped the war by negotiating with them.
+1:::0:::You stopped the war by a powerful weapon.
+<252>
+1:::0:::You were caught because of the student.
+0:::0:::You were caught because of the cop.
+<253>
+1:::0:::You stayed on earth.
+0:::0:::You went back to the outer space.
+<255>
+1:::0:::You merged into the emptiness because you were too fast.
+0:::0:::You merged into the emptiness because of a special weapon.
+<257>
+1:::0:::You chose to search for the ship and its creatures that caused you trouble.
+0:::0:::You chose to forge ahead with them as space adventurers.
+<258>
+0:::0:::You chose to search for the ship and its creatures that caused you trouble.
+1:::0:::You chose to forge ahead with them as space adventurers.
+<259>
+0:::0:::You chose to search for the ship and its creatures that caused you trouble.
+1:::0:::You chose to forge ahead with them as space adventurers.
+<263>
+1:::0:::You succeeded to avoid the black hole.
+0:::0:::You failed to avoid the black hole.
+<267>
+1:::0:::You wanted to go to the future.
+0:::0:::You wanted to go to the past.
+<268>
+1:::0:::You wanted to go to the future.
+0:::0:::You wanted to go to the past.
+<271>
+0:::0:::You chose to see the universe five minutes ago.
+0:::0:::You chose to see the universe three hundred years ago.
+1:::0:::You chose to see the universe two billion years ago.
+<273>
+0:::0:::You only saw the past in Earth.
+0:::0:::You only saw the future in Earth.
+1:::0:::You saw both the past and the future in Earth.
+<274>
+0:::0:::You stayed in Earth at the end.
+1:::0:::You left Earth at the end.
+<278>
+0:::0:::You went to Kenda.
+1:::0:::You never went to Kenda.
+<281>
+1:::0:::You stayed in Earth at the end.
+0:::0:::You left Earth at the end.
+<282>
+1:::0:::You stayed in Earth at the end.
+0:::0:::You left Earth at the end.
+<284>
+0:::0:::The pilot of the second largest spacecraft was angry because you were dangerous.
+1:::0:::You did NOT know why the pilot of the second largest spacecraft was angry.
+<288>
+1:::0:::You ran away from the fight.
+0:::0:::You joined in the fight.
+0:::0:::You negotiated between the fighting forces.
+<289>
+0:::0:::You ran away from the fight.
+0:::0:::You joined in the fight.
+1:::0:::You negotiated between the fighting forces.
+<293>
+0:::0:::You did not carry out the cleansing operation.
+1:::0:::You carried out the cleansing operation.
+<294>
+0:::0:::You found the cure for the disease at the end.
+1:::0:::You did NOT find the cure for the disease at the end.
+<296>
+0:::0:::You stopped the pollution.
+0:::0:::You did NOT succeed to stop the pollution.
+1:::0:::You do NOT know.
+<297>
+0:::0:::You got help from the Galactic Court.
+1:::0:::You did NOT get help from the Galactic Court.
+<299>
+1:::0:::The radiation caused the fever.
+0:::0:::A kind of bacteria caused the fever.
+0:::0:::None of the above is correct.
+<301>
+0:::0:::A special plant could cure the disease.
+1:::0:::The light of the three moons could cure the disease.
+<302>
+0:::0:::You found the cure for the disease.
+1:::0:::You did NOT find the cure for the disease.
+<407>
+0:::0:::You were contacted by a group of scientists about your previous expedition.
+0:::0:::The scientists also thought it was right to give up the search for Atlantis.
+1:::0:::The scientists still believed that Atlantis could be found.
+<407>
+0:::0:::You were contacted to give advice for another expedition.
+1:::0:::You were tempted by the offer of another expedition.
+0:::0:::You declined the offer of joining another expedition for the search of Atlantis.
+<408>
+1:::0:::You decided to dive in the Seeker.
+0:::0:::You decided to dive without using the Seeker.
+0:::0:::You decided to give up your search and leave the ocean.
+<408>
+1:::0:::You reached the giant canyon without any problem.
+0:::0:::You were lost on the way to the giant canyon.
+<408>
+0:::0:::You found nothing helpful at the giant canyon.
+0:::0:::You could not see clearly because the searchlight was broken.
+1:::0:::You found a hole that appears to be useful at the giant canyon.
+<406>
+1:::0:::You were killed by a big fish.
+0:::0:::You were saved by a big fish.
+<411>
+1:::0:::You left the expedition at the end.
+0:::0:::You continued the expedition at the end.
+<414>
+1:::0:::You decided that it was wisest to leave the expedition.
+0:::0:::You would return to the expedition in the future.
+<416>
+0:::0:::You went down into the deep hole.
+1:::0:::You did NOT go down into the deep hole.
+<417>
+1:::0:::You saw the Atlantis during the trip.
+0:::0:::You did NOT see any Atlantis during the trip.
+<418>
+0:::0:::You would like to go back to earth at the end.
+1:::0:::You did NOT want to go back to earth at the end.
+<420>
+0:::0:::You found the hole again at the end.
+1:::0:::You did NOT find the hole at the end.
+<425>
+1:::0:::The gravitational forces were stronger than the Seeker's propulsion motors.
+0:::0:::The Seeker's propulsion motors were stronger than the gravitational forces.
+<428>
+1:::0:::The Atlanteans is technologically more advanced than you.
+0:::0::: Atlanteans is technologically less advanced than you.
+<433>
+0:::0:::You stayed with the Nodoors at the end.
+1:::0:::You stayed with the Atlanteans at the end.
+<434>
+1:::0:::The Nodoors are aliens.
+0:::0:::The Nodoors are part of the Atlanteans.
+<435>
+1:::0:::You stayed with the Atlanteans.
+0:::0:::You came back to earth finally.
+<436>
+1:::0:::You successfully escaped.
+0:::0:::You failed to escape.
+<440>
+0:::0:::You were saved at the end.
+1:::0:::You were killed at the end.
+<444>
+1:::0:::You destroyed the whole under-water world.
+0:::0:::You saved the whole under-water world.
+<455>
+0:::0:::You stopped the exploration because it was too dangerous.
+1:::0:::You stopped the exploration because your eyes were damaged.
+0:::0:::None of the above is correct.
+<456>
+1:::0:::You were saved at the end.
+0:::0:::You died at the end.
+0:::0:::None of the above is correct.
+<457>
+0:::0:::The whale saved you.
+1:::0:::The submarine saved you.
+0:::0:::None of the above is correct.
+<460>
+1:::0:::You accepted the offer to become the advisor to the king
+0:::0:::You denied the offer to become the advisor to the king.
+0:::0:::None of the above is correct.
+<461>
+0:::0:::You accepted the offer to become the advisor to the king
+1:::0:::You denied the offer to become the advisor to the king.
+0:::0:::None of the above is correct.
+<462>
+0:::0:::You accepted the offer to become the advisor to the king
+1:::0:::You denied the offer to become the advisor to the king.
+0:::0:::None of the above is correct.
+<463>
+1:::0:::Your plan was discovered by the king.
+0:::0:::Your plan was NOT discovered by the king.
+<464>
+1:::0:::Your plan was discovered by the king.
+0:::0:::Your plan was NOT discovered by the king.
+<465>
+0:::0:::You went back to the Seeker before the revolt.
+1:::0:::You stayed with the Atlanteans during the revolt.
+0:::0:::None of the above is correct.
+<448>
+1:::0:::You accepted the surgery to breathe underwater.
+0:::0:::You did NOT accept the surgery to breathe underwater.
+0:::0:::None of the above is correct.
+<449>
+0:::0:::You accepted the surgery to breathe underwater.
+1:::0:::You did NOT accept the surgery to breathe underwater.
+0:::0:::None of the above is correct.
+<451>
+0:::0:::You went to explore the road running along the top of the ledge.
+1:::0:::You did NOT explore the road running along the top of the ledge.
+<468>
+0:::0:::The seeker was destroyed by the Atlanteans.
+1:::0:::The seeker was destroyed by a see monster.
+<472>
+0:::0:::You would continue your expedition to Atlantis next time.
+1:::0:::You would NOT continue your expedition to Atlantis.
+<476>
+1:::0:::You got out from the whirlpool with a laser pistol.
+0:::0:::You got out from the whirlpool with the help of a whale.
+0:::0:::None of the above is correct.
+<477>
+0:::0:::You got out from the whirlpool with a laser pistol.
+0:::0:::You got out from the whirlpool with the help of a whale.
+1:::0:::You did NOT know how you got out from the whirlpool.
+<478>
+1:::0:::You got out of the whirlpool by swimming upwards.
+0:::0:::You got out of the whirlpool by a laser gun.
+<479>
+1:::0:::You did NOT want to be injected.
+0:::0:::You happily accepted the injection.
+0:::0:::None of the above is correct.
+<483>
+1:::0:::You started another expedition because you wanted to prove you were not crazy.
+0:::0:::You did NOT have enough money to start another expedition.
+0:::0:::The second expedition was very successful.
+<484>
+0:::0:::The Atlanteans invited you to come back again.
+1:::0:::The Atlanteans did NOT want you to come back again.
+0:::0:::The Atlanteans did NOT tell you anything.
+<485>
+0:::0:::You returned to the earth at the end.
+1:::0:::You did NOT return to the earth at the end.
+<491>
+1:::0:::You had enough money to start another expedition.
+0:::0:::You did NOT have enough money to start another expedition.
+0:::0:::None of the above is correct.
+<486>
+1:::0:::You accepted the injection.
+0:::0:::You did NOT accept the injection.
+0:::0:::You did NOT know if you had been injected or not.
+<487>
+1:::0:::You accepted the injection.
+0:::0:::You did NOT accept the injection.
+0:::0:::You did NOT know if you had been injected or not.
+<487>
+0:::0:::You became a scientist in Atlantis.
+1:::0:::You became a musician in Atlantis.
+<488>
+0:::0:::You gave up your body and were transformed into energy.
+1:::0:::You did NOT want to give up your body.
+<489>
+1:::0:::You gave up your body and were transformed into energy.
+0:::0:::You did NOT want to give up your body.
+<490>
+0:::0:::You successfully escaped at the end.
+1:::0:::You failed to escape at the end.

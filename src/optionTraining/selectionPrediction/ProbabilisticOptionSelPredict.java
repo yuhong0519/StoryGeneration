@@ -95,7 +95,7 @@ public class ProbabilisticOptionSelPredict {
    }
     
    private static void modelOptionProbabilityModel(){
-        ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
+        ArrayList<ArrayList> allprefix = PrefixUtil.readAllStoryRatingsWOptions(PrefixUtil.storyRatingTrainingFolder, PrefixUtil.optionRatingTrainingFolder);
         int numIter = 50;
         Results r = new Results();
         int[][] splitD = tools.CommonUtil.readIntData(PrefixUtil.trainDataSplitFile);

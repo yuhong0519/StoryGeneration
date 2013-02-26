@@ -1,0 +1,64 @@
+//OptionID: Prefix ID, PP ID, Indicated PP, Option 
+0:	0	0	1	You decide to search for Carlos by yourself.
+1:	0	0	2	You feel that Carlos is OK and want to meet with a Mountain Expedition expert.
+12:	5	1	3	You and Runal want to search below the base camp in the valley.
+13:	5	1	19	You and Runal want to search above the base camp.
+14:	6	2	41	Carlos could be in danger. You decide to go ahead with the expedition for Yeti.
+15:	6	2	42	It is wise to play it safe. You decide to postpone the expedition.
+38:	17	3	4	You decide to ignore the message and go to look for Carlos.
+39:	17	3	7	You obey the message and climb back up to the base camp to wait for Carlos.
+40:	18	19	20	You wait and decide to talk it over with Carlos.
+41:	18	19	24	You stay there and look around.
+42:	18	19	27	You want to know more about Sangee.
+43:	18	19	30	You ask Sangee to come along in your expedition.
+44:	19	41	43	You accept Runal's offer to join you.
+45:	19	41	44	You decline Runal's offer to join you.
+46:	20	42	55	Continue.
+85:	43	4	5	Continue.
+86:	44	7	8	You decide to follow the Yeti.
+87:	44	7	9	You want to have a plan.
+88:	44	7	15	You decide to return to the base camp and the helicopter.
+89:	45	20	21	Continue.
+90:	46	24	25	Continue.
+91:	47	27	28	Continue.
+92:	48	30	31	You talk with Sangee to kown more about the Yeti. 
+93:	48	30	32	You decide to go to the Annapurna region.
+94:	48	30	38	You decide to go to the Everest region.
+95:	49	43	49	You are ready for the secret knowledge of the Yeti.
+96:	49	43	53	You reject the offer of secret knowledge.
+97:	50	44	45	You try to make amends and end up inviting him to accompany you.
+98:	50	44	47	You stick to your decision.
+99:	51	55	56	Continue.
+167:	90	5	6	Continue.
+168:	91	8	12	You decide to retreat but want something more.
+169:	91	8	13	You decide to retreat and go for more help.
+170:	91	8	14	You give the special bird call whistle that you and Carlos use as your emergency code.
+171:	92	9	10	You hesitate.
+172:	92	9	11	You decide to go inside.
+173:	93	15	16	You want to go back.
+174:	93	15	17	You are not sure what to do.
+175:	93	15	18	You decide to follow the prints.
+176:	94	21	22	You make up a fantastic story.
+177:	94	21	23	You insist that you know nothing.
+178:	95	25	26	Continue.
+179:	96	28	29	Continue.
+180:	97	31	33	You do not know what to do.
+181:	97	31	34	You want to take a picture of the creature.
+182:	97	31	35	You decide to grab an ice axe and try to frighten the creature.
+183:	98	32	36	You want to response to their help.
+184:	98	32	37	You decide to let Sangee return to Pokhara for help.
+185:	99	38	39	You decide to take the risk.
+186:	99	38	40	You can't decide. 
+187:	100	49	50	You are not prepared to change your life forever.
+188:	100	49	51	You agree to take the journey.
+189:	100	49	52	You do not know what to do.
+190:	101	53	54	Continue.
+191:	102	45	46	Continue.
+192:	103	47	48	Continue.
+193:	104	56	57	You split up.
+194:	104	56	58	You stay together.
+321:	6	2	41	You continue the expedition for Yeti since you could be the first person in the world to get Yeti photos. 
+322:	6	2	41	You have been preparing for the expedition for such a long time that you decide to continue to search for Yeti.
+323:	6	2	42	You go for tigers since you can make a good fortune by selling photos of tigers in the Terai region.
+324:	6	2	42	You go for tigers since many friends of yours strongly recommended photography in Terai region.
+325:	6	2	42	Mr. Runal is an expedition expert. You follow his advice to go on the expedition for the tigers.

@@ -9,7 +9,7 @@ package optionTraining.optionPreferencePrediction;
  * @author Bunnih
  */
 import java.util.*;
-import optionTraining.GenerateStoryOptionRatingData;
+import optionTraining.GetStoryOptionRatingData;
 import tools.CommonUtil;
 
 public class OptionRepresentationGenerator {

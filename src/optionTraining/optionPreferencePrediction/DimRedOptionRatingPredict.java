@@ -11,7 +11,7 @@ import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.sparse.CompColMatrix;
 import optionTraining.DataCreator;
 import optionTraining.DataProcess;
-import optionTraining.GenerateStoryOptionRatingData;
+import optionTraining.GetStoryOptionRatingData;
 import optionTraining.Results;
 import prefix.OptionItem;
 import prefix.PPOptions;
@@ -51,7 +51,7 @@ public class DimRedOptionRatingPredict {
                 ArrayList<OptionItem> oil = ppo.getAllOptions();
                 for(int k = 0; k < oil.size(); k++){
                     OptionItem oi = oil.get(k);
-                    int pos = ol.getOptionItemID(oi);
+                    int pos = ol.getOptionItemPosition(oi);
                     if(pos >= 0 && pos < sageOptionRep.length){
                         double[] sageClass = sageOptionRep[pos];
                         for(int l = 0; l < sageClass.length; l++){
@@ -117,7 +117,7 @@ public class DimRedOptionRatingPredict {
 
     
     public static void main(String[] args){
-        ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
+        ArrayList<ArrayList> allprefix = PrefixUtil.readAllStoryRatingsWOptions(PrefixUtil.storyRatingTrainingFolder, PrefixUtil.optionRatingTrainingFolder);
         int[][] splitD = tools.CommonUtil.readIntData(PrefixUtil.trainDataSplitFile);
         Results all = new Results();
         int dim = 5;

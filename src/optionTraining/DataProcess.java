@@ -3,62 +3,30 @@
  * and open the template in the editor.
  */
 package optionTraining;
-import tools.CommonUtil;
-import tools.PrefixUtil;
 import java.io.*;
-import prefix.*;
 import java.util.*;
-import no.uib.cipr.matrix.sparse.*;
-import no.uib.cipr.matrix.*;
-import x.na.SparseMatrixBuilder;
 import nmf.*;
-import PPCA.*;
+import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.sparse.*;
+import prefix.*;
+import tools.CommonUtil;
+import x.na.SparseMatrixBuilder;
 /**
  *
  * @author Hong Yu
+ * 
+ * 
  */
 public class DataProcess {
     
-    public static ArrayList<Prefix> readPrefixList(String prefixFile, String ratingFile){
-        ArrayList<Prefix> prefixList = PrefixUtil.readPrefixWOption(prefixFile, ratingFile);
-        
-        
-        return prefixList;
-    }
+//    public static ArrayList<Prefix> readPrefixList(String prefixFile, String ratingFile){
+//        ArrayList<Prefix> prefixList = PrefixUtil.readPrefixWOption(prefixFile, ratingFile);
+//        
+//        
+//        return prefixList;
+//    }
     
-    public static ArrayList<ArrayList> readAllStoryRatingsWOptions(String prefixFolder, String optionFolder){
-        File pfolder = new File(prefixFolder);
-        String[] files = pfolder.list();
-        File ofolder = new File(optionFolder);
-        String[] ofiles = ofolder.list();
-        Arrays.sort(files);
-        Arrays.sort(ofiles);
-        
-        ArrayList<Prefix> prefixList = PrefixUtil.readPrefixList(PrefixUtil.prefixListFile, 1);
-        
-        int num = files.length;
-        
-//        Assgin prefixID to all option items.
-        ArrayList<ArrayList> allprefix = new ArrayList<ArrayList>(); 
-        for(int i = 0; i < num; i++){
-            ArrayList<Prefix> tp = readPrefixList(prefixFolder+"/"+files[i], optionFolder+"/"+ofiles[i]);
-            allprefix.add(tp);
-            for(int j = 0; j < tp.size(); j++){
-                PPOptions to  = tp.get(j).options;
-                if(to == null)
-                    continue;
-                int prefixID = Collections.binarySearch(prefixList, tp.get(j));
-                for(int k = 0; k < to.getAllOptions().size(); k++){
-                    to.getAllOptions().get(k).setPrefixID(prefixID);
-                }
-            }
-        }
-        
-        return allprefix;
-    }
     
-
- 
     
     public static void computeMeanRatings(ArrayList<ArrayList> allprefix){
         int num = 0;
@@ -245,7 +213,7 @@ public class DataProcess {
 
     
     public static void main(String[] args){
-//        ArrayList<ArrayList> allprefix = readAllStoryRatingsWOptions("ratings_wOptionTraining", "Options_training");
+//        ArrayList<ArrayList> allprefix = PrefixUtil.readAllStoryRatingsWOptions("ratings_wOptionTraining", "Options_training");
 //        computeMeanRatings(allprefix);
 //        computeBehavior(allprefix);
 //        getCorrelationData(allprefix);

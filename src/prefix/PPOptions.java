@@ -11,8 +11,8 @@ import java.util.*;
  */
 public class PPOptions {
     private ArrayList<OptionItem> options;
-    private int PPID;
-    private int prefixID;
+    private int PPID = -1;
+    private int prefixID = -1;
     
     public PPOptions(int id){
         options = new ArrayList<OptionItem>();
@@ -61,8 +61,24 @@ public class PPOptions {
     }
     
     public void add(OptionItem oi){
-        oi.setPPID(PPID);
-        oi.setPrefixID(prefixID);
+        if(PPID != -1){
+            if(oi.getPPID() != -1 && PPID != oi.getPPID()){
+                System.err.println("Error add wrong option item to the PPOptions: ppid does not match");
+            }
+            oi.setPPID(PPID);
+        }
+        else{
+            PPID = oi.getPPID();
+        }
+        if(prefixID != -1){
+            if(oi.getPrefixID() != -1 && prefixID != oi.getPrefixID()){
+                System.err.println("Error add wrong option item to the PPOptions: prefix ID does not match");
+            }
+            oi.setPrefixID(prefixID);
+        }
+        else{
+            prefixID = oi.getPrefixID();
+        }
         options.add(oi);
     }
     
@@ -190,6 +206,7 @@ public class PPOptions {
         return ret;
     }
     
+//    sort the list in a descendant preference order
     private void sortPreference(ArrayList<OptionItem> list){
         for(int i = 0; i < list.size(); i++){
             OptionItem cm = list.get(i);
@@ -203,5 +220,40 @@ public class PPOptions {
         }        
     }
     
+    /**
+     * Rank the option items by their preference. Get the highest num option items 
+     * @param num the number of option item to get
+     * @return the first num option items
+     */
+    public ArrayList<OptionItem> getHighestPreferenceOIL(int num){
+        if(num > options.size()){
+            return options;
+        }
+        ArrayList<OptionItem> ret = new ArrayList<OptionItem>();
+        ArrayList<OptionItem> list = new ArrayList<OptionItem>(options);
+        sortPreference(list);
+        for(int i = 0; i < num; i++){
+            ret.add(list.get(i));
+        }
+        return ret;
+    }
+    
+        /**
+     * Rank the option items by their preference. Get the lowest num option items 
+     * @param num the number of option item to get
+     * @return the first num option items
+     */
+    public ArrayList<OptionItem> getLowestPreferenceOIL(int num){
+        if(num > options.size()){
+            return options;
+        }
+        ArrayList<OptionItem> ret = new ArrayList<OptionItem>();
+        ArrayList<OptionItem> list = new ArrayList<OptionItem>(options);
+        sortPreference(list);
+        for(int i = 0; i < num; i++){
+            ret.add(list.get(list.size()-i-1));
+        }
+        return ret;
+    }
 
 }

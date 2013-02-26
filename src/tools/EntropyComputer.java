@@ -61,8 +61,7 @@ public class EntropyComputer {
     }
     
     public static void main(String[] args){
-        ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
-        
+        ArrayList<ArrayList> allprefix = PrefixUtil.readAllStoryRatingsWOptions(PrefixUtil.storyRatingTrainingFolder, PrefixUtil.optionRatingTrainingFolder);
         for(ArrayList<Prefix> player : allprefix){
             System.out.println(computePlayer(player));
         }

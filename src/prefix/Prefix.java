@@ -8,6 +8,7 @@ public class Prefix implements Comparable<Prefix>{
 	public ArrayList<PlotPoint> itemList = new ArrayList<PlotPoint>();
         public int rating = -1;
         public PPOptions options = null;
+        public String prefixFileName = null;
 //        for data process purpose. QuestionProcess.DataProcess
 //        public int count = 1;
 	public Prefix(int[] s){
@@ -39,6 +40,7 @@ public class Prefix implements Comparable<Prefix>{
 		else{
 			System.err.println("Unsupported Prefix construction error!!");
 		}
+                this.prefixFileName = p.prefixFileName;
 	}
         
         

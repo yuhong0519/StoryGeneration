@@ -13,7 +13,7 @@ public class OptionItem implements Comparable<OptionItem>{
     private int PPID = -1;
     private String option = null;
     private double preference = 0;
-    private int prefixID;
+    private int prefixID = -1;
     private int optionID = -1;
 
 //    public OptionItem(int iPP, int pi, String o){
@@ -23,8 +23,8 @@ public class OptionItem implements Comparable<OptionItem>{
 //        
 //    }
     
-    public OptionItem(int iPP, int p){
-        indicatedPP = iPP;
+    public OptionItem(int id, int p){
+        optionID = id;
         preference = p;
     }
     

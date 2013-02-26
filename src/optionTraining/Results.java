@@ -20,7 +20,9 @@ public class Results {
         numCorrect += r.numCorrect;
         numWrong += r.numWrong;
         numUnknown += r.numUnknown;
-        mse = (r.mse * r.numMSE + mse * numMSE) / (r.numMSE + numMSE);
+        if(r.numMSE + numMSE != 0){
+            mse = (r.mse * r.numMSE + mse * numMSE) / (r.numMSE + numMSE);
+        }
         numMSE += r.numMSE;
     }
     

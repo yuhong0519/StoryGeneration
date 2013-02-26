@@ -99,32 +99,14 @@ public class SVMOptionSelPrediction {
         
     }
     
-    static int numIter = 50;
-    static double splitProb = 0.7;
+
 //    1: rank svm, 0: svm
     static int algorithm = 0;
-    
-    void createSVMData(){
-        ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
-        
-        int[][] split = new int[numIter][allprefix.size()];
-        Random r = new Random();
-        
-        for(int i = 0; i < numIter; i++){
-            for(int j = 0; j < allprefix.size(); j++){
-                if(r.nextDouble() < splitProb){
-                    split[i][j] = 0;
-                }
-                else{
-                    split[i][j] = 1;
-                }
-            }
-        }
-        tools.CommonUtil.printObject(split, PrefixUtil.trainDataSplitFile);
-    }
+    static int numIter = 50;
+
     
     void process(){
-        ArrayList<ArrayList> allprefix = DataProcess.readAllStoryRatingsWOptions(PrefixUtil.ratingWOptionTrainingFolder, PrefixUtil.optionTrainingFolder);
+        ArrayList<ArrayList> allprefix = PrefixUtil.readAllStoryRatingsWOptions(PrefixUtil.storyRatingTrainingFolder, PrefixUtil.optionRatingTrainingFolder);
         int[][] splitData = tools.CommonUtil.readIntData(PrefixUtil.trainDataSplitFile);
         
         double right = 0, wrong = 0;

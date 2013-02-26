@@ -4,6 +4,7 @@ import java.net.*;
 import java.util.*;
 import java.util.Vector;
 import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.sparse.CompColMatrix;
 
 public class CommonUtil {
 	
@@ -524,6 +525,43 @@ public class CommonUtil {
                 Collections.sort(ret);
             }
             return ret;
+        }
+        
+        /**
+         * Transform a DenseMatrix into a CompColMatrix
+         * @param data
+         * @return 
+         */
+        public static CompColMatrix getCompMatrix(DenseMatrix data){
+            int numRows = data.numRows();
+            int numCols = data.numColumns();
+            int[][] nz = new int[numCols][];
+            for(int i = 0; i < numCols; i++){
+                int ns = 0;
+                for(int j = 0; j < numRows; j++){
+                    if(data.get(j, i) != 0){
+                        ns++;
+                    }
+                }
+                nz[i] = new int[ns];
+            }
+            for(int i = 0; i < numCols; i++){
+                int ind = 0;
+                for(int j = 0; j < numRows; j++){
+                    if(data.get(j, i) != 0){
+                        nz[i][ind] = j;
+                        ind++;
+                    }
+                }
+            }
+            CompColMatrix ccm = new CompColMatrix(numRows, numCols, nz);
+            for(int i = 0; i < numCols; i++){
+                
+                for(int j = 0; j < nz[i].length; j++){
+                    ccm.set(nz[i][j], i, data.get(nz[i][j], i));
+                }
+            }
+            return ccm;
         }
 	
 }

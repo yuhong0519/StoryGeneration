@@ -1,6 +1,7 @@
 package nmf;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import tools.CommonUtil;
 
@@ -258,4 +259,107 @@ public class NMF {
 		return predict;
 		
 	}
+        
+        public static void main(String[] args){
+            DenseMatrix V = new DenseMatrix(10, 20);
+            double missing = 0.8;
+            Random r = new Random();
+            for(int i = 0; i < V.numColumns(); i++){
+                
+
+                if(r.nextBoolean() == true){
+                    for(int j = 0; j < V.numRows(); j++){
+                        double t = r.nextDouble();
+                        if(t < missing){
+                            V.set(j, i, 0);
+                        }
+                        else if(j > V.numRows()/2.0){
+                            V.set(j, i, 5);
+                        }
+                        else{
+                            V.set(j, i, 1);
+                        }
+                    }
+                }
+                else{
+                    for(int j = 0; j < V.numRows(); j++){
+                        double t = r.nextDouble();
+                        if(t < missing){
+                            V.set(j, i, 0);
+                        }
+                        else if(j % 2 == 0){
+                            V.set(j, i, 5);
+                        }
+                        else
+                            V.set(j, i, 1);
+                    }
+                }
+            }
+            DenseMatrix test = new DenseMatrix(10,2);
+            for(int i = 0; i < test.numColumns(); i++){
+                if(i == 0){
+                    for(int j = 0; j < test.numRows(); j++){
+                        if(r.nextDouble() < missing){
+                            test.set(j, i, 0);
+                        }
+                        if(j > test.numRows()/2.0){
+                            test.set(j, i, 5);
+                        }
+                        else
+                            test.set(j, i, 1);
+                    }
+                }
+                else{
+                    for(int j = 0; j < test.numRows(); j++){
+                        if(r.nextDouble() < missing){
+                            test.set(j, i, 0);
+                        }
+                        if(j % 2 == 0){
+                            test.set(j, i, 5);
+                        }
+                        else
+                            test.set(j, i, 1);
+                    }
+                }
+                
+            }
+            NMFModel nmfm = new NMFModel();
+            nmfm.dim = 2;
+            nmf_train(V,  test,  nmfm);
+            tools.CommonUtil.printObject(V, "v.txt");
+            tools.CommonUtil.printObject(nmfm.W, "w.txt");
+            tools.CommonUtil.printObject(nmfm.H, "H.txt");
+            
+            test = (new DenseMatrix(10,1));
+            DenseMatrix test2 = (new DenseMatrix(10,1));
+            for(int i = 0; i < test.numColumns(); i++){
+                
+                    for(int j = 0; j < test.numRows(); j++){
+                        if(r.nextDouble() < missing){
+                            test.set(j, i, 0);
+                        }
+                        else if(j > test.numRows()/2.0){
+                            test.set(j, i, 5);
+                        }
+                        else
+                            test.set(j, i, 1);
+                    }
+                   for(int j = 0; j < test.numRows(); j++){
+                        if(r.nextDouble() < missing){
+                            test2.set(j, i, 0);
+                        }
+                        else if(j % 2 == 0){
+                            test2.set(j, i, 5);
+                        }
+                        else
+                            test2.set(j, i, 1);
+                    }
+                
+                
+            }
+            Matrix t1 = nmf_test(nmfm, test);
+            Matrix t2 = nmf_test(nmfm, test2);
+            tools.CommonUtil.printObject(t1, "t1.txt");
+            tools.CommonUtil.printObject(t2, "t2.txt");
+        }
 }

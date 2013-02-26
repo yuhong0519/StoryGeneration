@@ -259,7 +259,7 @@ public class TrainingControl {
         ArrayList<OptionItem> oiList = ppo.getAllOptions();
         
         ArrayList<PlotPoint> tp = currentShown.get(currentShown.size()-1).itemList;
-        ArrayList<PPOptions> quizList = quiz.getPPOptionList(tp.get(tp.size()-1).id);
+        ArrayList<PPOptions> quizList = quiz.getPPOptionListByPPID(tp.get(tp.size()-1).id);
             
 //         Question type 1: option chosn question   
         if(rd.nextDouble() > 0.7 && oiList.size() > 1){

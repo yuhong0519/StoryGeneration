@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
+import optionTraining.OptionPredictor;
+import optionTraining.optionPreferencePrediction.OptionList;
+import optionTraining.optionPreferencePrediction.OptionListOperation;
 import prefix.AllOptions;
 import prefix.IntegerPlotPoint;
 import prefix.OptionItem;
@@ -30,10 +33,12 @@ public class Interaction implements Comparable<Interaction>{
     private long accesstime = System.currentTimeMillis();
 //    Session expires in 1 hour
     private long accessInterval = 3600000;
-    private static ArrayList<Prefix> StorySpace = PrefixUtil.readStorySpace(PrefixUtil.storySpaceFile);;
     
     private static final int numStories = 5;
+    private int numTrainForTest = 4;
     private static final int numPPPStory = 6;
+    
+    private static ArrayList<Prefix> StorySpace = PrefixUtil.readStorySpace(PrefixUtil.storySpaceFile);
     private static AllOptions quiz = PrefixUtil.readOptions(PrefixUtil.quizFile);
     
     private  PlotPointLibrary ppl = PrefixUtil.readPlotPoints(PrefixUtil.plotpointFile);
@@ -42,15 +47,13 @@ public class Interaction implements Comparable<Interaction>{
 
     private ArrayList<Integer> avoidPlotPoints = new ArrayList<Integer>();
     private ArrayList<Integer> requiredPlotPoints = new ArrayList<Integer>();
-    private ArrayList<Integer> preferedPlotPoints = new ArrayList<Integer>();
-    private int numOptionsPerBranch = 2;
+//    private ArrayList<Integer> preferedPlotPoints = new ArrayList<Integer>();
+//    private int numOptionsPerBranch = 1;
     private int numOptionsPerPreferBranch = 2;
     
     private String key;
     private int numQuestions = 0;
     private int numCorrectQuestions = 0;
-    private boolean testFlag = false;
-    private int numTrainForTest = 4;
 
     private int quizStatus = 0;
         
@@ -63,7 +66,13 @@ public class Interaction implements Comparable<Interaction>{
     private int instructions = 0;
     private String dataFolder = "playerData";
             
-
+    private boolean testFlag = true;
+    private boolean testPhase = false;
+    private int preferredPPID = -1;            
+    private static ArrayList<ArrayList> trainData = PrefixUtil.readAllStoryRatingsWOptions(PrefixUtil.storyRatingTrainingFolder, PrefixUtil.optionRatingTrainingFolder);;
+    private static OptionPredictor op = new OptionPredictor(trainData);
+    private static OptionList ol = OptionListOperation.getOptionList();
+    
     public Interaction(int id){
         this.userID = id;
         key = "";
@@ -82,6 +91,7 @@ public class Interaction implements Comparable<Interaction>{
         PrefixUtil.addOptions2PlotPoints(ppl, ao);
         loadStorySelectionPreference();
         startNewStory();
+        
     }
     
     public int getUserID(){
@@ -104,8 +114,9 @@ public class Interaction implements Comparable<Interaction>{
         requiredPlotPoints.add(0);
         if(testFlag){
             avoidPlotPoints.add(2);
+//            preferedPlotPoints.add(41);
         }
-//        preferedPlotPoints.add(41);
+        
     }
     
     private boolean checkStoryLegal(Prefix p){
@@ -138,6 +149,7 @@ public class Interaction implements Comparable<Interaction>{
         currentShown.add(p);
     }
     
+    
     private PPOptions getNextOption(IntegerPlotPoint pp){
         PPOptions ppo = pp.getOptions();
         if(ppo == null){
@@ -145,7 +157,10 @@ public class Interaction implements Comparable<Interaction>{
         }
         PPOptions ret = new PPOptions(ppo.getPPID());
         ArrayList<Integer> aipp = ppo.getAllIndicatedPP();
-        int numOptionPerPP;
+//        if(!testFlag){
+        int numOptionPerPP = 1;
+        double[] predict = null;
+        
         for(Integer ipp : aipp){
             boolean flag = false;
             for(int i : avoidPlotPoints){
@@ -158,30 +173,82 @@ public class Interaction implements Comparable<Interaction>{
             if(flag){
                 continue;
             }
-            for(int i : preferedPlotPoints){
-                if(i == ipp.intValue()){
-                    flag = true;
-                    break;
+//            test flag is true and there is a preferred plot point, test phase
+            if(testPhase && preferredPPID >= 0){
+                if(ipp == preferredPPID){
+                    numOptionPerPP = numOptionsPerPreferBranch;
+                }
+                else{
+                    numOptionPerPP = 1;
+                }
+                if(predict == null){
+                    predict = op.predictPref(currentShown, OptionPredictor.PPCAPref);
+                }
+                 
+                PPOptions ppo2 = new PPOptions(ppo);
+                for(int i = 0; i < ppo2.getAllOptions().size(); i++){
+                    int ind = ol.getOptionItemPosition(ppo2.getAllOptions().get(i));
+                    ppo2.getAllOptions().get(i).setPreference(predict[ind]);
+                }
+                ArrayList<OptionItem> oil = ppo2.getItemListByIndicatedPP(ipp.intValue());
+                ArrayList<OptionItem> tl = null;
+                if(ipp == preferredPPID){
+                    tl = getHighestRatedOptionItems(oil, numOptionPerPP, 1);
+                }
+                else{
+                    tl = getHighestRatedOptionItems(oil, numOptionPerPP, 0);
+                }
+                for(OptionItem oi : tl){
+                     OptionItem toi = ppo.getItemByID(oi.getOID());
+                     ret.add(toi);
                 }
             }
-            if(flag){
-                numOptionPerPP = numOptionsPerPreferBranch;
-            }
             else{
-                numOptionPerPP = numOptionsPerBranch;
-            }
-            ArrayList<OptionItem> oil = ppo.getItemListByIndicatedPP(ipp.intValue());
-            if(oil.size() > numOptionPerPP){
-                ArrayList<Integer> sel = CommonUtil.getRandom(oil.size(), numOptionPerPP);
-                for(Integer i : sel){
-                    ret.add(oil.get(i));
+                ArrayList<OptionItem> oil = ppo.getItemListByIndicatedPP(ipp.intValue());
+                if(oil.size() > numOptionPerPP){
+                    ArrayList<Integer> sel = CommonUtil.getRandom(oil.size(), numOptionPerPP);
+                    for(Integer i : sel){
+                        ret.add(oil.get(i));
+                    }
+                }
+                else{
+                    ret.add(oil);
                 }
             }
-            else if(oil.size() >= 1){
-                ret.add(oil);
+        }
+        preferredPPID = -1;
+        return ret;
+    }
+    
+    /**
+     * Get the first num option items by preference
+     * @param oil
+     * @param num
+     * @param order 0 ascending, 1 descending.
+     * @return 
+     */
+    private ArrayList<OptionItem> getHighestRatedOptionItems(ArrayList<OptionItem> list, int num, int order){
+        if(num > list.size()){
+            return list;
+        }
+        ArrayList<OptionItem> ret = new ArrayList<OptionItem>();
+        for(int i = 0; i < list.size(); i++){
+            OptionItem cm = list.get(i);
+            for(int j = i + 1; j < list.size(); j++){
+                if(list.get(j).getAccuratePreference() >= cm.getAccuratePreference()){
+                    cm = list.get(j);
+                }
+            }
+            list.remove(cm);
+            list.add(i, cm);
+        }    
+
+        for(int i = 0; i < num; i++){
+            if(order == 0){
+                ret.add(list.get(list.size()-i-1));
             }
             else{
-                System.err.println("Error in TrainingControl.getNexOption: Cannot find the indicated option item");
+                ret.add(list.get(i));
             }
         }
         return ret;
@@ -198,7 +265,7 @@ public class Interaction implements Comparable<Interaction>{
         ArrayList<OptionItem> oiList = ppo.getAllOptions();
         
         ArrayList<PlotPoint> tp = currentShown.get(currentShown.size()-1).itemList;
-        ArrayList<PPOptions> quizList = quiz.getPPOptionList(tp.get(tp.size()-1).id);
+        ArrayList<PPOptions> quizList = quiz.getPPOptionListByPPID(tp.get(tp.size()-1).id);
             
 //         Question type 1: option chosn question   
         if(rd.nextDouble() > 0.7 && oiList.size() > 1){
@@ -242,7 +309,7 @@ public class Interaction implements Comparable<Interaction>{
             return null;
         }
 //        record player ratings
-        if((quizStatus == 0 || quizStatus == 1) && !initPP && instructions > 2){
+        if((quizStatus == 0 || quizStatus == 1) && !initPP && instructions > 3){
             Prefix cp = currentShown.get(currentShown.size()-1);
             cp.rating = pr.plotRating;
             if(cp.options != null){
@@ -266,7 +333,7 @@ public class Interaction implements Comparable<Interaction>{
                     + "Disappointed, You return near the former camp and decide to construct a shelter on your own. You look for the perfect camping manual in your bag. "
                     + "However, your soaked manual is almost unreadable.";
             sr.plot = sr.plot + "<br><b class='transient'>Please rate the story so far and the options below. Then click one of the options to continue.</b> ";
-            
+            //sr.oldOptionsPref = new int[]{2,3};
             sr.options = new String[]{"You continue to read the manual.", "You decide to get some rest."};
             instructions = 1;
         }
@@ -340,8 +407,12 @@ public class Interaction implements Comparable<Interaction>{
                     System.err.println("No next plot point found");                    
                 }                
             }
-            sr.plot = ppl.getPP(p.getLast().id).value();
-      
+            if(currentPlotPoint == 1){
+                sr.plot = "<b>Story " + currentStory + "</b><br>" + ppl.getPP(p.getLast().id).value();
+            }
+            else{
+                sr.plot = ppl.getPP(p.getLast().id).value();
+            }
             Prefix pre = getVisitedPrefix();
             if(pre != null){
                 sr.oldPlotPref = pre.rating;
@@ -386,20 +457,26 @@ public class Interaction implements Comparable<Interaction>{
         if(finalPlot){            
             PrefixUtil.writePreferencePrefixList(currentShown, dataFolder + "/" + ratingFile);
             PrefixUtil.writeOptionPreference(currentShown, dataFolder + "/" + optionPreferenceFile);
-            if((double)numCorrectQuestions/numQuestions < 0.9){
+            double percentCorrect = (double)numCorrectQuestions/numQuestions;
+            if(percentCorrect < 0.8){
                 key = key+"00";
-                PrefixUtil.writeString(key, dataFolder + "/" + key);
+                PrefixUtil.writeString(""+percentCorrect, dataFolder + "/" + key);
             }
 
             else{
                 key = key + "11";
-                PrefixUtil.writeString(key, dataFolder + "/" + key);
+                PrefixUtil.writeString(""+percentCorrect, dataFolder + "/" + key);
             }
             return;
         }
         
         if(currentPlotPoint < numPPPStory){
             currentPlotPoint++;
+            if(testPhase){
+                if(currentPlotPoint == 2){
+                    preferredPPID = 41;
+                }
+            }
             ArrayList<OptionItem> ppo = cp.options.getAllOptions();
             Prefix p = new Prefix(cp);
             int nextPPID = ppo.get(pr.choice).getIndicatedPP();
@@ -409,13 +486,14 @@ public class Interaction implements Comparable<Interaction>{
             if(currentPlotPoint == numPPPStory && currentStory == numStories){
                 finalPlot = true;
             }
-
         }
 //        last plot point, but not the last story
         else if(currentStory < numStories ){            
+//            entering last story, test phase
             if(testFlag && currentStory >= numTrainForTest){
                 avoidPlotPoints.clear();
                 avoidPlotPoints.add(1);
+                testPhase = true;
             }
             
             if(ratingFile == null){
