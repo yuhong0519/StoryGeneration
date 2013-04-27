@@ -1,0 +1,62 @@
+<0>
+1:::0:::You decide to search for Carlos by yourself.
+2:::1:::You feel that Carlos is OK and want to meet with a Mountain Expedition expert.
+<1>
+3:::12:::You and Runal want to search below the base camp in the valley.
+19:::13:::You and Runal want to search above the base camp.
+<3>
+4:::38:::You decide to ignore the message and go to look for Carlos.
+7:::39:::You obey the message and climb back up to the base camp to wait for Carlos.
+<7>
+8:::86:::You decide to follow the Yeti.
+9:::87:::You want to have a plan.
+15:::88:::You decide to return to the base camp and the helicopter.
+<8>
+12:::168:::You decide to retreat but want something more.
+13:::169:::You decide to retreat and go for more help.
+14:::170:::You give the special bird call whistle that you and Carlos use as your emergency code.
+<9>
+10:::171:::You hesitate.
+11:::172:::You decide to go inside.
+<15>
+16:::173:::You want to go back.
+17:::174:::You are not sure what to do.
+18:::175:::You decide to follow the prints.
+<19>
+20:::40:::You wait and decide to talk it over with Carlos.
+24:::41:::You stay there and look around.
+27:::42:::You want to know more about Sangee.
+30:::43:::You ask Sangee to come along in your expedition.
+<21>
+22:::176:::You make up a fantastic story.
+23:::177:::You insist that you know nothing.
+<30>
+31:::92:::You talk with Sangee to kown more about the Yeti. 
+32:::93:::You decide to go to the Annapurna region.
+38:::94:::You decide to go to the Everest region.
+<31>
+33:::180:::You do not know what to do.
+34:::181:::You want to take a picture of the creature.
+35:::182:::You decide to grab an ice axe and try to frighten the creature.
+<32>
+36:::183:::You want to response to their help.
+37:::184:::You decide to let Sangee return to Pokhara for help.
+<38>
+39:::185:::You decide to take the risk.
+40:::186:::You can't decide. 
+<41>
+43:::44:::You accept Runal's offer to join you.
+44:::45:::You decline Runal's offer to join you.
+<43>
+49:::95:::You are ready for the secret knowledge of the Yeti.
+53:::96:::You reject the offer of secret knowledge.
+<44>
+45:::97:::You try to make amends and end up inviting him to accompany you.
+47:::98:::You stick to your decision.
+<49>
+50:::187:::You are not prepared to change your life forever.
+51:::188:::You agree to take the journey.
+52:::189:::You do not know what to do.
+<56>
+57:::193:::You split up.
+58:::194:::You stay together.

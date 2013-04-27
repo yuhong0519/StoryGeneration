@@ -1,8 +1,7 @@
 //OptionID: Prefix ID, PP ID, Indicated PP, Option 
 0:	0	0	1	You decide to search for Carlos by yourself.
-1:	0	0	2	You feel that Carlos is OK and want to meet with a Mountain Expedition expert.
+1:	0	0	2	You feel that Carlos is OK and want to meet with Mr Runal.
 2:	1	100	101	You agree to go on tomorrow's plane for Paris.
-3:	1	100	152	You hesitate, while demanding more time, information, and extra help.
 4:	1	100	157	You want to help them but need more information.
 5:	2	200	201	You dash off to Croyd.
 6:	2	200	206	You delay departure to study at the Space Academy.
@@ -15,8 +14,7 @@
 13:	5	1	19	You and Runal want to search above the base camp.
 14:	6	2	41	Carlos could be in danger. You decide to go ahead with the expedition for Yeti.
 15:	6	2	42	It is wise to play it safe. You decide to postpone the expedition.
-16:	7	101	102	You accept his offer and believe you make the right choice.
-17:	7	101	123	You are not sure but still accept his offer.
+16:	7	101	102	You accept his offer.
 18:	7	101	130	You make excuses and refuse his help.
 19:	8	152	153	Continue.
 20:	9	157	158	Continue.
@@ -39,23 +37,18 @@
 37:	16	421	469	You investigate the bubbles.
 38:	17	3	4	You decide to ignore the message and go to look for Carlos.
 39:	17	3	7	You obey the message and climb back up to the base camp to wait for Carlos.
-40:	18	19	20	You wait and decide to talk it over with Carlos.
-41:	18	19	24	You stay there and look around.
-42:	18	19	27	You want to know more about Sangee.
-43:	18	19	30	You ask Sangee to come along in your expedition.
+40:	18	19	20	You stay there and start shopping.
+42:	18	19	30	You want to know more about Sangee and ask him to come along in your expedition.
 44:	19	41	43	You accept Runal's offer to join you.
 45:	19	41	44	You decline Runal's offer to join you.
 46:	20	42	55	Continue.
 47:	21	102	103	You take a seat on the left near the door.
 48:	21	102	117	You sit with your back to the wall. 
 49:	22	123	124	Continue.
-50:	23	130	131	Yo go to the jet.
-51:	23	130	137	They seems friendly to you but you tell them that there must be some mistake.
-52:	23	130	140	You tell them that there must be some mistake and try to drift off into the crowd.
+50:	23	130	131	You go to the jet.
+51:	23	130	140	You tell them that there must be some mistake.
 53:	24	153	154	Continue.
-54:	25	158	159	You decide to leave without getting the aid of the police.
-55:	25	158	162	You work out your own plan and leave without getting the aid of the police.
-56:	25	158	163	You get in touch with the police.
+55:	25	158	162	You decide to leave for Paris without getting the aid of the police.
 57:	26	202	203	Continue.
 58:	27	207	208	You choose to join the research program.
 59:	27	207	216	You choose Command School.
@@ -85,13 +78,12 @@
 83:	42	469	470	You try to surface.
 84:	42	469	480	You explore.
 85:	43	4	5	Continue.
-86:	44	7	8	You decide to follow the Yeti.
-87:	44	7	9	You want to have a plan.
+86:	44	7	8	You and Runal decide to follow the Yeti.
 88:	44	7	15	You decide to return to the base camp and the helicopter.
 89:	45	20	21	Continue.
 90:	46	24	25	Continue.
 91:	47	27	28	Continue.
-92:	48	30	31	You talk with Sangee to kown more about the Yeti. 
+92:	48	30	31	You talk with Sangee to know more about the Yeti. 
 93:	48	30	32	You decide to go to the Annapurna region.
 94:	48	30	38	You decide to go to the Everest region.
 95:	49	43	49	You are ready for the secret knowledge of the Yeti.
@@ -100,22 +92,21 @@
 98:	50	44	47	You stick to your decision.
 99:	51	55	56	Continue.
 100:	52	103	104	You grab a chair to defend yourself. 
-101:	52	103	106	You race for the nearest exit and believe you can get out of it.
-102:	52	103	111	You race for the nearest exit and think someone will come to help you.
+101:	52	103	106	You get out of the cafe and try to lose yourself into a crowd.
+102:	52	103	111	You get out of the cafe and wish someone can come to help you.
 103:	53	117	118	Continue.
 104:	54	124	125	You go to the Mountains of the Moon.
-105:	54	124	128	You travel o the headwaters of the Zaire River.
+105:	54	124	128	You travel to the headwaters of the Zaire River.
 106:	55	131	132	You give the ivory piece to the blind woman.
-107:	55	131	135	You decide to keep it for now and use it later.
+107:	55	131	135	You decide to not do anything.
 108:	56	137	138	Continue.
-109:	57	140	141	You accept the offer of police protection and would like to find the jewels at all cost.
-110:	57	140	142	You accept the offer of police protection and believe in peace.
+109:	57	140	141	You accept the offer of police protection and take a gun with you.
+110:	57	140	142	You accept the offer of police protection but will not bring a gun.
 111:	57	140	149	You travel to Morocco alone, but accept the special phone number.
 112:	58	154	155	Continue.
 113:	59	159	160	Continue.
 114:	60	162	167	You decide to skip Paris and head directly for Morocco.
-115:	60	162	169	You go up to Paris according to Peter and Lucy's plan and try to be brave.
-116:	60	162	171	You go up to Paris according to Peter and Lucy's plan and play it safe.
+116:	60	162	171	You go up to Paris according to Peter and Lucy's plan.
 117:	61	163	164	Continue.
 118:	62	203	204	Continue.
 119:	63	208	209	You choose B.
@@ -325,3 +316,89 @@
 323:	6	2	42	You go for tigers since you can make a good fortune by selling photos of tigers in the Terai region.
 324:	6	2	42	You go for tigers since many friends of yours strongly recommended photography in Terai region.
 325:	6	2	42	Mr. Runal is an expedition expert. You follow his advice to go on the expedition for the tigers.
+326:	0	0	1	You are worry about your friend Carlos. You decide to skip the appointment and go to search for Carlos by yourself.
+327:	0	0	1	You decide to follow your original plan and go directly to search for Carlos.
+328:	0	0	2	It will be very helpful for your expedition if you can talk with a mountain expert before your trip. You want to meet with Mr. Runal. 
+329:	0	0	2	This will be your first trip to Himalayas. It is much safer to meet with Mr. Runal—a mountain expert--before your trip.
+330:	5	1	3	You and Runal want to search below the base since most previous reports of the Yeti were from below base camp.
+331:	5	1	3	You decide to search below the base since it is safer to go down the trail and avoid the ice and snow up in the mountain.
+332:	5	1	19	Most of the previous reports about Yeti are outdated. You decide to search above the camp.
+333:	5	1	19	Carlos told you that he believed the Yeti lived high in the mountain from his analysis. You are concerned about his safety and decide to search above the camp. 
+334:	17	3	4	Carlos might be in danger and need help. You decide to go to look for Carlos immediately.
+335:	17	3	4	Carlos went to the expedition alone. But the woman said there were two persons. It might not be your friend Carlos who left the message. You decide to not follow the message.
+336:	17	3	7	The trail looks so dangerous. You do not know what will happen ahead. You decide to follow the message and go back to the base camp. 
+337:	17	3	7	Carlos is your friend. And he left a message asking you to go back to the base camp. You decide follow his advice and go back to the base camp.
+338:	44	7	8	How could you miss such a rare opportunity to find the Yeti? You and Runal definitely follow it immediately before they are gone. 
+339:	44	7	8	The woman lives local and seems to know a lot about Yeti. You and Runal decide to trust her and accept the invitation from Yeti. 
+340:	44	7	9	You decide to follow the Yeti but leave Runal behind as a rear guard.
+341:	44	7	9	You come all the way to find Carlos. The Yeti might lead you to him. You decide to follow Yeti but leave Runal behind as a rear guard for safety.
+342:	44	7	9	You might earn a lot of money if you make new discovery about Yeti.  But you do not want to share the money with Runal. You decide to run down the trail to follow the Yeti by yourself.
+343:	44	7	15	There have been so many people in the world searching for the Yeti for such a long time. But still no people have found the Yeti yet. How could the women find it so quickly? You do not believe her and decide to go back to the base camp.
+344:	44	7	15	Judging from the noise, you feel that the Yeti were enraged. Something bad might happen. You decide that it is safer to go back to the base camp.
+345:	18	19	20	You are very concerned of the danger ahead along searching for Yeti. You decide to stay at Sangee’s shop and purchase new safety equipment. 
+346:	18	19	20	It seems that you can buy some equipment here and sell them later in the US. You decide shop around to earn some extra money. 
+347:	18	19	30	Sangee has very rich experience exploring the area close to Kathmandu. It will be very helpful for. You decide to ask Sangee to join your search. 
+348:	18	19	30	It has always been your dream to find Yeti. You have come a long way to search for it. Sangee is an expert on local expedition. You decide to invite Sangee to your expedition. 
+349:	48	30	31	Sangee is very familiar with this area. You would like to talk with him and follow his advice.
+350:	48	30	31	The Yeti can be near the Everest area, but they can also live in the Annapurna area. You decide to listen to Sangee’s opinion.
+351:	48	30	32	It is too dangerous to go to the Everest region, the highest mountain on earth. You decide to go to the Annapurna region for safety.
+352:	48	30	32	The Everest is so high that it is impossible for the Yeti to live there. You decide to go to the Annapurna region.
+353:	48	30	38	You will be famous if you find the Yeti in the Everest area, the highest mountain in the world. You will go to the Everest area.
+354:	48	30	38	You might never find another chance to visit the Everest area, the highest mountain in the world. You cannot miss it. 
+355:	19	41	43	It will be much safer if you two go together and look after each other. You definitely accept his offer.
+356:	19	41	43	It is a great chance to have an expert on expedition on your team. You must accept his offer before the other expedition team knows your plan and offers higher compensation than you. 
+357:	19	41	44	Mr. Runal seems not to support your expedition from the very beginning. You decide to kindly decline his offer.
+358:	19	41	44	Carlos and you make a good climb team. It is not easy to get along with a new companion in a short time. You decide to go alone for Carlos.
+359:	49	43	49	You have been searching for Yeti for such a long time. You will not give up at the last minute.  You are ready for the secret knowledge.
+360:	49	43	49	You will get a lot of money if you become the first person in the world to find the Yeti. You definitely accept the offer.
+361:	49	43	53	You would not even treat this as an option because you do not know what will happen to you and your life could be endangered if you continue.
+362:	49	43	53	Your life will be changed if you accept the offer. It sounds terrible that your life will never be the same forever. You decline the secret knowledge.
+363:	50	44	45	Mr. Runal is angry. You do not know what he can do to sabotage your expedition. You decide to make amends.
+364:	50	44	45	It will be very helpful to have a mountain expert on your team. You change your mind and invite Mr. Runal to accompany you before he changes his mind to go expedition with the other team. 
+365:	50	44	47	You do not want Mr. Runal in your expedition team. You decide not to change the decision you just made. 
+366:	50	44	47	He does not support your expedition from the very beginning. He seems not to be friendly with you. You decide not to change the decision.
+367:	1	100	101	Peter and Lucy are your cousins and best friends. You will go on tomorrow’s plane for Paris to help them without hesitation.
+368:	1	100	101	You will be much richer than you can imagine if you find the precious diamond. You go for Paris without hesitation.
+369:	1	100	157	It is safer to think carefully before you take any action. You decide to talk with them and get more information.
+370:	1	100	157	You are still puzzled after reading the letter. Although you feel Peter and Lucy might be in danger, you hesitated about what to do next. You decide to talk with them first.
+371:	7	101	102	The man is an expert on the Jewels of Nabooti. You decide to accept the offer and follow his advice.
+372:	7	101	102	 You don't speak French and barely know anyone in France. You might not have another chance to find someone to help you. You accept his offer to search Nabooti together.
+373:	7	101	130	Looking at the man by appearance,  it seems not safe to work together with this stranger. You refuse his offer politely by saying that you are expecting a friend to pick you up. 
+374:	7	101	130	 The coincidence seems to be too suspicious. You want to be very careful at each step and not let other people sabotage your plan. You make excuses and refuse his help.
+375:	21	102	103	You pick a seat close to the door since it will safe if you can escape easily.
+376:	21	102	103	 Your companion looks suspicious. You still do not know his background or what he wants. You decide not to follow what he said and sit close to the door.
+377:	21	102	117	You should watch the doors and windows. There may be your enemies. You decide to sit with your back to the wall away from the door. 
+378:	21	102	117	You accompany seems to be very experienced in this situation. You decide to follow his advice and sit with your back to the wall. 
+379:	52	103	104	This will be your only chance to talk with Molotawa and know more about the jewel. You decide not to run away and you grab a chair to fight against him. 
+380:	52	103	104	You have not finished talking with Molotawa and are still confused about a lot of questions. You want to continue your conversation and decide not to run away. You grab a chair to fight against him. 
+381:	52	103	106	You know the entrance and exit of the cafe. You don't think the person would do harm on you in public. You race for the nearest exit and try to lose yourself into a crowd. 
+382:	52	103	106	The man coming towards you is really strong. He is much stronger than you and he has a knife in his hand. It is safe to avoid him. You race for the nearest exit and try to lose yourself into a crowd.
+383:	52	103	111	It is too dangerous. The man might kill you. You run out of cafe and wish someone can help you. 
+384:	52	103	111	You are here to find the jewel, not to create trouble. You decide to get out of here and continue searching for the jewel. You wish someone can help you continue searching the jewel.
+385:	54	124	125	The Mountains of the Moon are very beautiful. It bears the secret of your search. You decide to go there first.
+386:	54	124	125	You need to find Nabooti as quickly as possible. You are closer to the Mountains of the Moon.  You decide to go to the Mountains of the Moon first. 
+387:	54	124	128	The Mountains of the Moon is one of the highest mountains in the world. It will be dangerous to climb it. You decide to start searching from the headwaters of the Zaire River.
+388:	54	124	128	The man recommends starting searching from the headwaters of the Zaire River. He seems to know everything in your mind. You follow his advice to go the river.
+389:	23	130	131	They will heavily reward you if you cooperate with them and find the jewels. You decide to go to the jet.
+390:	23	130	131	They are expert on the Jewels of Nabooti and might help you find the jewels. You follow their advice and go to the jet. 
+391:	23	130	140	It is too dangerous to go to the jet without knowing the background of these guys. You decide to make an excuse.
+392:	23	130	140	The dagger shows you a message. They seem to be not friendly with you. You decide to make an excuse.
+393:	55	131	132	Your life is threatened by the driver. The woman might be able to save you. You decide to give the ivory piece to the woman.
+394:	55	131	132	Whoever sees the ivory will help you. It seems that the woman was trying to signal you and she might help you find the jewels. You decide to give the ivory piece to the woman.
+395:	55	131	135	The woman is so disgusting. And she is blind. You decide to avoid her as soon as possible.
+396:	57	140	141	You want to find the Jewels of Nabooti. The police offer to help you by providing you with a detective and a gun. They could be very helpful. You happily accept the offer of detective and gun.
+397:	57	140	141	It is very rare for police to offer a gun. You immediately accept the offer of police protection and the gun before they change their minds.  
+398:	57	140	142	The police are expert on handling these problem. You listen to the police’s advice to bring a detective. But guns can cause trouble and you could hut yourself. You accept the offer to come with a detective but not the gun. 
+399:	57	140	142	It will be much safer if the police comes with you. But guns can cause trouble and you could hurt yourself. You accept the offer of police protection but not the gun.  
+400:	57	140	149	The police thought you were a smuggler. Now they offer to help you. It seems that what the police really want is to keep you under surveillance. You decide to travel to Morocco alone, but accept the special phone number. 
+401:	57	140	149	The police might take the jewels away if you find them. You need the jewels to save your cousins. You decide to travel to Morocco alone, but accept the special phone number.
+402:	57	140	149	You only accept the special phone number since you always want to search for the jewels by yourself. 
+403:	25	158	162	You worry about Peter and Lucy very much. It is all in your mind to help them find the jewels and save their lives as soon as possible. There is no time for hesitation. You decide to leave for Paris immediately without calling the police about the shooting. 
+404:	25	158	162	The more those people threatened you, the more valuable you believe the jewels are. But the police might take away the jewels after you find them. You decided to leave for Paris without contacting the police.
+405:	25	158	163	You decide to get in touch with the Police first.
+406:	25	158	163	Police have professional experience to handle the threatening and cold calls. They might help you to identify the callers and find useful clues for searching for the jewels. You decide to get in touch with the Police.
+407:	25	158	163	It is too dangerous to solve the problem on your own. You decide to get in touch with the Police.
+408:	60	162	167	The men standing in the check-in counter look dangerous. It is better to avoid them. You decide to play it safe and go for Morocco instead.
+409:	60	162	167	There seemed to be a car following you to the airport. And there are three squarely built men with crew cuts standing by the counter watching the door. All of these look weird. You decide to change your plan to go to Morocco instead of Paris.
+410:	60	162	171	Starting the search from Paris has been your plan from the very beginning. You decide to stick to the plan.
+411:	60	162	171	The jewels were stolen in Paris. There might be some clues there. You decide to go to Paris according to Peter and Lucy’s plan.

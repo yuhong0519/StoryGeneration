@@ -34,8 +34,8 @@ public class Interaction implements Comparable<Interaction>{
 //    Session expires in 1 hour
     private long accessInterval = 3600000;
     
-    private static final int numStories = 5;
-    private int numTrainForTest = 4;
+    private static final int numStories = 6;
+    private int numTrainForTest = 5;
     private static final int numPPPStory = 6;
     
     private static ArrayList<Prefix> StorySpace = PrefixUtil.readStorySpace(PrefixUtil.storySpaceFile);
@@ -47,9 +47,9 @@ public class Interaction implements Comparable<Interaction>{
 
     private ArrayList<Integer> avoidPlotPoints = new ArrayList<Integer>();
     private ArrayList<Integer> requiredPlotPoints = new ArrayList<Integer>();
-//    private ArrayList<Integer> preferedPlotPoints = new ArrayList<Integer>();
 //    private int numOptionsPerBranch = 1;
     private int numOptionsPerPreferBranch = 2;
+    private int preferredPPID = -1;
     
     private String key;
     private int numQuestions = 0;
@@ -65,13 +65,16 @@ public class Interaction implements Comparable<Interaction>{
     private boolean initPP = true;
     private int instructions = 0;
     private String dataFolder = "playerData";
-            
-    private boolean testFlag = true;
-    private boolean testPhase = false;
-    private int preferredPPID = -1;            
-    private static ArrayList<ArrayList> trainData = PrefixUtil.readAllStoryRatingsWOptions(PrefixUtil.storyRatingTrainingFolder, PrefixUtil.optionRatingTrainingFolder);;
-    private static OptionPredictor op = new OptionPredictor(trainData);
+
+        
     private static OptionList ol = OptionListOperation.getOptionList();
+    
+    //    Training step or testing step        
+    private boolean testFlag = false;
+//    Test phase in testing step
+    private boolean testPhase = false;
+    private static ArrayList<ArrayList> trainData = null;
+    private static OptionPredictor op = null;
     
     public Interaction(int id){
         this.userID = id;
@@ -89,7 +92,11 @@ public class Interaction implements Comparable<Interaction>{
             }
         }
         PrefixUtil.addOptions2PlotPoints(ppl, ao);
-        loadStorySelectionPreference();
+        loadInitStorySelectionPreference();
+        if(testFlag){
+            trainData = PrefixUtil.readAllStoryRatingsWOptions(PrefixUtil.storyRatingTrainingFolder, PrefixUtil.optionRatingTrainingFolder);;
+            op = new OptionPredictor(trainData);
+        }
         startNewStory();
         
     }
@@ -110,11 +117,12 @@ public class Interaction implements Comparable<Interaction>{
         }
     }
     
-    private void loadStorySelectionPreference(){
+    private void loadInitStorySelectionPreference(){
         requiredPlotPoints.add(0);
+        requiredPlotPoints.add(100);
         if(testFlag){
             avoidPlotPoints.add(2);
-//            preferedPlotPoints.add(41);
+
         }
         
     }
@@ -125,12 +133,13 @@ public class Interaction implements Comparable<Interaction>{
                 return false;
             }
         }
+        boolean flag = false;
         for(int i = 0; i < requiredPlotPoints.size(); i++){
-            if(!p.contains(requiredPlotPoints.get(i))){
-                return false;
+            if(p.contains(requiredPlotPoints.get(i))){
+                flag = true;
             }
         }
-        return true;
+        return flag;
     } 
    
     

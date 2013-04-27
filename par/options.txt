@@ -1,9 +1,25 @@
 <0>
 1:::0:::You decide to search for Carlos by yourself.
-2:::1:::You feel that Carlos is OK and want to meet with a Mountain Expedition expert.
+// friendship
+1:::326:::You are worry about your friend Carlos. You decide to skip the appointment and go to search for Carlos by yourself.
+// Consistency 
+1:::327:::You decide to follow your original plan and go directly to search for Carlos.
+2:::1:::You feel that Carlos is OK and want to meet with Mr Runal.
+// Reasoning
+2:::328:::It will be very helpful for your expedition if you can talk with a mountain expert before your trip. You want to meet with Mr. Runal. 
+// Safety 
+2:::329:::This will be your first trip to Himalayas. It is much safer to meet with Mr. Runal—a mountain expert--before your trip.
 <1>
 3:::12:::You and Runal want to search below the base camp in the valley.
+// Social proof
+3:::330:::You and Runal want to search below the base since most previous reports of the Yeti were from below base camp.
+// Safety
+3:::331:::You decide to search below the base since it is safer to go down the trail and avoid the ice and snow up in the mountain.
 19:::13:::You and Runal want to search above the base camp.
+// Reasoning
+19:::332:::Most of the previous reports about Yeti are outdated. You decide to search above the camp.
+// Friendship & source attractiveness
+19:::333:::Carlos told you that he believed the Yeti lived high in the mountain from his analysis. You are concerned about his safety and decide to search above the camp. 
 <2>
 //friendship
 41:::14:::Carlos could be in danger. You decide to go ahead with the expedition for Yeti.
@@ -21,15 +37,35 @@
 42:::325:::Mr. Runal is an expedition expert. You follow his advice to go on the expedition for the tigers.
 <3>
 4:::38:::You decide to ignore the message and go to look for Carlos.
+// Friendship
+4:::334:::Carlos might be in danger and need help. You decide to go to look for Carlos immediately.
+// Reasoning
+4:::335:::Carlos went to the expedition alone. But the woman said there were two persons. It might not be your friend Carlos who left the message. You decide to not follow the message.
 7:::39:::You obey the message and climb back up to the base camp to wait for Carlos.
+// Safety
+7:::336:::The trail looks so dangerous. You do not know what will happen ahead. You decide to follow the message and go back to the base camp. 
+// number of arguments 
+7:::337:::Carlos is your friend. And he left a message asking you to go back to the base camp. You decide follow his advice and go back to the base camp.
 <4>
 5:::85:::Continue.
 <5>
 6:::167:::Continue.
 <7>
-8:::86:::You decide to follow the Yeti.
-9:::87:::You want to have a plan.
+8:::86:::You and Runal decide to follow the Yeti.
+//Scarcity
+8:::338:::How could you miss such a rare opportunity to find the Yeti? You and Runal definitely follow it immediately before they are gone. 
+//Expert source
+8:::339:::The woman lives local and seems to know a lot about Yeti. You and Runal decide to trust her and accept the invitation from Yeti. 
+9:::340:::You decide to follow the Yeti but leave Runal behind as a rear guard.
+//Consistency & Safety
+9:::341:::You come all the way to find Carlos. The Yeti might lead you to him. You decide to follow Yeti but leave Runal behind as a rear guard for safety.
+//Money
+9:::342:::You might earn a lot of money if you make new discovery about Yeti.  But you do not want to share the money with Runal. You decide to run down the trail to follow the Yeti by yourself.
 15:::88:::You decide to return to the base camp and the helicopter.
+//Reasoning
+15:::343:::There have been so many people in the world searching for the Yeti for such a long time. But still no people have found the Yeti yet. How could the women find it so quickly? You do not believe her and decide to go back to the base camp.
+//Safety
+15:::344:::Judging from the noise, you feel that the Yeti were enraged. Something bad might happen. You decide that it is safer to go back to the base camp.
 <8>
 12:::168:::You decide to retreat but want something more.
 13:::169:::You decide to retreat and go for more help.
@@ -42,10 +78,16 @@
 17:::174:::You are not sure what to do.
 18:::175:::You decide to follow the prints.
 <19>
-20:::40:::You wait and decide to talk it over with Carlos.
-24:::41:::You stay there and look around.
-27:::42:::You want to know more about Sangee.
-30:::43:::You ask Sangee to come along in your expedition.
+20:::40:::You stay there and start shopping.
+//Safety
+20:::345:::You are very concerned of the danger ahead along searching for Yeti. You decide to stay at Sangee’s shop and purchase new safety equipment. 
+// Money
+20:::346:::It seems that you can buy some equipment here and sell them later in the US. You decide shop around to earn some extra money. 
+30:::42:::You want to know more about Sangee and ask him to come along in your expedition.
+//Reasoning 
+30:::347:::Sangee has very rich experience exploring the area close to Kathmandu. It will be very helpful for. You decide to ask Sangee to join your search. 
+//number of arguments
+30:::348:::It has always been your dream to find Yeti. You have come a long way to search for it. Sangee is an expert on local expedition. You decide to invite Sangee to your expedition. 
 <20>
 21:::89:::Continue.
 <21>
@@ -60,9 +102,21 @@
 <28>
 29:::179:::Continue.
 <30>
-31:::92:::You talk with Sangee to kown more about the Yeti. 
+31:::92:::You talk with Sangee to know more about the Yeti. 
+//Expert source
+31:::349:::Sangee is very familiar with this area. You would like to talk with him and follow his advice.
+//Number of arguments
+31:::350:::The Yeti can be near the Everest area, but they can also live in the Annapurna area. You decide to listen to Sangee’s opinion.
 32:::93:::You decide to go to the Annapurna region.
+// Safe
+32:::351:::It is too dangerous to go to the Everest region, the highest mountain on earth. You decide to go to the Annapurna region for safety.
+//Reasoning
+32:::352:::The Everest is so high that it is impossible for the Yeti to live there. You decide to go to the Annapurna region.
 38:::94:::You decide to go to the Everest region.
+//Fame
+38:::353:::You will be famous if you find the Yeti in the Everest area, the highest mountain in the world. You will go to the Everest area.
+// Scarcity
+38:::354:::You might never find another chance to visit the Everest area, the highest mountain in the world. You cannot miss it. 
 <31>
 33:::180:::You do not know what to do.
 34:::181:::You want to take a picture of the creature.
@@ -75,15 +129,39 @@
 40:::186:::You can't decide. 
 <41>
 43:::44:::You accept Runal's offer to join you.
+// Safety
+43:::355:::It will be much safer if you two go together and look after each other. You definitely accept his offer.
+// Scarcity
+43:::356:::It is a great chance to have an expert on expedition on your team. You must accept his offer before the other expedition team knows your plan and offers higher compensation than you. 
 44:::45:::You decline Runal's offer to join you.
+//Reasoning
+44:::357:::Mr. Runal seems not to support your expedition from the very beginning. You decide to kindly decline his offer.
+//Consistency
+44:::358:::Carlos and you make a good climb team. It is not easy to get along with a new companion in a short time. You decide to go alone for Carlos.
 <42>
 55:::46:::Continue.
 <43>
 49:::95:::You are ready for the secret knowledge of the Yeti.
+//Consistency
+49:::359:::You have been searching for Yeti for such a long time. You will not give up at the last minute.  You are ready for the secret knowledge.
+// Money
+49:::360:::You will get a lot of money if you become the first person in the world to find the Yeti. You definitely accept the offer.
 53:::96:::You reject the offer of secret knowledge.
+//Safety
+53:::361:::You would not even treat this as an option because you do not know what will happen to you and your life could be endangered if you continue.
+//Number of argument
+53:::362:::Your life will be changed if you accept the offer. It sounds terrible that your life will never be the same forever. You decline the secret knowledge.
 <44>
 45:::97:::You try to make amends and end up inviting him to accompany you.
+// Safety
+45:::363:::Mr. Runal is angry. You do not know what he can do to sabotage your expedition. You decide to make amends.
+// Scarcity 
+45:::364:::It will be very helpful to have a mountain expert on your team. You change your mind and invite Mr. Runal to accompany you before he changes his mind to go expedition with the other team. 
 47:::98:::You stick to your decision.
+// Consistency
+47:::365:::You do not want Mr. Runal in your expedition team. You decide not to change the decision you just made. 
+// number of argument
+47:::366:::He does not support your expedition from the very beginning. He seems not to be friendly with you. You decide not to change the decision.
 <45>
 46:::191:::Continue.
 <47>
@@ -101,19 +179,53 @@
 58:::194:::You stay together.
 <100>
 101:::2:::You agree to go on tomorrow's plane for Paris.
-152:::3:::You hesitate, while demanding more time, information, and extra help.
+//Friendship
+101:::367:::Peter and Lucy are your cousins and best friends. You will go on tomorrow’s plane for Paris to help them without hesitation.
+// Money
+101:::368:::You will be much richer than you can imagine if you find the precious diamond. You go for Paris without hesitation.
 157:::4:::You want to help them but need more information.
+// Safety
+157:::369:::It is safer to think carefully before you take any action. You decide to talk with them and get more information.
+// Number of argument
+157:::370:::You are still puzzled after reading the letter. Although you feel Peter and Lucy might be in danger, you hesitated about what to do next. You decide to talk with them first.
 <101>
-102:::16:::You accept his offer and believe you make the right choice.
-123:::17:::You are not sure but still accept his offer.
+102:::16:::You accept his offer.
+//Expert souce
+102:::371:::The man is an expert on the Jewels of Nabooti. You decide to accept the offer and follow his advice.
+// Scarcity
+102:::372::: You don't speak French and barely know anyone in France. You might not have another chance to find someone to help you. You accept his offer to search Nabooti together.
 130:::18:::You make excuses and refuse his help.
+//Safety
+130:::373:::Looking at the man by appearance,  it seems not safe to work together with this stranger. You refuse his offer politely by saying that you are expecting a friend to pick you up. 
+//Reasoning
+130:::374::: The coincidence seems to be too suspicious. You want to be very careful at each step and not let other people sabotage your plan. You make excuses and refuse his help.
 <102>
 103:::47:::You take a seat on the left near the door.
+// Safety
+103:::375:::You pick a seat close to the door since it will safe if you can escape easily.
+// Reasoning
+103:::376::: Your companion looks suspicious. You still do not know his background or what he wants. You decide not to follow what he said and sit close to the door.
 117:::48:::You sit with your back to the wall. 
+// Number of arguments
+117:::377:::You should watch the doors and windows. There may be your enemies. You decide to sit with your back to the wall away from the door. 
+// Expert source
+117:::378:::You accompany seems to be very experienced in this situation. You decide to follow his advice and sit with your back to the wall. 
 <103>
 104:::100:::You grab a chair to defend yourself. 
-106:::101:::You race for the nearest exit and believe you can get out of it.
-111:::102:::You race for the nearest exit and think someone will come to help you.
+// Scarcity
+104:::379:::This will be your only chance to talk with Molotawa and know more about the jewel. You decide not to run away and you grab a chair to fight against him. 
+// Consistency
+104:::380:::You have not finished talking with Molotawa and are still confused about a lot of questions. You want to continue your conversation and decide not to run away. You grab a chair to fight against him. 
+106:::101:::You get out of the cafe and try to lose yourself into a crowd.
+//Reasoning
+106:::381:::You know the entrance and exit of the cafe. You don't think the person would do harm on you in public. You race for the nearest exit and try to lose yourself into a crowd. 
+// Safety 
+106:::382:::The man coming towards you is really strong. He is much stronger than you and he has a knife in his hand. It is safe to avoid him. You race for the nearest exit and try to lose yourself into a crowd.
+111:::102:::You get out of the cafe and wish someone can come to help you.
+// Safety
+111:::383:::It is too dangerous. The man might kill you. You run out of cafe and wish someone can help you. 
+// Consistency
+111:::384:::You are here to find the jewel, not to create trouble. You decide to get out of here and continue searching for the jewel. You wish someone can help you continue searching the jewel.
 <104>
 105:::195:::Continue.
 <106>
@@ -138,19 +250,40 @@
 124:::49:::Continue.
 <124>
 125:::104:::You go to the Mountains of the Moon.
-128:::105:::You travel o the headwaters of the Zaire River.
+//Number of argument
+125:::385:::The Mountains of the Moon are very beautiful. It bears the secret of your search. You decide to go there first.
+// Reasoning
+125:::386:::You need to find Nabooti as quickly as possible. You are closer to the Mountains of the Moon.  You decide to go to the Mountains of the Moon first. 
+128:::105:::You travel to the headwaters of the Zaire River.
+// Safety
+128:::387:::The Mountains of the Moon is one of the highest mountains in the world. It will be dangerous to climb it. You decide to start searching from the headwaters of the Zaire River.
+// Expert source
+128:::388:::The man recommends starting searching from the headwaters of the Zaire River. He seems to know everything in your mind. You follow his advice to go the river.
 <125>
 126:::209:::You ignore the warning and go into the hut.
 127:::210:::You heed Ouobessa and refuse to enter.
 <128>
 129:::211:::Continue.
 <130>
-131:::50:::Yo go to the jet.
-137:::51:::They seems friendly to you but you tell them that there must be some mistake.
-140:::52:::You tell them that there must be some mistake and try to drift off into the crowd.
+131:::50:::You go to the jet.
+// Money
+131:::389:::They will heavily reward you if you cooperate with them and find the jewels. You decide to go to the jet.
+// Expert source
+131:::390:::They are expert on the Jewels of Nabooti and might help you find the jewels. You follow their advice and go to the jet. 
+140:::51:::You tell them that there must be some mistake.
+// Safety
+140:::391:::It is too dangerous to go to the jet without knowing the background of these guys. You decide to make an excuse.
+// Reasoning
+140:::392:::The dagger shows you a message. They seem to be not friendly with you. You decide to make an excuse.
 <131>
 132:::106:::You give the ivory piece to the blind woman.
-135:::107:::You decide to keep it for now and use it later.
+// Safety
+132:::393:::Your life is threatened by the driver. The woman might be able to save you. You decide to give the ivory piece to the woman.
+// Reasoning
+132:::394:::Whoever sees the ivory will help you. It seems that the woman was trying to signal you and she might help you find the jewels. You decide to give the ivory piece to the woman.
+135:::107:::You decide to not do anything.
+// Number of arguments
+135:::395:::The woman is so disgusting. And she is blind. You decide to avoid her as soon as possible.
 <132>
 133:::212:::You decide to obey him.
 134:::213:::You decide to run for the door.
@@ -161,9 +294,23 @@
 <138>
 139:::215:::Continue.
 <140>
-141:::109:::You accept the offer of police protection and would like to find the jewels at all cost.
-142:::110:::You accept the offer of police protection and believe in peace.
+141:::109:::You accept the offer of police protection and take a gun with you.
+// Number of arguments
+141:::396:::You want to find the Jewels of Nabooti. The police offer to help you by providing you with a detective and a gun. They could be very helpful. You happily accept the offer of detective and gun.
+//Scarcity
+141:::397:::It is very rare for police to offer a gun. You immediately accept the offer of police protection and the gun before they change their minds.  
+142:::110:::You accept the offer of police protection but will not bring a gun.
+// Expert source & safety
+142:::398:::The police are expert on handling these problem. You listen to the police’s advice to bring a detective. But guns can cause trouble and you could hut yourself. You accept the offer to come with a detective but not the gun. 
+// Safety
+142:::399:::It will be much safer if the police comes with you. But guns can cause trouble and you could hurt yourself. You accept the offer of police protection but not the gun.  
 149:::111:::You travel to Morocco alone, but accept the special phone number.
+// Reasoning
+149:::400:::The police thought you were a smuggler. Now they offer to help you. It seems that what the police really want is to keep you under surveillance. You decide to travel to Morocco alone, but accept the special phone number. 
+//Reasoning & friendship 
+149:::401:::The police might take the jewels away if you find them. You need the jewels to save your cousins. You decide to travel to Morocco alone, but accept the special phone number.
+// Consistency
+149:::402:::You only accept the special phone number since you always want to search for the jewels by yourself. 
 <141>
 143:::216:::You go to meet the African People's Federation.
 144:::217:::You skip the proposed meeting and push on for Morocco although it might be dangerous.
@@ -186,17 +333,31 @@
 <157>
 158:::20:::Continue.
 <158>
-159:::54:::You decide to leave without getting the aid of the police.
-162:::55:::You work out your own plan and leave without getting the aid of the police.
-163:::56:::You get in touch with the police.
+162:::55:::You decide to leave for Paris without getting the aid of the police.
+//friendship 
+162:::403:::You worry about Peter and Lucy very much. It is all in your mind to help them find the jewels and save their lives as soon as possible. There is no time for hesitation. You decide to leave for Paris immediately without calling the police about the shooting. 
+//Money & reasoning
+162:::404:::The more those people threatened you, the more valuable you believe the jewels are. But the police might take away the jewels after you find them. You decided to leave for Paris without contacting the police.
+163:::405:::You decide to get in touch with the Police first.
+// Reasoning
+163:::406:::Police have professional experience to handle the threatening and cold calls. They might help you to identify the callers and find useful clues for searching for the jewels. You decide to get in touch with the Police.
+// Safety
+163:::407:::It is too dangerous to solve the problem on your own. You decide to get in touch with the Police.
 <159>
 160:::113:::Continue.
 <160>
 161:::225:::Continue.
 <162>
 167:::114:::You decide to skip Paris and head directly for Morocco.
-169:::115:::You go up to Paris according to Peter and Lucy's plan and try to be brave.
-171:::116:::You go up to Paris according to Peter and Lucy's plan and play it safe.
+// Safety
+167:::408:::The men standing in the check-in counter look dangerous. It is better to avoid them. You decide to play it safe and go for Morocco instead.
+// Number of arguments
+167:::409:::There seemed to be a car following you to the airport. And there are three squarely built men with crew cuts standing by the counter watching the door. All of these look weird. You decide to change your plan to go to Morocco instead of Paris.
+171:::116:::You go up to Paris according to Peter and Lucy's plan.
+// Consistency
+171:::410:::Starting the search from Paris has been your plan from the very beginning. You decide to stick to the plan.
+// Reasoning
+171:::411:::The jewels were stolen in Paris. There might be some clues there. You decide to go to Paris according to Peter and Lucy’s plan.
 <163>
 164:::117:::Continue.
 <164>

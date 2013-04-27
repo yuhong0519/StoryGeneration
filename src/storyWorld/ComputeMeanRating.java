@@ -71,7 +71,10 @@ public class ComputeMeanRating {
         return means;
         
     }
-//    static int maxIter = 20;
+
+    /**
+     * Compute the average rating for random story and personalized story.
+     */
     public static void printMean(){
         
         

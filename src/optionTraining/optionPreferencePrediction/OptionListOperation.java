@@ -24,6 +24,9 @@ public class OptionListOperation {
     
 //    true if the training and testing data only contain the first story (abominable snowman)
     private static boolean firstStoryOnly = true;
+//    private static String firstStoryOIList = "par/firstStoryOptionItemList.txt";
+    private static String firstStoryOIList = "par/firstTwoStoryOptionItemList.txt";
+    
     
 //    Create a list of option items in a sequence. 
     private static ArrayList<OptionItem> createOptionItemList(){
@@ -165,7 +168,7 @@ public class OptionListOperation {
         
     }
     
-    private static String firstStoryOIList = "par/firstStoryOptionItemList.txt";
+    
     /**
      * create option list for the first story abominable snowman
      */
@@ -174,7 +177,7 @@ public class OptionListOperation {
         ArrayList<OptionItem> noil = ol.getOptionListArray();
         ArrayList<OptionItem> newlist = new ArrayList<OptionItem>();
         for(int i = 0; i < noil.size(); i++){
-            if(noil.get(i).getPPID() < 100){
+            if(noil.get(i).getPPID() < 200){
                 newlist.add(noil.get(i));
             }
         }
@@ -182,7 +185,9 @@ public class OptionListOperation {
     }
     
     public static void main(String[] args){
+        
         createOptionListforStory1();
+//        createOptionItemList();
 //        addOptionID2Option();
 //        addOptionID2Quiz();
     }

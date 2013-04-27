@@ -32,9 +32,9 @@ public class OptionPredictor {
 //    Option selection prediction models
     public static final int NMFSel = 0, NNSel = 1, ProbSel = 2;
 //    number of clusters for NN, NMF, KMean
-    private int numNNPref = 1, numNNSel = 10;
-    private int numNMFPref = 4, numNMFSel = 1;
-    private int numKMPref = 5;
+    private int numNNPref = 6, numNNSel = 10;
+    private int numNMFPref = 2, numNMFSel = 1;
+    private int numKMPref = 3;
     
     
     private static NMFModel nmfmPref = null;
@@ -333,7 +333,7 @@ public class OptionPredictor {
                 PPOptions nppo = new PPOptions(tppo);
                 nppo.resetPreference();
                 newPlayer.get(newPlayer.size()-1).options = nppo;
-                ArrayList<OptionItem> predictSel = op.getPredictedSelectedOL(newPlayer, PPCAPref, NNSel);
+                ArrayList<OptionItem> predictSel = op.getPredictedSelectedOL(newPlayer, KMeanPref, NNSel);
                 newPlayer.get(newPlayer.size()-1).options = tppo;
                 r = getResults(nextP, predictSel);
                 all.add(r);
